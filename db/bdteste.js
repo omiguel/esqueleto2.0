@@ -19,7 +19,7 @@ bdteste.prototype.criaUser = function () {
     var root = {
         nome: 'admin',
         sobrenome: 'admin',
-        email: 'admin@admin.com',
+        email: 'admin',
         senha: 'admin',
         datanascimento: new Date(1988, 01, 02),
         sexo: 'masculino',
