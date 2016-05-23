@@ -1,8 +1,31 @@
-<navbar></navbar>
-<div class="list-group" style="    margin-top: 1em;">
-    <li class="list-group-item list-group-item-info row" ng-repeat="entidade in entidades">
-        <span class="label label-warning col-md-4" style="height: 3em;">{{entidade.nome}}</span>
-        <a class="btn btn-sm btn-primary col-md-offset-2" role="button">Criar</a>
-        <a class="btn btn-sm btn-success col-md-offset-2" role="button">Visualizar todos</a>
-    </li>
+<div class="container">
+	<div class="row">
+		<navbar></navbar>
+		<table class="table table-hover">
+		    <thead>
+		      	<tr>
+		        	<th class="text-center">Nome</th>
+		        	<th class="text-center">Criar Nova Entidade</th>
+		        	<th class="text-center">Visualizar Entidade</th>
+		      	</tr>
+		    </thead>
+		    <tbody>
+		    	<tr ng-repeat="entidade in entidades">
+		        	<td align="center">
+		        		{{entidade.nome}}
+		        	</td>
+		        	<td align="center">
+		        		<button class="btn btn-info">
+		        			Criar {{entidade.nome}}
+		        		</button>
+		        	</td>
+		        	<td align="center">
+		        		<button class="btn btn-success">
+		        			Visualizar todos {{entidade.nome}}
+		        		</button>
+		        	</td>
+		      	</tr>
+		    </tbody>
+		</table>
+	</div>
 </div>
