@@ -5,8 +5,13 @@ app.controller("entidadesController",['$scope', function ($scope) {
     var me = this;
 
     $scope.entidades = {};
+    $scope.entidadeSelecionado = {}
 
     var listeners = {};
+
+    $scope.selecionaEntidade = function(entidade){
+        $scope.entidadeSelecionado = entidade;
+    };
 
     var ready = function () {
         var msg = new Mensagem(me, 'getallmodels', {}, 'entidades');
