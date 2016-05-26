@@ -2,9 +2,12 @@
  * Created by udesc on 21/05/2016.
  */
 app.controller("entidadesController",['$scope', function ($scope) {
+    
     var me = this;
 
+    //guarda todas as entidades do banco
     $scope.entidades = {};
+    //guarda a entidade selecionada assim como a nova criada
     $scope.entidadeSelecionada = {}
 
     var listeners = {};
@@ -18,7 +21,19 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     /*
+    * criado por: Gustavo
+    * todo salva a entidade criado no banco
+     */
+    $scope.salvarEntidade = function(){
+
+        //entidade criada
+        $scope.entidadeSelecionada.novaentidade;
+
+    };
+
+    /*
     * criado por: Osvaldo
+    * todo comentar
     */
     var ready = function () {
         var msg = new Mensagem(me, 'getallmodels', {}, 'entidades');
@@ -27,10 +42,10 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
     /*
     * criado por: Osvaldo
+    * todo comentar
     */
     var retallmodels = function (msg) {
         $scope.entidades = msg.getDado();
-        console.log("ent", msg.getDado());
         $scope.$apply();
     };
 

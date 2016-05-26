@@ -6,6 +6,13 @@ app.controller("loginController",['$scope', '$location', 'setUserLogado', '$rout
     var me = this;
     me.listeners = {};
 
+    //----------------USADO APENAS PARA AGILIZAR LOGIN
+    $scope.usuario = {
+        email: "admin",
+        senha: "admin"
+    };
+    //-----------------------------
+
     me.wind = "/home";
 
     $scope.logar = function(){
