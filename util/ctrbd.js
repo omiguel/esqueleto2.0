@@ -21,10 +21,10 @@ controlemodelbd.prototype.montaarray = function (model, cb) {
         var tipo = model[atributo].instance;
         if(tipo == 'Array'){
             me.montaarray(model[atributo].schema.paths, function (res) {
-                ret[atributo] = {nomeattr: atributo, tipo: res};
+                ret[atributo] = res;
             });
         } else {
-            ret[atributo] = {nomeattr: atributo, tipo: tipo};
+            ret[atributo] = tipo;
         }
     }
 
@@ -40,13 +40,13 @@ controlemodelbd.prototype.criamodel = function (model) {
         var tipo = ozmodel[atributo].instance;
         if(tipo == 'Array'){
             me.montaarray(ozmodel[atributo].schema.paths, function (res) {
-                me.modelo[atributo] = {nomeattr: atributo, tipo: [res]};
+                me.modelo[atributo] = [res];
             });
         }
         else if(atributo != '_id' && tipo == 'ObjectID'){
-            me.modelo[atributo] = {nomeattr: atributo, tipo: {referencia: ozmodel[atributo].options.ref}};
+            me.modelo[atributo] = {referencia: ozmodel[atributo].options.ref};
         }else {
-            me.modelo[atributo] = {nomeattr: atributo, tipo: tipo};
+            me.modelo[atributo] = tipo;
         }
     }
     var msg = new Mensagem(me, 'modelo', {nome: me.sou, modelo: me.modelo}, 'modelo');

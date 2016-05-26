@@ -1,7 +1,6 @@
 /**
  * Created by Osvaldo on 13/03/15.
  */
-// require('./bdteste.js');
 var hub = require('../hub/hub.js');
 var Managers = null;
 

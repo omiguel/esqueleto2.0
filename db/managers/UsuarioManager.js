@@ -66,6 +66,35 @@ usuariomanager.prototype.getAllRootLess = function(msg){
     })
 };
 
+usuariomanager.prototype.cadprimeirouser = function () {
+    this.model.find({'tipo': 0}, function(err, res){
+        if(res){
+            if(res.length == 0){
+                
+                var user = {
+                    nome: 'admin',
+                    sobrenome: 'admin',
+                    email: 'admin',
+                    senha: 'admin',
+                    datanascimento: new Date(1988, 01, 02),
+                    sexo: 'masculino',
+                    numerocelular: '99476823',
+                    foto: 'caminhodafoto',
+                    tipo: 0
+                };
+                
+                this.model.create(user, function (erro, ret) {
+                    if(ret){
+                        console.log('primeiro user criado', ret);
+                    } else {
+                        console.log('algo errado não deu certo', erro);
+                    }
+                })
+            }
+        }
+    });
+};
+
 usuariomanager.prototype.wiring = function(){
     var me = this;
     me.listeners['banco.usuario.*'] = me.executaCrud.bind(me);
@@ -75,6 +104,9 @@ usuariomanager.prototype.wiring = function(){
     for(var name in me.listeners){
         hub.on(name, me.listeners[name]);
     }
+
+    me.cadprimeirouser();
+
 };
 
 module.exports = new usuariomanager();
