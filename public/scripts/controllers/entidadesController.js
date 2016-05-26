@@ -2,7 +2,7 @@
  * Created by udesc on 21/05/2016.
  */
 app.controller("entidadesController",['$scope', function ($scope) {
-    
+
     var me = this;
 
     //guarda todas as entidades do banco
@@ -15,9 +15,17 @@ app.controller("entidadesController",['$scope', function ($scope) {
     /*
     * criado por: Gustavo
     * joga a entidade desejada dentro da variavel $scope.entidadeSelecionada
+    * cria e popula objeto novaentidade da variavel $scope.entidadeSelecionada
     */
     $scope.selecionaEntidade = function(entidade){
+
         $scope.entidadeSelecionada = angular.copy(entidade);
+        $scope.entidadeSelecionada.novaentidade = {};
+
+        for(var index in $scope.entidadeSelecionada.modelo){
+            $scope.entidadeSelecionada.novaentidade[index] = null;
+        }
+
     };
 
     /*

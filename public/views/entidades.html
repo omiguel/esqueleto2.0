@@ -44,31 +44,31 @@
 		        		<h4 class="modal-title">Criar novo {{entidadeSelecionada.nome}}</h4>
 		      		</div>
 		     		<div class="modal-body">
-		        		<div ng-repeat="(key, value) in entidadeSelecionada.modelo track by $index">
+		        		<div ng-repeat="(key, value) in entidadeSelecionada.modelo">
 							<!--INPUTS DO TIPO STRING-->
 							<span ng-if="value == 'String'">
 								<div class="form-group">
 									<label>{{key}}({{value}})</label>
-									<input type="text" class="form-control" ng-model="entidadeSelecionada.novaentidade.key">
+									<input type="text" class="form-control" ng-model="entidadeSelecionada.novaentidade[key]">
 								</div>
 							</span>
 							<!--INPUTS DO TIPO NUMBER-->
 							<span ng-if="value == 'Number'">
 								<div class="form-group">
 									<label>{{key}}({{value}})</label>
-									<input type="number" class="form-control" ng-model="entidadeSelecionada.novaentidade.key">
+									<input type="number" class="form-control" ng-model="entidadeSelecionada.novaentidade[key]">
 								</div>
 							</span>
 							<!--INPUTS DO TIPO DATE-->
 							<span ng-if="value == 'Date'">
 								<div class="form-group">
 									<label>{{key}}({{value}})</label>
-									<input type="number" class="form-control">
+									<input class="form-control" ui-mask="99/99/9999" ng-model="entidadeSelecionada.novaentidade[key]">
 								</div>
 							</span>
 		        		</div>
 		        		<div>
-		        			<button class="btn btn-success" ng-click="salvarEntidade">
+		        			<button class="btn btn-success" ng-click="salvarEntidade()">
 		        				Salvar
 		        			</button>
 		        		</div>
