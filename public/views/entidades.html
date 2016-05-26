@@ -41,14 +41,14 @@
 		    	<div class="modal-content">
 		      		<div class="modal-header">
 		        		<button type="button" class="close" data-dismiss="modal">&times;</button>
-		        		<h4 class="modal-title">Criar Novo/a {{entidadeSelecionado.nome}}</h4>
+		        		<h4 class="modal-title">Criar Novo/a {{entidadeSelecionada.nome}}</h4>
 		      		</div>
 		     		<div class="modal-body">
-		        		<div ng-repeat="variavel in entidadeSelecionado.modelo">
+		        		<div ng-repeat="(key, value) in entidadeSelecionada.modelo">
 		        			<!-- todo adicionar nome varivarel -->
-		        			<label>+({{variavel}})</label>
+		        			<label>({{key}},{{value}})</label>
 		        			<!-- todo adicionar nome variavel no ng-model -->
-		        			<input ng-model="{{entidadeSelecionado.nome}}">
+		        			<input>
 		        		</div>
 		        		<div>
 		        			<button>
