@@ -29,17 +29,6 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     /*
-    * criado por: Gustavo
-    * todo salva a entidade criado no banco
-     */
-    $scope.salvarEntidade = function(){
-
-        //entidade criada
-        $scope.entidadeSelecionada.novaentidade;
-
-    };
-
-    /*
     * criado por: Osvaldo
     * todo comentar
     */
