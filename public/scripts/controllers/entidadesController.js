@@ -29,8 +29,19 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     /*
-    * criado por: Osvaldo
-    * todo comentar
+    * criado por: Gustavo
+    * todo salva a entidade criado no banco
+     */
+    $scope.salvarEntidade = function(){
+
+        //entidade criada
+        $scope.entidadeSelecionada.novaentidade;
+
+    };
+
+    /*
+    * funcao padrao pra todos os controllers, essa funcao faz os pedidos de tudo que precisa para que o controller
+    * inicie sua view.
     */
     var ready = function () {
         var msg = new Mensagem(me, 'getallmodels', {}, 'entidades');
@@ -38,8 +49,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     /*
-    * criado por: Osvaldo
-    * todo comentar
+    * essa funcao retorna todos os models criados no banco
     */
     var retallmodels = function (msg) {
         $scope.entidades = msg.getDado();

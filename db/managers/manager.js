@@ -1,13 +1,23 @@
 /**
  * Created by Osvaldo on 06/10/15.
+ *
+ * esse documento possui as funcoes basicas do bando, ele é herdado por todos os managers.
  */
 var hub = require('../../hub/hub.js');
 
 var types = require('../Banco.js').mongoose.Schema.Types;
 
-
+/**
+ * @constructor
+ */
 function Manager() {}
 
+
+/**
+ * cria um novo documento no banco.
+ *
+ * @param msg
+ */
 Manager.prototype.create = function(msg){
     var me = this;
     var dados = msg.getRes();
@@ -22,6 +32,11 @@ Manager.prototype.create = function(msg){
     })
 };
 
+/**
+ * le um ou todos os documentos de uma determinada colecao no banco.
+ *
+ * @param msg
+ */
 Manager.prototype.read = function(msg){
     var me = this;
     var dados = msg.getRes();
@@ -44,6 +59,11 @@ Manager.prototype.read = function(msg){
     }
 };
 
+/**
+ * modifica um documento em uma determinada colecao.
+ *
+ * @param msg
+ */
 Manager.prototype.update = function(msg){
     var me = this;
     var dados = msg.getRes();
@@ -62,6 +82,11 @@ Manager.prototype.update = function(msg){
     })
 };
 
+/**
+ * destroi um documento em uma determinada colecao.
+ *
+ * @param msg
+ */
 Manager.prototype.destroy = function(msg){
     var dados = msg.getDado();
     this.model.remove({_id: dados.id}, function(err, res){
@@ -73,6 +98,15 @@ Manager.prototype.destroy = function(msg){
     })
 };
 
+/**
+ * funcao que utiliza a mesma mensagem para devolver ao mesmo rtc que solicitou determinada modificacao ou leitura em banco
+ * ela serve para apenas quem solicitou receber a resposta.
+ * padrao para todos os managers.
+ *
+ * @param msgAntiga
+ * @param subEvt
+ * @param dado
+ */
 Manager.prototype.emitManager = function(msgAntiga, subEvt, dado){
     var me = this;
     var evt = msgAntiga.getFlag()+subEvt;

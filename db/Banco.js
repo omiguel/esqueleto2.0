@@ -23,6 +23,9 @@ function Banco() {
     });
 }
 
+/**
+ * liga todos os eventos escutados por esse documento.
+ */
 Banco.prototype.wiring = function(){
     var me = this;
 
@@ -36,12 +39,22 @@ Banco.prototype.wiring = function(){
     hub.emit('banco.status.wired');
 };
 
+/**
+ * funcao que envia para a interface todos os models do banco e seus atributos.
+ *
+ * @param msg
+ */
 Banco.prototype.enviamodelscompletos = function (msg) {
     var me = this;
     var retorno = msg.next(me, 'allmodels', {res: me.models}, msg.getFlag);
     hub.emit(retorno.getEvento(), retorno);
 };
 
+/**
+ * quando um model do banco e criado esse documento escuta, pega o model que veio dentro da msg e salva em um array.
+ *
+ * @param msg
+ */
 Banco.prototype.entidademodelo = function (msg) {
     var me = this;
     var model = msg.getDado();
@@ -49,6 +62,11 @@ Banco.prototype.entidademodelo = function (msg) {
     me.models[model.nome] = model;
 };
 
+/**
+ * repassa todos os eventos basicos (crud).
+ * 
+ * @param msg
+ */
 Banco.prototype.repassaComando = function (msg) {
     var me = this;
     var novoEvento = 'banco.' + msg.getEvento();

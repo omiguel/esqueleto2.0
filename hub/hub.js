@@ -5,6 +5,7 @@
 var util = require('util');
 var EventEmitter2 = require("eventemitter2").EventEmitter2;
 var me;
+
 /**
  *
  * @constructor

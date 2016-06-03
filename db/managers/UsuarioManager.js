@@ -5,6 +5,9 @@ var Model = require('../model/usuario.js');
 var hub = require('../../hub/hub.js');
 var Mensagem = require('../../util/mensagem.js');
 
+/**
+ * @constructor
+ */
 function usuariomanager(){
     var me = this;
     Manager.call(me);
@@ -14,6 +17,9 @@ function usuariomanager(){
     me.wiring();
 }
 
+/**
+ * recebe o manager atraves de heranca.
+ */
 utility.inherits(usuariomanager, Manager);
 
 /**
@@ -30,6 +36,14 @@ usuariomanager.prototype.executaCrud = function(msg){
     }
 };
 
+/**
+ * busca um usuario peleo email, quando vem o retorno, verifica se a senha está correta.
+ * caso nao venha nenhum atravez da busca pelo email, informa que o email nao esta cadastrado.
+ * se a senha nao bater, informa que o email esta cadastrado mas a senha esta incorreta.
+ * se der um erro no banco, avisa que o banco esta inoperavel e pede para aguardar ate que o sistema volte.
+ *
+ * @param msg
+ */
 usuariomanager.prototype.trataLogin = function(msg){
     var me = this;
     var dado = msg.getRes();
@@ -49,16 +63,16 @@ usuariomanager.prototype.trataLogin = function(msg){
     });
 };
 
+/**
+ * funcao que pega todos os usuario, menos os que estao definidos como root
+ *
+ * @param msg
+ */
 usuariomanager.prototype.getAllRootLess = function(msg){
     var me = this;
-    var retorno = [];
-    this.model.find(function(err, res){
+
+    this.model.find({"tipo": { $ne: 0 }},function(err, res){
         if(res){
-            for(var index in res){
-                if(res[index].tipo != 0){
-                    retorno.push(res[index]);
-                }
-            }
             me.emitManager(msg, '.pegacadastrados', {res: retorno});
         } else{
             me.emitManager(msg, '.error.pegacadastrados', {err: err});
@@ -66,11 +80,15 @@ usuariomanager.prototype.getAllRootLess = function(msg){
     })
 };
 
+/**
+ * quando o manager e iniciado, essa funcao verifica se ja existe um usuario no banco, se ainda nao ela cria o primeiro
+ * que sera um root.
+ */
 usuariomanager.prototype.cadprimeirouser = function () {
     this.model.find({'tipo': 0}, function(err, res){
         if(res){
             if(res.length == 0){
-                
+
                 var user = {
                     nome: 'admin',
                     sobrenome: 'admin',
@@ -82,7 +100,7 @@ usuariomanager.prototype.cadprimeirouser = function () {
                     foto: 'caminhodafoto',
                     tipo: 0
                 };
-                
+
                 this.model.create(user, function (erro, ret) {
                     if(ret){
                         console.log('primeiro user criado', ret);
@@ -95,6 +113,9 @@ usuariomanager.prototype.cadprimeirouser = function () {
     });
 };
 
+/**
+ * funcao responsavel por ligar os eventos escutados por esse documento.
+ */
 usuariomanager.prototype.wiring = function(){
     var me = this;
     me.listeners['banco.usuario.*'] = me.executaCrud.bind(me);

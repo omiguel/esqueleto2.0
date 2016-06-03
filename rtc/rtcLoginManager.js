@@ -11,13 +11,19 @@ var rtcAdmin = require('./rtcAdmin');
 var rtcComum = require('./rtcComum');
 utility.inherits(RtcLoginManager, basico);
 
+/**
+ * recebe o socketId passado pelo cliente.
+ *
+ * @param conf
+ * @constructor
+ */
 function RtcLoginManager(conf){
     var me = this;
     me.config = conf;
     me.listeners = {};
     me.interfaceListeners = {};
 
-    console.log('estou no novo rtcLogin', me.config.socket.id);
+    console.log('rtcLogin', me.config.socket.id);
 
     me.wiring();
     me.interfaceWiring();
@@ -50,16 +56,42 @@ RtcLoginManager.prototype.trataLogin = function(msg){
     }
 };
 
-RtcLoginManager.prototype.loginError = function(msg){
+/**
+ * destroy o objeto, desconectando ele de todos os eventos.
+ */
+RtcLoginManager.prototype.destroy = function(){
     var me = this;
-    me.emitePraInterface(msg);
+
+    me.desconectCli();
+    me.desconectServer();
+
 };
 
-RtcLoginManager.prototype.invaliduser = function(msg){
+/**
+ * desconecta os eventos que vem do cliente.
+ */
+RtcLoginManager.prototype.desconectCli = function () {
     var me = this;
-    me.emitePraInterface(msg);
+
+    for(var name in me.interfaceListeners){
+        me.config.socket.removeListener(name, me.config.socket[name]);
+    }
 };
 
+/**
+ * desconecta os eventos que vem do servidor.
+ */
+RtcLoginManager.prototype.desconectServer = function () {
+    var me = this;
+
+    for(var name in me.listeners){
+        hub.removeListener(name, me.listeners[name]);
+    }
+};
+
+/**
+ * liga os eventos do cliente.
+ */
 RtcLoginManager.prototype.interfaceWiring = function(){
     var me = this;
 
@@ -70,18 +102,14 @@ RtcLoginManager.prototype.interfaceWiring = function(){
     }
 };
 
-RtcLoginManager.prototype.destroy = function(){
-    var me = this;
-    for(var name in me.listeners){
-        hub.removeListener(name, me.listeners[name]);
-    }
-};
-
+/**
+ * liga os eventos do servidor.
+ */
 RtcLoginManager.prototype.wiring = function(){
     var me = this;
 
-    me.listeners['usuario.error.logar'] = me.loginError.bind(me);
-    me.listeners['usuario.invaliduser'] = me.invaliduser.bind(me);
+    me.listeners['usuario.error.logar'] = me.emitePraInterface.bind(me);
+    me.listeners['usuario.invaliduser'] = me.emitePraInterface.bind(me);
     me.listeners['usuario.login'] = me.trataLogin.bind(me);
     me.listeners['rtcLogin.destroy'] = me.destroy.bind(me);
 
