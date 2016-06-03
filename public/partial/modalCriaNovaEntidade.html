@@ -2,43 +2,49 @@
 	<!-- Modal content-->
 	<div class="modal-content">
 		<div class="modal-header">
-		    <button type="button" class="close" data-dismiss="modal">&times;</button>
-		    <h4 class="modal-title">Criar novo {{entidadeselecionada.nome}}</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Criar novo {{entidadeselecionada.nome}}</h4>
 		</div>
 
 		<div class="modal-body">
-		    <div ng-repeat="(key, value) in entidadeselecionada.modelo">
+			<div class="row" ng-repeat="(key, value) in entidadeselecionada.modelo">
 				<!--INPUTS DO TIPO STRING-->
 				<span ng-if="value == 'String'">
-					<div class="form-group">
-						<label>{{key}}({{value}})</label>
-						<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade[key]">
+					<div class="col-md-offset-2 col-md-8 col-xs-offset-2 col-xs-8">
+						<div class="form-group">
+							<label>{{key}}({{value}})</label>
+							<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade[key]">
+						</div>
 					</div>
 				</span>
 				<!--INPUTS DO TIPO NUMBER-->
 				<span ng-if="value == 'Number'">
-					<div class="form-group">
-						<label>{{key}}({{value}})</label>
-						<input type="number" class="form-control" ng-model="entidadeselecionada.novaentidade[key]">
+					<div class="col-md-offset-2 col-md-8 col-xs-offset-2 col-xs-8">
+						<div class="form-group">
+							<label>{{key}}({{value}})</label>
+							<input type="number" class="form-control" ng-model="entidadeselecionada.novaentidade[key]">
+						</div>
 					</div>
 				</span>
 				<!--INPUTS DO TIPO DATE-->
 				<span ng-if="value == 'Date'">
-					<div class="form-group">
-						<label>{{key}}({{value}})</label>
-						<input class="form-control" ui-mask="99/99/9999" ng-model="entidadeselecionada.novaentidade[key]">
+					<div class="col-md-offset-2 col-md-8 col-xs-offset-2 col-xs-8">
+						<div class="form-group">
+							<label>{{key}}({{value}})</label>
+							<input ui-mask="99/99/9999" class="form-control" ng-model="entidadeselecionada.novaentidade[key]" />
+						</div>
 					</div>
 				</span>
-		    </div>
-		    <div>
-		    	<button class="btn btn-success" ng-click="salvarEntidade()">
-		    		Salvar
-		    	</button>
-		    </div>
+			</div>
+			<div class="col-md-offset-2 col-xs-offset-2">
+				<button class="btn btn-success" ng-click="salvarEntidade()" style="margin-left: 0.4em">
+					Salvar
+				</button>
+			</div>
 		</div>
 
- 		<div class="modal-footer">
-		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		</div>
 	</div>
 </div>
