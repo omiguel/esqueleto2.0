@@ -20,8 +20,6 @@ utility.inherits(RtcLoginManager, basico);
 function RtcLoginManager(conf){
     var me = this;
     me.config = conf;
-    me.listeners = {};
-    me.interfaceListeners = {};
 
     console.log('rtcLogin', me.config.socket.id);
 
@@ -42,50 +40,17 @@ RtcLoginManager.prototype.trataLogin = function(msg){
         var dado = msg.getRes();
         switch (dado.tipo){
             case 0:
-                new rtcRoot(me.config);
+                new rtcRoot(me.config, me);
                 break;
             case 1:
-                new rtcAdmin(me.config);
+                new rtcAdmin(me.config, me);
                 break;
             case 2:
-                new rtcComum(me.config);
+                new rtcComum(me.config, me);
                 break;
         }
 
         me.emitePraInterface(msg);
-    }
-};
-
-/**
- * destroy o objeto, desconectando ele de todos os eventos.
- */
-RtcLoginManager.prototype.destroy = function(){
-    var me = this;
-
-    me.desconectCli();
-    me.desconectServer();
-
-};
-
-/**
- * desconecta os eventos que vem do cliente.
- */
-RtcLoginManager.prototype.desconectCli = function () {
-    var me = this;
-
-    for(var name in me.interfaceListeners){
-        me.config.socket.removeListener(name, me.config.socket[name]);
-    }
-};
-
-/**
- * desconecta os eventos que vem do servidor.
- */
-RtcLoginManager.prototype.desconectServer = function () {
-    var me = this;
-
-    for(var name in me.listeners){
-        hub.removeListener(name, me.listeners[name]);
     }
 };
 
@@ -97,9 +62,7 @@ RtcLoginManager.prototype.interfaceWiring = function(){
 
     me.interfaceListeners['logar'] = me.daInterface.bind(me);
 
-    for(var name in me.interfaceListeners){
-        me.config.socket.on(name, me.interfaceListeners[name]);
-    }
+    me.ligaEventCli();
 };
 
 /**
@@ -113,9 +76,8 @@ RtcLoginManager.prototype.wiring = function(){
     me.listeners['usuario.login'] = me.trataLogin.bind(me);
     me.listeners['rtcLogin.destroy'] = me.destroy.bind(me);
 
-    for(var name in me.listeners){
-        hub.on(name, me.listeners[name]);
-    }
+    me.ligaEventServer();
+
 };
 
 module.exports = RtcLoginManager;

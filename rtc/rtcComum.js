@@ -14,44 +14,34 @@ utility.inherits(RtcComum, basico);
  * @param conf
  * @constructor
  */
-function RtcComum(conf){
+function RtcComum(conf, login){
     var me = this;
     me.config = conf;
 
     console.log('rtcComum', me.config.socket.id);
+    
+    hub.emit('rtcLogin.destroy', login);
+
+    me.wiring();
+    me.interfaceWiring();
 }
 
 /**
- * destroy o objeto, desconectando ele de todos os eventos.
+ * liga os eventos do servidor.
  */
-RtcLoginManager.prototype.destroy = function(){
+RtcComum.prototype.wiring = function(){
     var me = this;
 
-    me.desconectCli();
-    me.desconectServer();
-
+    me.ligaEventServer();
 };
 
 /**
- * desconecta os eventos que vem do cliente.
+ * liga os eventos da interface.
  */
-RtcLoginManager.prototype.desconectCli = function () {
+RtcComum.prototype.interfaceWiring = function(){
     var me = this;
 
-    for(var name in me.interfaceListeners){
-        me.config.socket.removeListener(name, me.config.socket[name]);
-    }
-};
-
-/**
- * desconecta os eventos que vem do servidor.
- */
-RtcLoginManager.prototype.desconectServer = function () {
-    var me = this;
-
-    for(var name in me.listeners){
-        hub.removeListener(name, me.listeners[name]);
-    }
+    me.ligaEventCli();
 };
 
 module.exports = RtcComum;

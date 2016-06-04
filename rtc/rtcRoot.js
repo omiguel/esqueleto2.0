@@ -15,52 +15,18 @@ utility.inherits(RtcRoot, basico);
  * @param conf
  * @constructor
  */
-function RtcRoot(conf){
+function RtcRoot(conf, login){
     var me = this;
     me.config = conf;
-    me.listeners = {};
-    me.browserlisteners = {};
 
     console.log('rtcRoot', me.config.socket.id);
 
-    hub.emit('rtcLogin.destroy');
+    hub.emit('rtcLogin.destroy', login);
 
     me.wiring();
     me.interfaceWiring();
+
 }
-
-/**
- * destroy o objeto, desconectando ele de todos os eventos.
- */
-RtcLoginManager.prototype.destroy = function(){
-    var me = this;
-
-    me.desconectCli();
-    me.desconectServer();
-
-};
-
-/**
- * desconecta os eventos que vem do cliente.
- */
-RtcLoginManager.prototype.desconectCli = function () {
-    var me = this;
-
-    for(var name in me.interfaceListeners){
-        me.config.socket.removeListener(name, me.config.socket[name]);
-    }
-};
-
-/**
- * desconecta os eventos que vem do servidor.
- */
-RtcLoginManager.prototype.desconectServer = function () {
-    var me = this;
-
-    for(var name in me.listeners){
-        hub.removeListener(name, me.listeners[name]);
-    }
-};
 
 /**
  * liga os eventos do servidor.
@@ -68,12 +34,9 @@ RtcLoginManager.prototype.desconectServer = function () {
 RtcRoot.prototype.wiring = function(){
     var me = this;
 
-    me.listeners['usuario.created'] = me.emitePraInterface.bind(me);
     me.listeners['allmodels'] = me.emitePraInterface.bind(me);
 
-    for(var name in me.listeners){
-        hub.on(name, me.listeners[name]);
-    }
+    me.ligaEventServer();
 };
 
 /**
@@ -82,11 +45,10 @@ RtcRoot.prototype.wiring = function(){
 RtcRoot.prototype.interfaceWiring = function(){
     var me = this;
 
-    me.browserlisteners['getallmodels'] = me.daInterface.bind(me);
+    me.interfaceListeners['getallmodels'] = me.daInterface.bind(me);
+    me.interfaceListeners['crud.usuaro.read'] = me.daInterface.bind(me);
 
-    for(var name in me.browserlisteners){
-        me.config.socket.on(name, me.browserlisteners[name]);
-    }
+    me.ligaEventCli();
 };
 
 module.exports = RtcRoot;

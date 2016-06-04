@@ -7,9 +7,67 @@ var hub = require('../hub/hub.js');
 /**
  * @constructor
  */
-function BasicRtc(){
+function BasicRtc(){}
+
+BasicRtc.prototype.listeners = {};
+BasicRtc.prototype.interfaceListeners = {};
+
+/**
+ * destroy o objeto, desconectando ele de todos os eventos.
+ */
+BasicRtc.prototype.destroy = function(login){
     var me = this;
-}
+    if(login == me){
+        me.desconectCli();
+        me.desconectServer();
+    }
+
+};
+
+/**
+ * desconecta os eventos que vem do cliente.
+ */
+BasicRtc.prototype.desconectCli = function () {
+    var me = this;
+
+    for(var name in me.interfaceListeners){
+        me.config.socket.removeListener(name, me.interfaceListeners[name]);
+    }
+};
+
+/**
+ * desconecta os eventos que vem do servidor.
+ */
+BasicRtc.prototype.desconectServer = function () {
+    var me = this;
+
+    for(var name in me.listeners){
+        hub.removeListener(name, me.listeners[name]);
+    }
+
+};
+
+/**
+ * ligas os eventos do listeners no hub.
+ */
+BasicRtc.prototype.ligaEventServer = function () {
+    var me = this;
+
+    for(var name in me.listeners){
+        hub.on(name, me.listeners[name]);
+    }
+};
+
+/**
+ * liga os eventos do interfaceListeners no socket.
+ */
+BasicRtc.prototype.ligaEventCli = function () {
+    var me = this;
+
+    for(var name in me.interfaceListeners){
+        me.config.socket.on(name, me.interfaceListeners[name]);
+    }
+};
 
 /**
  * envia a msg para a interface.

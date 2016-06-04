@@ -4,7 +4,7 @@
 
 /**
  * Inicia todos os managers.
- * 
+ *
  * @type {{usuario: usuariomanager}}
  */
 var Mongoosemodels = {

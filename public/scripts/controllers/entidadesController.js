@@ -1,14 +1,14 @@
 /**
  * Created by udesc on 21/05/2016.
  */
-app.controller("entidadesController",['$scope', function ($scope) {
+app.controller("entidadesController",['$scope', 'crudfactory', function ($scope, crudfactory) {
 
     var me = this;
 
     //guarda todas as entidades do banco
     $scope.entidades = {};
     //guarda a entidade selecionada assim como a nova criada
-    $scope.entidadeSelecionada = {}
+    $scope.entidadeSelecionada = {};
 
     var listeners = {};
 
@@ -35,7 +35,10 @@ app.controller("entidadesController",['$scope', function ($scope) {
     $scope.salvarEntidade = function(){
 
         //entidade criada
-        $scope.entidadeSelecionada.novaentidade;
+        // $scope.entidadeSelecionada.novaentidade;
+        console.log('antes do crud', $scope.entidadeSelecionada.novaentidade);
+        return;
+        crud('create', entidade, dado, me);
 
     };
 
