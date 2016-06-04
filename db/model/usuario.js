@@ -6,15 +6,6 @@ var Mongoose = require('../Banco.js').mongoose;
 
 var types = Mongoose.Schema.Types;
 
-var options = {
-    toJSON: {
-        getters: true
-    },
-    toObject: {
-        getters: true
-    }
-};
-
 var obj = Mongoose.Schema({
     nome: {type: types.String, required: true},
     sobrenome: {type: types.String, required: true},
@@ -27,6 +18,6 @@ var obj = Mongoose.Schema({
     tipo: {type: types.Number}
 });
 
-new ctrbd(obj, 'usuario');
+new ctrbd('usuario', obj);
 
 module.exports = Mongoose.model('usuario', obj);
