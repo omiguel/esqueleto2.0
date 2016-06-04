@@ -5,17 +5,30 @@
 function ConfigRotas($routeProvider) {
     var me = this;
     me.route = $routeProvider;
+    me.listeners = {};
 
     me.rotas = {};
 
     //todo limpa rota
 
     me.incluiRota = function(){
-        me.route.when('/home', {templateUrl: '../views/home.html', controller: 'homeController'});
-        me.route.when('/entidades', {templateUrl: '../views/entidades.html', controller: 'entidadesController'});
+        me.rotas['/home'] = {templateUrl: '../views/home.html', controller: 'homeController'};
+        me.rotas['/entidades'] = {templateUrl: '../views/entidades.html', controller: 'entidadesController'};
+
+        console.log('aquiii');
+
+        me.ligaRota();
+
+    };
+
+    me.ligaRota = function () {
+        for(var name in me.rotas){
+            me.route.when(name, me.rotas[name]);
+        }
     };
 
     me.setaRota = function(tipoUser){
+
         if(tipoUser != undefined){
             me.incluiRota();
         }
@@ -27,10 +40,34 @@ function ConfigRotas($routeProvider) {
         SIOM.emit('rotasetada');
     };
 
+    me.usuariosaiu = function () {
+        me.limpaRota();
+        me.destroy();
+    };
+
+    me.limpaRota = function () {
+        for(var name in me.rotas){
+            me.rotas[name] = {templateUrl: '../views/notlogado.html', controller: 'notlogado'};
+        }
+        me.ligaRota();
+    };
+
+    me.destroy = function () {
+        for(var name in me.listeners){
+            SIOM.removeListener(name, me.listeners[name]);
+        }
+    };
+
     me.wiring = function(){
 
         me.route.when('/', {templateUrl: '../views/login.html', controller: 'loginController'});
-        SIOM.on('setarota', me.setaRota.bind(me));
+
+        me.listeners['setarota'] = me.setaRota.bind(me);
+        me.listeners['exit'] = me.usuariosaiu.bind(me);
+
+        for(var name in me.listeners){
+            SIOM.on(name, me.listeners[name]);
+        }
 
     };
 

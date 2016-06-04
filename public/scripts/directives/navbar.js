@@ -1,7 +1,7 @@
 /**
  * Created by Gustavo on 21/05/2016.
  */
-app.directive("navbar", ['$location', 'getUserLogado', 'setUserLogado', '$window', function($location, getUserLogado, setUserLogado, $window) {
+app.directive("navbar", ['$location', 'getUserLogado', 'setUserLogado', '$window', '$route', function($location, getUserLogado, setUserLogado, $window, $route) {
     return {
         restrict : 'E',
         transclude: true,
@@ -9,6 +9,8 @@ app.directive("navbar", ['$location', 'getUserLogado', 'setUserLogado', '$window
         templateUrl: '../../partial/navbar.html',
 
         link: function(scope, element){
+            var me = this;
+            me.listeners = {};
 
             console.log("element", element);
 
@@ -23,6 +25,8 @@ app.directive("navbar", ['$location', 'getUserLogado', 'setUserLogado', '$window
 
                 setUserLogado.setLogado(null);
                 scope.usuariologado = null;
+
+                SIOM.emit('exit');
 
                 var wind = "/"+local;
                 $location.path(wind);
@@ -46,9 +50,23 @@ app.directive("navbar", ['$location', 'getUserLogado', 'setUserLogado', '$window
              * criado por: Gustavo
              * mostra menu do navbar para usuario
              */
-            this.usuarioLogou = function(){
+            var usuarioLogou = function(){
                 scope.usuariologado = getUserLogado.getLogado();
             };
+
+            /**
+             * funcao responsavel por ligar os eventos.
+             */
+            var wiring = function () {
+                me.listeners['setarota'] = usuarioLogou.bind(me);
+
+                for(var name in me.listeners){
+                    SIOM.on(name, me.listeners[name]);
+                }
+
+            };
+
+            wiring();
 
         }
     };

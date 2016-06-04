@@ -22,8 +22,17 @@ app.controller("loginController",['$scope', '$location', 'setUserLogado', '$rout
     };
 
     me.logou = function(msg){
+
+        console.log('mandando');
+
         setUserLogado.setLogado(msg.getDado());
         SIOM.emit('setarota', msg.getDado().tipo);
+    };
+
+    me.destroy = function () {
+        for(var name in me.listeners){
+            SIOM.removeListener(name, me.listeners[name]);
+        }
     };
 
     me.nextView = function(){
