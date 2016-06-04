@@ -8,7 +8,7 @@ app.directive("modalcrianovaentidade", [function() {
         scope: {
             entidadeselecionada: "="
         },
-        templateUrl: '../../partial/modalCriaNovaEntidade.html',
+        templateUrl: '../../../views/entidades/modalCriaNovaEntidade/modalCriaNovaEntidade.html',
 
         link: function(scope, element){
 

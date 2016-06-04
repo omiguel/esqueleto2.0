@@ -6,18 +6,15 @@ app.directive("navbar", ['$location', 'getUserLogado', 'setUserLogado', '$window
         restrict : 'E',
         transclude: true,
         scope:{},
-        templateUrl: '../../partial/navbar.html',
+        templateUrl: '../../views/navbar/navbar.html',
 
         link: function(scope, element){
             var me = this;
             me.listeners = {};
 
-            console.log("element", element);
-
-            //todo deve receber getUserLogado.getLogado() atraves de msg
             scope.usuariologado = null;
 
-            /*
+            /**
             * criado por: Gustavo
             * desloga usuario
              */
@@ -31,9 +28,11 @@ app.directive("navbar", ['$location', 'getUserLogado', 'setUserLogado', '$window
                 var wind = "/"+local;
                 $location.path(wind);
 
+                location.reload();
+
             };
 
-            /*
+            /**
             * criado por: Gustavo
             * troca de tela
              */
@@ -46,7 +45,7 @@ app.directive("navbar", ['$location', 'getUserLogado', 'setUserLogado', '$window
 
             };
 
-            /*
+            /**
              * criado por: Gustavo
              * mostra menu do navbar para usuario
              */

@@ -12,8 +12,8 @@ function ConfigRotas($routeProvider) {
     //todo limpa rota
 
     me.incluiRota = function(){
-        me.rotas['/home'] = {templateUrl: '../views/home.html', controller: 'homeController'};
-        me.rotas['/entidades'] = {templateUrl: '../views/entidades.html', controller: 'entidadesController'};
+        me.rotas['/home'] = {templateUrl: '../views/home/home.html', controller: 'homeController'};
+        me.rotas['/entidades'] = {templateUrl: '../views/entidades/entidades.html', controller: 'entidadesController'};
 
         console.log('aquiii');
 
@@ -60,7 +60,7 @@ function ConfigRotas($routeProvider) {
 
     me.wiring = function(){
 
-        me.route.when('/', {templateUrl: '../views/login.html', controller: 'loginController'});
+        me.route.when('/', {templateUrl: '../views/login/login.html', controller: 'loginController'});
 
         me.listeners['setarota'] = me.setaRota.bind(me);
         me.listeners['exit'] = me.usuariosaiu.bind(me);

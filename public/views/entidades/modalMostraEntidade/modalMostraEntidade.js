@@ -8,7 +8,7 @@ app.directive("modalmostraentidade", [function() {
         scope: {
             listaentidade: "="
         },
-        templateUrl: '../../partial/modalMostraEntidade.html',
+        templateUrl: '../../../views/entidades/modalMostraEntidade/modalMostraEntidade.html',
 
         link: function(scope, element){
 
