@@ -1,7 +1,7 @@
 /**
  * Created by Gustavo on 21/05/2016.
  */
-app.directive("navbar", ['$location', 'utilvalues', 'getUserLogado', function($location, utilvalues, getUserLogado) {
+app.directive("navbar", ['$location', 'getUserLogado', 'setUserLogado', '$window', function($location, getUserLogado, setUserLogado, $window) {
     return {
         restrict : 'E',
         transclude: true,
@@ -10,33 +10,33 @@ app.directive("navbar", ['$location', 'utilvalues', 'getUserLogado', function($l
 
         link: function(scope, element){
 
-            console.log("getUserLogado", getUserLogado);
+            console.log("element", element);
 
-            scope.classes = utilvalues.rotaatual;
+            //todo deve receber getUserLogado.getLogado() atraves de msg
+            scope.usuariologado = null;
 
-            //var limpanav = function (ponde, cb) {
-            //    for(var id in scope.classes){
-            //        utilvalues.rotaatual[id] = '';
-            //    }
-            //    cb();
-            //};
-
+            /*
+            * criado por: Gustavo
+            * desloga usuario
+             */
             scope.sair = function(local){
-                //todo precisa deslogar usuario
-                scope.navega(local);
-            };
 
-            scope.navega = function (local) {
-
-                console.log("pq n imprime");
-                console.log("getUserLogado", getUserLogado.getLogado());
+                setUserLogado.setLogado(null);
+                scope.usuariologado = null;
 
                 var wind = "/"+local;
                 $location.path(wind);
 
-                // para ser compativel com firefox
-                $window.location.href = wind;
-                $window.location.reload();
+            };
+
+            /*
+            * criado por: Gustavo
+            * troca de tela
+             */
+            scope.navega = function (local) {
+
+                var wind = "/"+local;
+                $location.path(wind);
 
             };
         }

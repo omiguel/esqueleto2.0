@@ -8,6 +8,8 @@ function ConfigRotas($routeProvider) {
 
     me.rotas = {};
 
+    //todo limpa rota
+
     me.incluiRota = function(){
         me.route.when('/home', {templateUrl: '../views/home.html', controller: 'homeController'});
         me.route.when('/entidades', {templateUrl: '../views/entidades.html', controller: 'entidadesController'});
