@@ -1,29 +1,29 @@
 <div>
     <!--NAVBAR-->
-    <nav class="navbar navbar-inverse navbar-static-top">
+    <nav class="navbar navbar-config navbar-static-top">
         <div class="container-fluid">
             <!--CABECARIO-->
             <div class="navbar-header">
                 <!--BTN PARA RESPONSIVIDADE-->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle navbar-toggle-config collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 <!--TITULO-->
-                <a class="navbar-brand" href="">Esqueleto 2.0</a>
+                <a class="navbar-brand navbar-link-config" href="">Esqueleto 2.0</a>
                 <span ng-if="usuariologado != null">
-                    <p class="navbar-text">Signed in as {{usuariologado.nome}}</p>
+                    <p class="navbar-text navbar-texto-config">Signed in as {{usuariologado.nome}}</p>
                 </span>
             </div>
             <!--LOCAIS DE NAVEGACAO-->
             <div id="navbar" class="collapse navbar-collapse">
                 <span ng-if="usuariologado != null">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="" ng-click="navega('home')">Home</a></li>
-                        <li><a href="" ng-click="navega('entidades')">Entidades</a></li>
-                        <li><a href="" ng-click="sair('')">Sair</a></li>
+                        <li><a class="navbar-link-config" href="" ng-click="navega('home')">Home</a></li>
+                        <li><a class="navbar-link-config" href="" ng-click="navega('entidades')">Entidades</a></li>
+                        <li><a class="navbar-link-config" href="" ng-click="sair('')">Sair</a></li>
                     </ul>
                 </span>
             </div>
