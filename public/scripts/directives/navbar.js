@@ -1,7 +1,7 @@
 /**
  * Created by udesc on 21/05/2016.
  */
-app.directive("navbar", ['$location', 'utilvalues', function($location, utilvalues) {
+app.directive("navbar", ['$location', 'utilvalues', 'getUserLogado', function($location, utilvalues, getUserLogado) {
     return {
         restrict : 'E',
         transclude: true,
@@ -9,7 +9,9 @@ app.directive("navbar", ['$location', 'utilvalues', function($location, utilvalu
         templateUrl: '../../partial/navbar.html',
 
         link: function(scope, element){
-            
+
+            console.log("getUserLogado", getUserLogado);
+
             scope.classes = utilvalues.rotaatual;
 
             var limpanav = function (ponde, cb) {
