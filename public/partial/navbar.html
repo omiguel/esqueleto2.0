@@ -3,20 +3,25 @@
         <!--<li role="presentation" class="{{classes.home}}"><a ng-click="navega('home')">Home</a></li>-->
         <!--<li role="presentation" class="{{classes.entidades}}"><a ng-click="navega('entidades')">Entidades</a></li>-->
     <!--</ul>-->
-    <nav class="navbar navbar-inverse" >
+    <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand">Esqueleto 2.0</a>
-                <p class="navbar-text">Signed in as Mark Otto</p>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Esqueleto 2.0</a>
+                <p class="navbar-text">Signed in as Bosvaldo</p>
             </div>
-
-            <div class="">
-                <ul class="nav navbar-nav">
-                    <li>Link1</li>
-                    <li>Link2</li>
-                    <li><a href="" ng-click="sair()">Sair</a></li>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="" ng-click="navega('home')">Home</a></li>
+                    <li><a href="" ng-click="navega('entidades')">Entidades</a></li>
+                    <li><a href="" ng-click="navega('')">Sair</a></li>
                 </ul>
-            </div>
+            </div><!--/.nav-collapse -->
         </div>
     </nav>
 </div>
