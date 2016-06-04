@@ -35,10 +35,21 @@ app.directive("navbar", ['$location', 'getUserLogado', 'setUserLogado', '$window
              */
             scope.navega = function (local) {
 
+                scope.usuariologado = getUserLogado.getLogado();
+
                 var wind = "/"+local;
                 $location.path(wind);
 
             };
+
+            /*
+             * criado por: Gustavo
+             * mostra menu do navbar para usuario
+             */
+            this.usuarioLogou = function(){
+                scope.usuariologado = getUserLogado.getLogado();
+            };
+
         }
     };
 }]);
