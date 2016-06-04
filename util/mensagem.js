@@ -268,5 +268,21 @@ Mensagem.prototype.fromBrowser = function(msg, rtc){
     this.setDado(dado);
 };
 
+Mensagem.prototype.fromBrowserEntidade = function (msg, rtc, callback) {
+    this.setRtc(rtc);
+    this.setFlag(msg.flag);
+    var novoevento = msg.dados.nomeentidade+'.'+msg.evento.substr(msg.evento.lastIndexOf('.')+1);
+    this.setEvento(novoevento);
+    var dado = {};
+    if(msg.success) {
+        dado.res = msg.dados.novaentidade;
+    }else{
+        dado.err = msg.erro;
+    }
+    this.setDado(dado);
+
+    callback(this);
+};
+
 
 module.exports = Mensagem;

@@ -39,6 +39,15 @@ RtcRoot.prototype.wiring = function(){
     me.ligaEventServer();
 };
 
+RtcRoot.prototype.criaentidade = function (msgDoBrowser) {
+    var me = this;
+    var mensagem = new Mensagem(me); //source == this
+    mensagem.fromBrowserEntidade(msgDoBrowser, me, function (msg) {
+        console.log('no callback', msg);
+        hub.emit('rtc.'+msg.getEvento(), msg);
+    }); //rtc == this
+};
+
 /**
  * liga os eventos da interface.
  */
@@ -46,7 +55,7 @@ RtcRoot.prototype.interfaceWiring = function(){
     var me = this;
 
     me.interfaceListeners['getallmodels'] = me.daInterface.bind(me);
-    me.interfaceListeners['crud.usuaro.read'] = me.daInterface.bind(me);
+    me.interfaceListeners['entidade.create'] = me.criaentidade.bind(me);
 
     me.ligaEventCli();
 };

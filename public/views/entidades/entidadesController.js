@@ -1,7 +1,7 @@
 /**
  * Created by udesc on 21/05/2016.
  */
-app.controller("entidadesController",['$scope', 'crudfactory', function ($scope, crudfactory) {
+app.controller("entidadesController",['$scope', function ($scope) {
 
     var me = this;
 
@@ -29,20 +29,6 @@ app.controller("entidadesController",['$scope', 'crudfactory', function ($scope,
     };
 
     /*
-    * criado por: Gustavo
-    * todo salva a entidade criado no banco
-     */
-    $scope.salvarEntidade = function(){
-
-        //entidade criada
-        // $scope.entidadeSelecionada.novaentidade;
-        console.log('antes do crud', $scope.entidadeSelecionada.novaentidade);
-        return;
-        crud('create', entidade, dado, me);
-
-    };
-
-    /*
     * funcao padrao pra todos os controllers, essa funcao faz os pedidos de tudo que precisa para que o controller
     * inicie sua view.
     */
@@ -59,9 +45,14 @@ app.controller("entidadesController",['$scope', 'crudfactory', function ($scope,
         $scope.$apply();
     };
 
+    var retEntidadeCriada = function (msg) {
+        console.log('veio aqui pq criou algo', msg);
+    };
+
     var wiring = function () {
 
         listeners['allmodels'] = retallmodels.bind(me);
+        listeners['entidade.created'] = retEntidadeCriada.bind(me);
 
         for(var name in listeners){
             SIOM.on(name, listeners[name]);
