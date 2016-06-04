@@ -22,11 +22,23 @@ app.directive("navbar", ['$location', 'utilvalues', 'getUserLogado', function($l
             };
 
             scope.navega = function (ponde) {
+
+                console.log("pq n imprime");
+                console.log("getUserLogado", getUserLogado.getLogado());
+
                 limpanav(ponde, function () {
                     utilvalues.rotaatual[ponde] = 'active';
                     $location.path('/'+ponde);
                 });
             }
+
+            //todo
+            //var wind = "/";
+            //$location.path(wind);
+            //
+            //// para ser compativel com firefox
+            //$window.location.href = wind;
+            //$window.location.reload();
         }
     };
 }]);

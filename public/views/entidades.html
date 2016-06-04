@@ -14,17 +14,21 @@
 		        		{{entidade.nome}}
 		        	</td>
 		        	<td align="center">
-		        		<button 
-		        			class="btn btn-info" 
-		        			ng-click="selecionaEntidade(entidade)" 
-		        			data-toggle="modal" 
-		        			data-target="#modalCriaEntidade"
+		        		<button
+								class="btn btn-info"
+								ng-click="selecionaEntidade(entidade)"
+								data-toggle="modal"
+								data-target="#modalCriaEntidade"
 		        		>
 		        			Criar {{entidade.nome}}
 		        		</button>
 		        	</td>
 		        	<td align="center">
-		        		<button class="btn btn-success">
+		        		<button
+								class="btn btn-success"
+								data-toggle="modal"
+								data-target="#modalMostraEntidade"
+						>
 		        			Visualizar todos {{entidade.nome}}s
 		        		</button>
 		        	</td>
@@ -38,7 +42,7 @@
 		</div>
 
 		<!-- MODAL MOSTRA ENTIDADE -->
-		<div id="modalCriaEntidade" class="modal fade" role="dialog">
+		<div id="modalMostraEntidade" class="modal fade" role="dialog">
 			<modalmostraentidade listaentidade=""></modalmostraentidade>
 		</div>
 
