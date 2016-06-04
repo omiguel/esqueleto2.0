@@ -51,6 +51,7 @@ usuariomanager.prototype.trataLogin = function(msg){
     this.model.findOne({'email': dado.email}, function(err, res){
         if(res){
             if(dado.senha == res.senha){
+                res.senha = null;
                 me.emitManager(msg, '.login', {res: res});
             } else {
                 me.emitManager(msg, '.senhaincorreta', {res: null});
