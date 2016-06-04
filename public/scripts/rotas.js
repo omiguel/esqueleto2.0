@@ -9,13 +9,9 @@ function ConfigRotas($routeProvider) {
 
     me.rotas = {};
 
-    //todo limpa rota
-
     me.incluiRota = function(){
         me.rotas['/home'] = {templateUrl: '../views/home/home.html', controller: 'homeController'};
         me.rotas['/entidades'] = {templateUrl: '../views/entidades/entidades.html', controller: 'entidadesController'};
-
-        console.log('aquiii');
 
         me.ligaRota();
 
@@ -41,15 +37,7 @@ function ConfigRotas($routeProvider) {
     };
 
     me.usuariosaiu = function () {
-        me.limpaRota();
         me.destroy();
-    };
-
-    me.limpaRota = function () {
-        for(var name in me.rotas){
-            me.rotas[name] = {templateUrl: '../views/notlogado.html', controller: 'notlogado'};
-        }
-        me.ligaRota();
     };
 
     me.destroy = function () {
