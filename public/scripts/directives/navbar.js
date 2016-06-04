@@ -1,5 +1,5 @@
 /**
- * Created by udesc on 21/05/2016.
+ * Created by Gustavo on 21/05/2016.
  */
 app.directive("navbar", ['$location', 'utilvalues', 'getUserLogado', function($location, utilvalues, getUserLogado) {
     return {
@@ -14,31 +14,31 @@ app.directive("navbar", ['$location', 'utilvalues', 'getUserLogado', function($l
 
             scope.classes = utilvalues.rotaatual;
 
-            var limpanav = function (ponde, cb) {
-                for(var id in scope.classes){
-                    utilvalues.rotaatual[id] = '';
-                }
-                cb();
+            //var limpanav = function (ponde, cb) {
+            //    for(var id in scope.classes){
+            //        utilvalues.rotaatual[id] = '';
+            //    }
+            //    cb();
+            //};
+
+            scope.sair = function(local){
+                //todo precisa deslogar usuario
+                scope.navega(local);
             };
 
-            scope.navega = function (ponde) {
+            scope.navega = function (local) {
 
                 console.log("pq n imprime");
                 console.log("getUserLogado", getUserLogado.getLogado());
 
-                limpanav(ponde, function () {
-                    utilvalues.rotaatual[ponde] = 'active';
-                    $location.path('/'+ponde);
-                });
-            }
+                var wind = "/"+local;
+                $location.path(wind);
 
-            //todo
-            //var wind = "/";
-            //$location.path(wind);
-            //
-            //// para ser compativel com firefox
-            //$window.location.href = wind;
-            //$window.location.reload();
+                // para ser compativel com firefox
+                $window.location.href = wind;
+                $window.location.reload();
+
+            };
         }
     };
 }]);
