@@ -13,6 +13,12 @@ app.controller("loginController",['$scope', '$location', 'setUserLogado', '$rout
     };
     //-----------------------------
 
+    //-------VARIAVEIS DE VALIDACAO
+    $scope.validoSenha = true;
+    $scope.validoEmailCadastrado = true;
+    $scope.validoServer = true;
+    //-----------------------------
+
     me.wind = "/home";
 
     /**
@@ -57,29 +63,32 @@ app.controller("loginController",['$scope', '$location', 'setUserLogado', '$rout
     };
 
     /**
-    * criado por: Osvaldo
+    * criado/modificado por: Osvaldo e Gustavo
     * retorno do server de erro do server
     */
     me.serverError = function(msg){
-        //todo criar um box de aviso que informa erros e sucessos
+        //todo falta o server mandar msg de erro
+        $scope.validoServer = false;
         console.log('error', msg);
     };
 
     /**
-    * criado por: Osvaldo
+    * criado/modificado por: Osvaldo e Gustavo
     * retorno do server de email nao cadastrado
     */
     me.invalidUser = function(msg){
-        //todo criar um box de aviso que informa erros e sucessos
+        //todo falta o server mandar msg de erro
+        $scope.validoEmailCadastrado = false;
         console.log('email não cadastrado', msg);
     };
 
     /**
-    * criado por: Osvaldo
+    * criado/modificado por: Osvaldo e Gustavo
     * retorno do server de senha incorreta
     */
     me.senhaincorreta = function (msg) {
-        //todo criar um mensagem pra avisar que a senha está incorreta
+        //todo falta o server mandar msg de erro
+        $scope.validoSenha = false;
         console.log('senha incorreta', msg)
     };
 

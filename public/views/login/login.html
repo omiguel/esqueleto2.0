@@ -13,22 +13,25 @@
                     <h4>Faça seu login abaixo</h4>
                 </div>
                 <form name="formDevMan">
-                    <div class="form-group" ng-class="{ 'has-error' : false}">
+                    <div class="form-group" ng-class="{ 'has-error' : !validoSenha}">
                         <label class="control-label">Email:</label>
                         <input class="form-control" type="text" placeholder="Digite seu nome" ng-model="usuario.email"/>
-                        <div ng-show="false" class="alert alert-danger control-label">
-                            <h5>Digite um login correto</h5>
-                        </div>
                     </div>
-                    <div class="form-group" ng-class="{ 'has-error' : false}">
+                    <div class="form-group" ng-class="{ 'has-error' : !validoSenha}">
                         <label class="control-label">Senha:</label>
                         <input class="form-control" type="password" placeholder="Digite sua senha" ng-model="usuario.senha"/>
-                        <div ng-show="false" class="alert alert-danger control-label">
-                            <h5>Digite uma senha correto</h5>
-                        </div>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-lg button-style-1 btn-block" ng-click="logar()">Logar</button>
+                    </div>
+                    <div ng-show="!validoSenha" class="msg-erro control-label">
+                        <h5>Ops! A senha e/ou e-mail fornecidos estao incorretos!</h5>
+                    </div>
+                    <div ng-show="!validoEmailCadastrado" class="msg-erro control-label">
+                        <h5>Ops! O e-mail fornecido não é cadastrado!</h5>
+                    </div>
+                    <div ng-show="!validoServer" class="msg-erro control-label">
+                        <h5>Ops! parece que tivemos um problema com o server, tente mais tarde!</h5>
                     </div>
                 </form>
             </div>

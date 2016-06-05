@@ -21,6 +21,10 @@ img {
     text-align: center;
 }
 
+.msg-erro{
+    color: #a94442;
+}
+
 
 /*---------NAVBAR-STYLE--------------*/
 .navbar-config{
