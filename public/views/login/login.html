@@ -1,6 +1,7 @@
 <div class="panel">
     <div class="panel-heading">
         <div class="row">
+            <!-- TITULO -->
             <div class="col-md-offset-4 col-md-5 col-sm-offset-3 col-sm-8 col-xs-offset-3 col-xs-8">
                 <h1>Bem vindo ao Esqueleto 2.0!</h1>
             </div>
@@ -9,30 +10,37 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
+                <!-- SUB TITULO -->
                 <div>
                     <h4>Faça seu login abaixo</h4>
                 </div>
                 <form name="formDevMan">
+                    <!-- EMAIL -->
                     <div class="form-group" ng-class="{ 'has-error' : !validoSenha}">
                         <label class="control-label">Email:</label>
                         <input class="form-control" type="text" placeholder="Digite seu nome" ng-model="usuario.email"/>
                     </div>
+                    <!-- SENHA -->
                     <div class="form-group" ng-class="{ 'has-error' : !validoSenha}">
                         <label class="control-label">Senha:</label>
                         <input class="form-control" type="password" placeholder="Digite sua senha" ng-model="usuario.senha"/>
                     </div>
+                    <!-- BTN LOGAR -->
                     <div class="form-group">
                         <button class="btn btn-lg button-style-1 btn-block" ng-click="logar()">Logar</button>
                     </div>
-                    <div ng-show="!validoSenha" class="msg-erro control-label">
-                        <h5>Ops! A senha e/ou e-mail fornecidos estao incorretos!</h5>
-                    </div>
-                    <div ng-show="!validoEmailCadastrado" class="msg-erro control-label">
-                        <h5>Ops! O e-mail fornecido não é cadastrado!</h5>
-                    </div>
-                    <div ng-show="!validoServer" class="msg-erro control-label">
-                        <h5>Ops! parece que tivemos um problema com o server, tente mais tarde!</h5>
-                    </div>
+                    <!-- MSGS DE ERRO -->
+                    <span>
+                        <div ng-show="!validoSenha" class="msg-erro control-label">
+                            <h5>Ops! A senha e/ou e-mail fornecidos estao incorretos!</h5>
+                        </div>
+                        <div ng-show="!validoEmailCadastrado" class="msg-erro control-label">
+                            <h5>Ops! O e-mail fornecido não é cadastrado!</h5>
+                        </div>
+                        <div ng-show="!validoServer" class="msg-erro control-label">
+                            <h5>Ops! parece que tivemos um problema com o server, tente mais tarde!</h5>
+                        </div>
+                    </span>
                 </form>
             </div>
         </div>
