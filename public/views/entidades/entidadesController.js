@@ -46,6 +46,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     var retEntidadeCriada = function (msg) {
+        //todo, gusbixa tem que tirar o modal...
         console.log('veio aqui pq criou algo', msg);
     };
 

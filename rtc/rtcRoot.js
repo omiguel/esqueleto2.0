@@ -35,6 +35,7 @@ RtcRoot.prototype.wiring = function(){
     var me = this;
 
     me.listeners['allmodels'] = me.emitePraInterface.bind(me);
+    me.listeners['entidade.created'] = me.emitePraInterface.bind(me);
 
     me.ligaEventServer();
 };
