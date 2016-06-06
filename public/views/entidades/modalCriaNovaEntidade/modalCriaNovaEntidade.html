@@ -7,40 +7,134 @@
 		</div>
 
 		<div class="modal-body">
-			<div class="row" ng-repeat="(key, value) in entidadeselecionada.modelo">
-				<!--INPUTS DO TIPO STRING-->
-				<span ng-if="value == 'String'">
+			<form name="formentidade">
+				<div class="row">
 					<div class="col-md-offset-2 col-md-8 col-xs-offset-2 col-xs-8">
-						<div class="form-group">
-							<label>{{key}}({{value}})</label>
-							<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade[key]">
+						<!--FORM GENERICO-->
+						<span ng-if="entidadeselecionada.nome != 'usuario'">
+							<div ng-repeat="(key, value) in entidadeselecionada.modelo">
+								<!--INPUTS DO TIPO STRING-->
+								<span ng-if="value == 'String'">
+									<div class="form-group">
+										<label class="control-label">{{key}}({{value}})</label>
+										<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade[key]">
+									</div>
+								</span>
+								<!--INPUTS DO TIPO NUMBER-->
+								<span ng-if="value == 'Number'">
+									<div class="form-group">
+										<label class="control-label">{{key}}({{value}})</label>
+										<input type="number" class="form-control" ng-model="entidadeselecionada.novaentidade[key]">
+									</div>
+								</span>
+								<!--INPUTS DO TIPO DATE-->
+								<span ng-if="value == 'Date'">
+									<div class="form-group">
+										<label class="control-label">{{key}}({{value}})</label>
+										<input ui-mask="99/99/9999" class="form-control" ng-model="entidadeselecionada.novaentidade[key]" />
+									</div>
+								</span>
+							</div>
+						</span>
+						<!--FORM DE USUARIO-->
+						<span ng-if="entidadeselecionada.nome == 'usuario'">
+							<!--NOME-->
+							<div class="form-group">
+								<label class="control-label">nome(String)</label>
+								<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade[0]">
+							</div>
+							<!--SOBRENOME-->
+							<div class="form-group">
+								<label class="control-label">sobrenome(String)</label>
+								<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade[1]">
+							</div>
+							<!--EMAIL-->
+							<div class="form-group" ng-class="{ 'has-error' : formentidade.email.$error.required && formentidade.email.$dirty}">
+								<label class="control-label">e-mail(email)</label>
+								<input type="email" name="email" class="form-control" ng-model="entidadeselecionada.novaentidade[2]" required>
+								<!--MSG ERRO EMAIL OBRIGATORIA-->
+								<div ng-show="formentidade.email.$error.required && formentidade.email.$dirty" class="msg-erro control-label">
+									email obrigatório!
+								</div>
+							</div>
+							<!--SENHA-->
+							<div
+									class="form-group"
+									ng-class="{ 'has-error' : (formentidade.senha.$error.required && formentidade.senha.$dirty) || (entidadeselecionada.novaentidade[3] != confirmasenha)}"
+							>
+								<label class="control-label">senha(String)</label>
+								<input type="password" name="senha" class="form-control" ng-model="entidadeselecionada.novaentidade[3]" required>
+								<!--MSG ERRO SENHA OBRIGATORIA-->
+								<div ng-show="formentidade.senha.$error.required && formentidade.senha.$dirty" class="msg-erro control-label">
+									senha obrigatório!
+								</div>
+								<!--MSG ERRO SENHA E CONFIRMA SENHA DIFERENTES-->
+								<div ng-show="entidadeselecionada.novaentidade[3] != confirmasenha" class="msg-erro control-label">
+									senha e confirma senha estão diferentes!
+								</div>
+							</div>
+							<!--CONFIRMA SENHA-->
+							<div
+									class="form-group"
+									ng-class="{ 'has-error' : (formentidade.confirmasenha.$error.required && formentidade.confirmasenha.$dirty) || (entidadeselecionada.novaentidade[3] != confirmasenha)}"
+							>
+								<label class="control-label">confirma senha(String)</label>
+								<input type="password" name="confirmasenha" class="form-control" ng-model="confirmasenha" required>
+								<!--MSG ERRO CONFIRMA SENHA OBRIGATORIA-->
+								<div ng-show="formentidade.confirmasenha.$error.required && formentidade.confirmasenha.$dirty" class="msg-erro control-label">
+									confirma senha obrigatório!
+								</div>
+								<!--MSG ERRO SENHA E CONFIRMA SENHA DIFERENTES-->
+								<div ng-show="entidadeselecionada.novaentidade[3] != confirmasenha" class="msg-erro control-label">
+									senha e confirma senha estão diferentes!
+								</div>
+							</div>
+							<!--DATA NASCIMENTO-->
+							<div class="form-group">
+								<label class="control-label">data nascimento(date)</label>
+								<input ui-mask="99/99/9999" class="form-control" ng-model="entidadeselecionada.novaentidade[4]">
+							</div>
+							<!--SEXO-->
+							<div class="form-group">
+								<label class="control-label">sexo(select)</label>
+								<select class="form-control" ng-model="entidadeselecionada.novaentidade[5]">
+									<option value="masculino">masculino</option>
+									<option value="feminino">feminino</option>
+								</select>
+							</div>
+							<!--NUMERO CELULAR-->
+							<div class="form-group">
+								<label class="control-label">numero celular(String)</label>
+								<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade[6]">
+							</div>
+							<!--FOTO-->
+							<div class="form-group">
+								<label class="control-label">foto(String)</label>
+								<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade[7]">
+							</div>
+							<!--TIPO-->
+							<div class="form-group">
+								<label class="control-label">tipo(String)</label>
+								<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade[8]">
+							</div>
+						</span>
+						<!--BTN SALVAR-->
+						<div>
+							<button
+									class="btn btn-success"
+									ng-disabled="
+									(formentidade.email.$error.required) ||
+									(formentidade.confirmasenha.$error.required) ||
+									(formentidade.senha.$error.required) ||
+									(entidadeselecionada.novaentidade[3] == confirmasenha)
+									"
+									ng-click="salvarEntidade()" >
+								Salvar
+							</button>
 						</div>
 					</div>
-				</span>
-				<!--INPUTS DO TIPO NUMBER-->
-				<span ng-if="value == 'Number'">
-					<div class="col-md-offset-2 col-md-8 col-xs-offset-2 col-xs-8">
-						<div class="form-group">
-							<label>{{key}}({{value}})</label>
-							<input type="number" class="form-control" ng-model="entidadeselecionada.novaentidade[key]">
-						</div>
-					</div>
-				</span>
-				<!--INPUTS DO TIPO DATE-->
-				<span ng-if="value == 'Date'">
-					<div class="col-md-offset-2 col-md-8 col-xs-offset-2 col-xs-8">
-						<div class="form-group">
-							<label>{{key}}({{value}})</label>
-							<input ui-mask="99/99/9999" class="form-control" ng-model="entidadeselecionada.novaentidade[key]" />
-						</div>
-					</div>
-				</span>
-			</div>
-			<div class="col-md-offset-2 col-xs-offset-2">
-				<button class="btn btn-success" ng-click="salvarEntidade()" style="margin-left: 0.4em">
-					Salvar
-				</button>
-			</div>
+				</div>
+			</form>
 		</div>
 
 		<div class="modal-footer">
