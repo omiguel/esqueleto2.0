@@ -9,6 +9,11 @@ app.controller("entidadesController",['$scope', function ($scope) {
     $scope.entidades = {};
     //guarda a entidade selecionada assim como a nova criada
     $scope.entidadeSelecionada = {};
+    //guarda o nome do modal de retorno
+    $scope.modalTitulo = null;
+    //guarda o texto do modal de retorno
+    $scope.modalTexto = null;
+
 
     var listeners = {};
 
@@ -46,7 +51,12 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     var retEntidadeCriada = function (msg) {
-        //todo, gusbixa tem que tirar o modal...
+
+        $scope.modalTitulo = "Titulo Bolado";
+        $scope.modalTexto = "Texto Bolado";
+
+        $('#modalRetornoEntidadeCriada').modal();
+
         console.log('veio aqui pq criou algo', msg);
     };
 
