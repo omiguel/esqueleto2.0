@@ -17,7 +17,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
     var listeners = {};
 
-    /*
+    /**
      * criado por: Gustavo
      * joga a entidade desejada dentro da variavel $scope.entidadeSelecionada
      * cria e popula objeto novaentidade da variavel $scope.entidadeSelecionada
@@ -33,6 +33,10 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
     };
 
+    /**
+     * criado por: Bosvaldo
+     * todo Bosvaldo comenta isso daqui!!!
+     */
     $scope.visualidasCadastradosEntidade = function (entidade) {
         var dado = {
             nomeentidade: entidade.nome
@@ -41,7 +45,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
         SIOM.emitirServer(msg);
     };
 
-    /*
+    /**
      * funcao padrao pra todos os controllers, essa funcao faz os pedidos de tudo que precisa para que o controller
      * inicie sua view.
      */
@@ -50,7 +54,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
         SIOM.emitirServer(msg);
     };
 
-    /*
+    /**
      * essa funcao retorna todos os models criados no banco
      */
     var retallmodels = function (msg) {
@@ -58,18 +62,28 @@ app.controller("entidadesController",['$scope', function ($scope) {
         $scope.$apply();
     };
 
+    /**
+     * criado/modificado por: Gustavo e Bosvaldo
+     * retorna na interface que entidade foi criada
+     */
     var retEntidadeCriada = function (msg) {
 
-        $scope.modalTitulo = "Titulo Bolado";
-        $scope.modalTexto = "Texto Bolado";
+        $scope.modalTitulo = $scope.entidadeSelecionada.nome + " criado!";
+        $scope.modalTexto = $scope.entidadeSelecionada.nome + " criado com sucesso!";
 
+        $scope.$apply();
+
+        $('#modalCriaEntidade').modal('hide');
         $('#modalRetornoEntidadeCriada').modal();
 
-        console.log('veio aqui pq criou algo', msg);
     };
 
+    /**
+     * criado/modificado por: gustavo e Bosvaldo
+     * 
+     */
     var retEntidadeReaded = function (msg) {
-        //todo, gusbixa tem que setar no modal mostra entidade...
+        //todo tem que setar no modal mostra entidade...
         console.log('veio aqui pq criou algo', msg);
     };
 

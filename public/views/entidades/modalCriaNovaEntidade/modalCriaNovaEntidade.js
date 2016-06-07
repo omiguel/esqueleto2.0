@@ -13,8 +13,8 @@ app.directive("modalcrianovaentidade", [function() {
         link: function(scope, element){
             var me = this;
 
-            /*
-            * criado por: Gustavo
+            /**
+            * criado/modificado por: Gustavo e Bosvaldo
             * salva a entidade criado no banco
              */
             scope.salvarEntidade = function(){
