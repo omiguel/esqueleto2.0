@@ -80,7 +80,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
     /**
      * criado/modificado por: gustavo e Bosvaldo
-     * 
+     *
      */
     var retEntidadeReaded = function (msg) {
         //todo tem que setar no modal mostra entidade...

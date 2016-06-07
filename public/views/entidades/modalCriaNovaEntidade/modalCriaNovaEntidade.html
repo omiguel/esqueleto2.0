@@ -52,7 +52,7 @@
 							<div class="form-group" ng-class="{ 'has-error' : formentidade.email.$error.required && formentidade.email.$dirty}">
 								<label class="control-label">e-mail(String)</label>
 								<input type="email" name="email" class="form-control" ng-model="entidadeselecionada.novaentidade.email" required>
-								<!--MSG ERRO EMAIL OBRIGATORIA-->
+								<!--MSG ERRO EMAIL OBRIGATORIO-->
 								<div ng-show="formentidade.email.$error.required && formentidade.email.$dirty" class="msg-erro control-label">
 									email obrigatório!
 								</div>
@@ -64,7 +64,7 @@
 							>
 								<label class="control-label">senha(String)</label>
 								<input type="password" name="senha" class="form-control" ng-model="entidadeselecionada.novaentidade.senha" required>
-								<!--MSG ERRO SENHA OBRIGATORIA-->
+								<!--MSG ERRO SENHA OBRIGATORIO-->
 								<div ng-show="formentidade.senha.$error.required && formentidade.senha.$dirty" class="msg-erro control-label">
 									senha obrigatório!
 								</div>
@@ -80,7 +80,7 @@
 							>
 								<label class="control-label">confirma senha(String)</label>
 								<input type="password" name="confirmasenha" class="form-control" ng-model="confirmasenha" required>
-								<!--MSG ERRO CONFIRMA SENHA OBRIGATORIA-->
+								<!--MSG ERRO CONFIRMA SENHA OBRIGATORIO-->
 								<div ng-show="formentidade.confirmasenha.$error.required && formentidade.confirmasenha.$dirty" class="msg-erro control-label">
 									confirma senha obrigatório!
 								</div>
@@ -113,9 +113,13 @@
 								<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade.foto">
 							</div>
 							<!--TIPO-->
-							<div class="form-group">
+							<div class="form-group" ng-class="{ 'has-error' : formentidade.tipo.$error.required && formentidade.tipo.$dirty}">
 								<label class="control-label">tipo(String)</label>
-								<input type="text" class="form-control" ng-model="entidadeselecionada.novaentidade.tipo">
+								<input type="number" name="tipo" class="form-control" ng-model="entidadeselecionada.novaentidade.tipo" required>
+								<!--MSG ERRO TIPO OBRIGATORIO-->
+								<div ng-show="formentidade.tipo.$error.required && formentidade.tipo.$dirty" class="msg-erro control-label">
+									email obrigatório!
+								</div>
 							</div>
 						</span>
 						<!--BTN SALVAR-->
@@ -126,6 +130,7 @@
 									(formentidade.email.$error.required) ||
 									(formentidade.confirmasenha.$error.required) ||
 									(formentidade.senha.$error.required) ||
+									(formentidade.tipo.$error.required) ||
 									(entidadeselecionada.novaentidade.senha == confirmasenha)
 									"
 									ng-click="salvarEntidade()" >
