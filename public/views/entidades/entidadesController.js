@@ -9,6 +9,8 @@ app.controller("entidadesController",['$scope', function ($scope) {
     $scope.entidades = {};
     //guarda a entidade selecionada assim como a nova criada
     $scope.entidadeSelecionada = {};
+    //guarda a lista de entidades criada
+    $scope.listaEntidade = [];
     //guarda o nome do modal de retorno
     $scope.modalTitulo = null;
     //guarda o texto do modal de retorno
@@ -34,10 +36,17 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     /**
-     * criado por: Bosvaldo
+     * criado por: Bosvaldo e Gustavo
      * todo Bosvaldo comenta isso daqui!!!
      */
     $scope.visualidasCadastradosEntidade = function (entidade) {
+
+        $scope.listaEntidade = {
+            nome: entidade.nome,
+            modelo: entidade.modelo,
+            lista: []
+        };
+
         var dado = {
             nomeentidade: entidade.nome
         };
@@ -84,6 +93,12 @@ app.controller("entidadesController",['$scope', function ($scope) {
      */
     var retEntidadeReaded = function (msg) {
         //todo tem que setar no modal mostra entidade...
+        $scope.listaEntidade.lista = msg;
+
+        $scope.$apply();
+
+        $('#modalMostraEntidade').modal();
+
         console.log('veio aqui pq criou algo', msg);
     };
 

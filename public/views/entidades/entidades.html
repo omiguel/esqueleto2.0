@@ -26,8 +26,6 @@
 		        	<td align="center">
 		        		<button
 								class="btn btn-success"
-								data-toggle="modal"
-								data-target="#modalMostraEntidade"
 								ng-click="visualidasCadastradosEntidade(entidade)"
 						>
 		        			Visualizar todos {{entidade.nome}}s
@@ -44,7 +42,7 @@
 
 		<!-- MODAL MOSTRA ENTIDADE -->
 		<div id="modalMostraEntidade" class="modal fade" role="dialog">
-			<modalmostraentidade listaentidade=""></modalmostraentidade>
+			<modalmostraentidade listaentidade="listaEntidade"></modalmostraentidade>
 		</div>
 
 		<!-- MODAL RETORNO-->
