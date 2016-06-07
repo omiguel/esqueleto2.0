@@ -18,10 +18,10 @@ app.controller("entidadesController",['$scope', function ($scope) {
     var listeners = {};
 
     /*
-    * criado por: Gustavo
-    * joga a entidade desejada dentro da variavel $scope.entidadeSelecionada
-    * cria e popula objeto novaentidade da variavel $scope.entidadeSelecionada
-    */
+     * criado por: Gustavo
+     * joga a entidade desejada dentro da variavel $scope.entidadeSelecionada
+     * cria e popula objeto novaentidade da variavel $scope.entidadeSelecionada
+     */
     $scope.selecionaEntidade = function(entidade){
 
         $scope.entidadeSelecionada = angular.copy(entidade);
@@ -33,18 +33,26 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
     };
 
+    $scope.visualidasCadastradosEntidade = function (entidade) {
+        var dado = {
+            nomeentidade: entidade.nome
+        };
+        var msg = new Mensagem(me, 'entidade.read', dado, 'entidade');
+        SIOM.emitirServer(msg);
+    };
+
     /*
-    * funcao padrao pra todos os controllers, essa funcao faz os pedidos de tudo que precisa para que o controller
-    * inicie sua view.
-    */
+     * funcao padrao pra todos os controllers, essa funcao faz os pedidos de tudo que precisa para que o controller
+     * inicie sua view.
+     */
     var ready = function () {
         var msg = new Mensagem(me, 'getallmodels', {}, 'entidades');
         SIOM.emitirServer(msg);
     };
 
     /*
-    * essa funcao retorna todos os models criados no banco
-    */
+     * essa funcao retorna todos os models criados no banco
+     */
     var retallmodels = function (msg) {
         $scope.entidades = msg.getDado();
         $scope.$apply();
@@ -60,10 +68,16 @@ app.controller("entidadesController",['$scope', function ($scope) {
         console.log('veio aqui pq criou algo', msg);
     };
 
+    var retEntidadeReaded = function (msg) {
+        //todo, gusbixa tem que setar no modal mostra entidade...
+        console.log('veio aqui pq criou algo', msg);
+    };
+
     var wiring = function () {
 
         listeners['allmodels'] = retallmodels.bind(me);
         listeners['entidade.created'] = retEntidadeCriada.bind(me);
+        listeners['entidade.readed'] = retEntidadeReaded.bind(me);
 
         for(var name in listeners){
             SIOM.on(name, listeners[name]);

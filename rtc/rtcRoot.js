@@ -36,11 +36,12 @@ RtcRoot.prototype.wiring = function(){
 
     me.listeners['allmodels'] = me.emitePraInterface.bind(me);
     me.listeners['entidade.created'] = me.emitePraInterface.bind(me);
+    me.listeners['entidade.readed'] = me.emitePraInterface.bind(me);
 
     me.ligaEventServer();
 };
 
-RtcRoot.prototype.criaentidade = function (msgDoBrowser) {
+RtcRoot.prototype.crudentidade = function (msgDoBrowser) {
     var me = this;
     var mensagem = new Mensagem(me); //source == this
     mensagem.fromBrowserEntidade(msgDoBrowser, me, function (msg) {
@@ -56,7 +57,8 @@ RtcRoot.prototype.interfaceWiring = function(){
     var me = this;
 
     me.interfaceListeners['getallmodels'] = me.daInterface.bind(me);
-    me.interfaceListeners['entidade.create'] = me.criaentidade.bind(me);
+    me.interfaceListeners['entidade.create'] = me.crudentidade.bind(me);
+    me.interfaceListeners['entidade.read'] = me.crudentidade.bind(me);
 
     me.ligaEventCli();
 };

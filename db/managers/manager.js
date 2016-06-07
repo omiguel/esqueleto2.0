@@ -21,7 +21,6 @@ function Manager() {}
 Manager.prototype.create = function(msg){
     var me = this;
     var dados = msg.getRes();
-    console.log('chegou no create?', dados);
     this.model.create(dados, function(err, res){
         if(res){
             me.emitManager(msg, '.created', {res: res});
@@ -40,14 +39,16 @@ Manager.prototype.create = function(msg){
 Manager.prototype.read = function(msg){
     var me = this;
     var dados = msg.getRes();
-    if(dados._id){
-        this.model.findById(dados._id, function(err, res){
-            if(res){
-                me.emitManager(msg, '.readed', {res: res});
-            } else{
-                me.emitManager(msg, '.error.readed', {err: err});
-            }
-        })
+    if(dados){
+        if(dados._id) {
+            this.model.findById(dados._id, function (err, res) {
+                if (res) {
+                    me.emitManager(msg, '.readed', {res: res});
+                } else {
+                    me.emitManager(msg, '.error.readed', {err: err});
+                }
+            })
+        }
     } else{
         this.model.find(function(err, res){
             if(res){
@@ -110,6 +111,7 @@ Manager.prototype.destroy = function(msg){
 Manager.prototype.emitManager = function(msgAntiga, subEvt, dado){
     var me = this;
     var evt = msgAntiga.getFlag()+subEvt;
+    console.log(evt);
     var retorno = msgAntiga.next(me, evt, dado, msgAntiga.getFlag);
     hub.emit(retorno.getEvento(), retorno);
 };

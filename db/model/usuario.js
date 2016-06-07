@@ -7,15 +7,15 @@ var Mongoose = require('../Banco.js').mongoose;
 var types = Mongoose.Schema.Types;
 
 var obj = Mongoose.Schema({
-    nome: {type: types.String, required: true},
-    sobrenome: {type: types.String, required: true},
+    nome: {type: types.String},
+    sobrenome: {type: types.String},
     email: {type: types.String, required: true},
     senha: {type: types.String, required: true},
-    datanascimento: {type: types.Date, required: true},
-    sexo: {type: types.String, required: true},
+    datanascimento: {type: types.Date},
+    sexo: {type: types.String},
     numerocelular: {type: types.String},
     foto: {type: types.String},
-    tipo: {type: types.Number}
+    tipo: {type: types.Number, required: true}
 });
 
 new ctrbd('usuario', obj);

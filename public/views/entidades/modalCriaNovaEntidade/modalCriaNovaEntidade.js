@@ -15,7 +15,7 @@ app.directive("modalcrianovaentidade", [function() {
 
             /*
             * criado por: Gustavo
-            * todo salva a entidade criado no banco
+            * salva a entidade criado no banco
              */
             scope.salvarEntidade = function(){
                 var dado = {
