@@ -23,9 +23,15 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <span ng-if="usuariologado != null">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="navbar-link-config" href="" ng-click="navega('home')">Home</a></li>
-                        <li><a class="navbar-link-config" href="" ng-click="navega('entidades')">Entidades</a></li>
-                        <li><a class="navbar-link-config" href="" ng-click="sair('')">Sair</a></li>
+                        <li>
+                            <a class="navbar-link-config" href="" ng-click="navega('home')">Home</a>
+                        </li>
+                        <li ng-if="usuariologado.tipo == 0">
+                            <a class="navbar-link-config" href="" ng-click="navega('entidades')">Entidades</a>
+                        </li>
+                        <li>
+                            <a class="navbar-link-config" href="" ng-click="sair('')">Sair</a>
+                        </li>
                     </ul>
                 </span>
             </div>
