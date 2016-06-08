@@ -89,11 +89,11 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
     /**
      * criado/modificado por: gustavo e Bosvaldo
-     *
+     * retorno do banco com a lista de elementos da entidade requisitada
      */
     var retEntidadeReaded = function (msg) {
         //todo tem que setar no modal mostra entidade...
-        $scope.listaEntidade.lista = msg;
+        $scope.listaEntidade.lista = msg.getDado();
 
         $scope.$apply();
 

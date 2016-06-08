@@ -11,6 +11,7 @@ app.directive("modalmostraentidade", [function() {
         templateUrl: '../../../views/entidades/modalMostraEntidade/modalMostraEntidade.html',
 
         link: function(scope, element){
+            
         }
     };
 }]);

@@ -15,7 +15,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="entidade in listaentidade.lista">
-                        <td align="center" ng-repeat="(key, value) in listaentidade.modelo">{{entidade.value}}</td>
+                        <td align="center" ng-repeat="(key, value) in entidade">{{value}}</td>
                     </tr>
                 </tbody>
             </table>
