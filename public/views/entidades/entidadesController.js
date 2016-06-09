@@ -1,5 +1,5 @@
 /**
- * Created by udesc on 21/05/2016.
+ * Created by Gustavo on 21/05/2016.
  */
 app.controller("entidadesController",['$scope', function ($scope) {
 
@@ -43,7 +43,6 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
         $scope.listaEntidade = {
             nome: entidade.nome,
-            modelo: entidade.modelo,
             lista: []
         };
 
@@ -92,14 +91,22 @@ app.controller("entidadesController",['$scope', function ($scope) {
      * retorno do banco com a lista de elementos da entidade requisitada
      */
     var retEntidadeReaded = function (msg) {
-        //todo tem que setar no modal mostra entidade...
-        $scope.listaEntidade.lista = msg.getDado();
+
+        $scope.listaEntidade.lista = angular.copy(msg.getDado());
+
+        //todo remover depois, apenas usado para tirar __v
+        for(var index in $scope.listaEntidade.lista){
+            for(var procuraV in $scope.listaEntidade.lista[index]){
+                if(procuraV == "__v"){
+                    delete $scope.listaEntidade.lista[index][procuraV];
+                }
+            }
+        }
 
         $scope.$apply();
 
         $('#modalMostraEntidade').modal();
 
-        console.log('veio aqui pq criou algo', msg);
     };
 
     var wiring = function () {

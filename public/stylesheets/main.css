@@ -63,6 +63,12 @@ img {
 .navbar-toggle-config > span{
     background-color: #ffffff;
 }
+
+.div-modalMostraEntidade{
+    overflow: scroll;
+    max-height: 30em;
+    max-width: 40em;
+}
 /*----------------------------------*/
 
 /*------------BTN STYLE-------------*/

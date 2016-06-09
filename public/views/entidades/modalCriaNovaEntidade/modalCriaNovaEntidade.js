@@ -18,6 +18,9 @@ app.directive("modalcrianovaentidade", [function() {
             * salva a entidade criado no banco
              */
             scope.salvarEntidade = function(){
+
+                //todo n deixar criar usuarios com o mesmo email
+
                 var dado = {
                     nomeentidade: scope.entidadeselecionada.nome,
                     novaentidade: scope.entidadeselecionada.novaentidade

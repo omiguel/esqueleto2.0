@@ -1,24 +1,56 @@
+<!--todo fazer a largura do modal com col-md-->
+<!--todo alterar scroll para tabela-->
+<!--todo criar modal confirmacao delete-->
+<!--todo criar modal edita usuario-->
 <div class="modal-dialog">
-    <!-- Modal content-->
     <div class="modal-content">
+        <!--CABECARIO-->
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Lista de {{listaentidade.nome}}s</h4>
         </div>
-
+        <!--CORPO-->
         <div class="modal-body">
-            <table class="table table-hover">
-                <thead>
+            <!-- MSG N EXISTE ENTIDADE CRIADA-->
+            <div ng-if="listaentidade.lista == undefined">
+                <div class="text-center"><h4>Não existe {{listaentidade.nome}}/s criados!</h4></div>
+            </div>
+            <!--TABELA ENTIDADE-->
+            <div class="div-modalMostraEntidade" ng-if="listaentidade.lista != undefined">
+                <table class="table table-hover">
+                    <thead>
                     <tr>
-                        <th class="text-center" ng-repeat="(key, value) in listaentidade.modelo">{{key}}</th>
+                        <th class="text-center" >View</th>
+                        <th class="text-center" >Edit</th>
+                        <th class="text-center" >Delete</th>
+                        <th class="text-center" ng-repeat="(key, value) in listaentidade.lista[0]">{{key}}</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr ng-repeat="entidade in listaentidade.lista">
+                        <!--BTN VIEW-->
+                        <td align="center">
+                            <button class="btn button-style-1" data-dismiss="modal" ng-click="view()">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                            </button>
+                        </td>
+                        <!--BTN EDIT-->
+                        <td align="center">
+                            <button class="btn button-style-1" data-dismiss="modal" data-toggle="modal" data-target="#modalCriaEntidade">
+                                <i class="glyphicon glyphicon-cog"></i>
+                            </button>
+                        </td>
+                        <!--BTN DELETE-->
+                        <td align="center">
+                            <button class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#modalConfirmaEntidadeDelete">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        </td>
                         <td align="center" ng-repeat="(key, value) in entidade">{{value}}</td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="modal-footer">
