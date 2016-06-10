@@ -25,6 +25,11 @@ img {
     color: #a94442;
 }
 
+/*arrumar scroll bar quando abre um modal de outro modal*/
+.modal {
+    overflow-y: auto;
+}
+
 
 /*---------NAVBAR-STYLE--------------*/
 .navbar-config{
