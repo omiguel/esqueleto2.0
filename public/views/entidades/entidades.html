@@ -16,7 +16,7 @@
 		        	<td align="center">
 		        		<button
 								class="btn btn-info"
-								ng-click="selecionaEntidade(entidade)"
+								ng-click="selecionaEntidade(entidade.nome, entidade.modelo, {})"
 								data-toggle="modal"
 								data-target="#modalCriaEntidade"
 		        		>
@@ -42,7 +42,7 @@
 
 		<!-- MODAL MOSTRA ENTIDADE -->
 		<div id="modalMostraEntidade" class="modal fade" role="dialog">
-			<modalmostraentidade listaentidade="listaEntidade"></modalmostraentidade>
+			<modalmostraentidade listaentidade="listaEntidade" callback-fn="selecionaEntidade(entidadediretivanome, entidadediretivamodelo, dadoentidadediretiva)"></modalmostraentidade>
 		</div>
 
 		<!-- MODAL RETORNO-->
@@ -52,7 +52,7 @@
 
 		<!-- MODAL CONFIRMA DELETA ENTIDADE-->
 		<div id="modalConfirmaEntidadeDelete" class="modal fade" role="dialog">
-			<modalconfirmaentidadedelete></modalconfirmaentidadedelete>
+			<modalconfirmaentidadedelete entidadeselecionada="entidadeSelecionada"></modalconfirmaentidadedelete>
 		</div>
 
 	</div>

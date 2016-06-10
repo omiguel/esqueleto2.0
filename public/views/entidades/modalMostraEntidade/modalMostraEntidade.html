@@ -30,19 +30,35 @@
                     <tr ng-repeat="entidade in listaentidade.lista">
                         <!--BTN VIEW-->
                         <td align="center">
-                            <button class="btn button-style-1" data-dismiss="modal" ng-click="view()">
+                            <button
+                                    class="btn button-style-1"
+                                    data-dismiss="modal"
+                                    ng-click="selecionavardiretiva({entidadediretivanome: listaentidade.nome, entidadediretivamodelo: listaentidade.modelo, dadoentidadediretiva: entidade})"
+                            >
                                 <i class="glyphicon glyphicon-eye-open"></i>
                             </button>
                         </td>
                         <!--BTN EDIT-->
                         <td align="center">
-                            <button class="btn button-style-1" data-dismiss="modal" data-toggle="modal" data-target="#modalCriaEntidade">
+                            <button
+                                    class="btn button-style-1"
+                                    data-dismiss="modal"
+                                    data-toggle="modal"
+                                    data-target="#modalCriaEntidade"
+                                    ng-click="selecionavardiretiva({entidadediretivanome: listaentidade.nome, entidadediretivamodelo: listaentidade.modelo, dadoentidadediretiva: entidade})"
+                            >
                                 <i class="glyphicon glyphicon-cog"></i>
                             </button>
                         </td>
                         <!--BTN DELETE-->
                         <td align="center">
-                            <button class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#modalConfirmaEntidadeDelete">
+                            <button
+                                    class="btn btn-danger"
+                                    data-dismiss="modal"
+                                    data-toggle="modal"
+                                    data-target="#modalConfirmaEntidadeDelete"
+                                    ng-click="selecionavardiretiva({entidadediretivanome: listaentidade.nome, entidadediretivamodelo: listaentidade.modelo, dadoentidadediretiva: entidade})"
+                            >
                                 <i class="glyphicon glyphicon-remove"></i>
                             </button>
                         </td>

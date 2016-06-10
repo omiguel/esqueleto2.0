@@ -22,15 +22,22 @@ app.controller("entidadesController",['$scope', function ($scope) {
     /**
      * criado por: Gustavo
      * joga a entidade desejada dentro da variavel $scope.entidadeSelecionada
-     * cria e popula objeto novaentidade da variavel $scope.entidadeSelecionada
+     * cria e popula objeto dadoentidade da variavel $scope.entidadeSelecionada
      */
-    $scope.selecionaEntidade = function(entidade){
+    $scope.selecionaEntidade = function(entidadeNome, entidadeModelo, dadoEntidade){
 
-        $scope.entidadeSelecionada = angular.copy(entidade);
-        $scope.entidadeSelecionada.novaentidade = {};
+        console.log("entidade selecionada",  entidadeNome, entidadeModelo, dadoEntidade);
 
-        for(var index in $scope.entidadeSelecionada.modelo){
-            $scope.entidadeSelecionada.novaentidade[index] = null;
+        $scope.entidadeSelecionada = {
+            nome: entidadeNome,
+            modelo: entidadeModelo,
+            dadoentidade: dadoEntidade
+        };
+
+        if(!dadoEntidade){
+            for(var index in $scope.entidadeSelecionada.modelo){
+                $scope.entidadeSelecionada.dadoentidade[index] = null;
+            }
         }
 
     };
@@ -43,6 +50,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
         $scope.listaEntidade = {
             nome: entidade.nome,
+            modelo: entidade.modelo,
             lista: []
         };
 

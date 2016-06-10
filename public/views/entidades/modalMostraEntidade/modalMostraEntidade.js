@@ -6,11 +6,12 @@ app.directive("modalmostraentidade", [function() {
         restrict : 'E',
         transclude: true,
         scope: {
-            listaentidade: "="
+            listaentidade: "=",
+            selecionavardiretiva: '&callbackFn'
         },
         templateUrl: '../../../views/entidades/modalMostraEntidade/modalMostraEntidade.html',
 
-        link: function(scope, element){
+        link: function(scope, element, attrs){
 
             scope.view = function(){
               //todo func view

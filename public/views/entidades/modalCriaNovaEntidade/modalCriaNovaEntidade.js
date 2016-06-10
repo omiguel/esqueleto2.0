@@ -23,7 +23,7 @@ app.directive("modalcrianovaentidade", [function() {
 
                 var dado = {
                     nomeentidade: scope.entidadeselecionada.nome,
-                    novaentidade: scope.entidadeselecionada.novaentidade
+                    novaentidade: scope.entidadeselecionada.dadoentidade
                 };
 
                 var msg = new Mensagem(me, 'entidade.create', dado, 'entidade');

@@ -6,6 +6,7 @@ app.directive("modalconfirmaentidadedelete", [function() {
         restrict : 'E',
         transclude: true,
         scope: {
+            entidadeselecionada: '='
         },
         templateUrl: '../../../views/entidades/modalConfirmaEntidadeDelete/modalConfirmaEntidadeDelete.html',
 
@@ -17,6 +18,7 @@ app.directive("modalconfirmaentidadedelete", [function() {
              * deleta entidade no banco
              */
             scope.delete = function(entidade){
+                console.log("entidade",entidade);
                 //todo deleta entidade banco
             };
 

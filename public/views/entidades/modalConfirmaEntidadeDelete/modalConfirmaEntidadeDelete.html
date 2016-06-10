@@ -1,0 +1,29 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <!--CABECARIO-->
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Deletar {{entidadeselecionada.nome}}</h4>
+        </div>
+        <!--CORPO-->
+        <div class="modal-body">
+            <h4 class="text-center">
+                <b>Tem certeza que deseja deletar:</b>
+                <br>
+                <br>
+                <span ng-repeat="(key, value) in entidadeselecionada.dadoentidade">
+                    {{key}} : {{value}}<br>
+                </span>
+                <br>
+            </h4>
+            <div align="center">
+                <button class="btn btn-success" data-dismiss="modal" ng-click="delete(entidadeselecionada)">Sim</button>
+                <button class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#modalMostraEntidade">Não</button>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
