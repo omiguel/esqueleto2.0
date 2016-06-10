@@ -20,7 +20,6 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th class="text-center" >View</th>
                         <th class="text-center" >Edit</th>
                         <th class="text-center" >Delete</th>
                         <th class="text-center" ng-repeat="(key, value) in listaentidade.lista[0]">{{key}}</th>
@@ -28,16 +27,6 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="entidade in listaentidade.lista">
-                        <!--BTN VIEW-->
-                        <td align="center">
-                            <button
-                                    class="btn button-style-1"
-                                    data-dismiss="modal"
-                                    ng-click="selecionavardiretiva({entidadediretivanome: listaentidade.nome, entidadediretivamodelo: listaentidade.modelo, dadoentidadediretiva: entidade})"
-                            >
-                                <i class="glyphicon glyphicon-eye-open"></i>
-                            </button>
-                        </td>
                         <!--BTN EDIT-->
                         <td align="center">
                             <button
