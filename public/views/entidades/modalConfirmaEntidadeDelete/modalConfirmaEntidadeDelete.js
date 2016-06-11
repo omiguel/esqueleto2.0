@@ -18,8 +18,12 @@ app.directive("modalconfirmaentidadedelete", [function() {
              * deleta entidade no banco
              */
             scope.delete = function(entidade){
-                console.log("entidade",entidade);
-                //todo deleta entidade banco
+                var dado = {
+                    nome: entidade.nome,
+                    entidade: entidade.dadoentidade
+                };
+                var msg = new Mensagem(me, 'entidade.destroy', dado, 'entidade');
+                SIOM.emitirServer(msg);
             };
 
         }

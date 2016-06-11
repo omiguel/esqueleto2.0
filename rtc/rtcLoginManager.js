@@ -72,7 +72,8 @@ RtcLoginManager.prototype.wiring = function(){
     var me = this;
 
     me.listeners['usuario.error.logar'] = me.emitePraInterface.bind(me);
-    me.listeners['usuario.invaliduser'] = me.emitePraInterface.bind(me);
+    me.listeners['usuario.senhaincorreta'] = me.emitePraInterface.bind(me);
+    me.listeners['usuario.emailnaocadastrado'] = me.emitePraInterface.bind(me);
     me.listeners['usuario.login'] = me.trataLogin.bind(me);
     me.listeners['rtcLogin.destroy'] = me.destroy.bind(me);
 

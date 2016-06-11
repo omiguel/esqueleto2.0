@@ -37,6 +37,9 @@ RtcRoot.prototype.wiring = function(){
     me.listeners['allmodels'] = me.emitePraInterface.bind(me);
     me.listeners['entidade.created'] = me.emitePraInterface.bind(me);
     me.listeners['entidade.readed'] = me.emitePraInterface.bind(me);
+    me.listeners['entidade.destroied'] = me.emitePraInterface.bind(me);
+    me.listeners['entidade.updated'] = me.emitePraInterface.bind(me);
+    me.listeners['entidade.error.created'] = me.emitePraInterface.bind(me);
 
     me.ligaEventServer();
 };
@@ -59,6 +62,8 @@ RtcRoot.prototype.interfaceWiring = function(){
     me.interfaceListeners['getallmodels'] = me.daInterface.bind(me);
     me.interfaceListeners['entidade.create'] = me.crudentidade.bind(me);
     me.interfaceListeners['entidade.read'] = me.crudentidade.bind(me);
+    me.interfaceListeners['entidade.destroy'] = me.crudentidade.bind(me);
+    me.interfaceListeners['entidade.update'] = me.crudentidade.bind(me);
 
     me.ligaEventCli();
 };

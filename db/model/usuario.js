@@ -9,7 +9,7 @@ var types = Mongoose.Schema.Types;
 var obj = Mongoose.Schema({
     nome: {type: types.String},
     sobrenome: {type: types.String},
-    email: {type: types.String, required: true},
+    email: {type: types.String, required: true, index: { unique: true }},
     senha: {type: types.String, required: true},
     datanascimento: {type: types.Date},
     sexo: {type: types.String},

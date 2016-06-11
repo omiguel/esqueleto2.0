@@ -20,13 +20,20 @@ app.directive("modalcrianovaentidade", [function() {
             scope.salvarEntidade = function(){
 
                 //todo n deixar criar usuarios com o mesmo email
+                var method = null;
 
                 var dado = {
-                    nomeentidade: scope.entidadeselecionada.nome,
-                    novaentidade: scope.entidadeselecionada.dadoentidade
+                    nome: scope.entidadeselecionada.nome,
+                    entidade: scope.entidadeselecionada.dadoentidade
                 };
 
-                var msg = new Mensagem(me, 'entidade.create', dado, 'entidade');
+                if(dado.entidade._id){
+                    method = 'update'
+                } else {
+                    method = 'create'
+                }
+
+                var msg = new Mensagem(me, 'entidade.'+method, dado, 'entidade');
                 SIOM.emitirServer(msg);
 
             };

@@ -67,9 +67,8 @@ app.controller("loginController",['$scope', '$location', 'setUserLogado', '$rout
     * retorno do server de erro do server
     */
     me.serverError = function(msg){
-        //todo falta o server mandar msg de erro
         $scope.validoServer = false;
-        console.log('error', msg);
+        $scope.$apply();
     };
 
     /**
@@ -77,9 +76,8 @@ app.controller("loginController",['$scope', '$location', 'setUserLogado', '$rout
     * retorno do server de email nao cadastrado
     */
     me.invalidUser = function(msg){
-        //todo falta o server mandar msg de erro
         $scope.validoEmailCadastrado = false;
-        console.log('email não cadastrado', msg);
+        $scope.$apply();
     };
 
     /**
@@ -87,9 +85,8 @@ app.controller("loginController",['$scope', '$location', 'setUserLogado', '$rout
     * retorno do server de senha incorreta
     */
     me.senhaincorreta = function (msg) {
-        //todo falta o server mandar msg de erro
         $scope.validoSenha = false;
-        console.log('senha incorreta', msg)
+        $scope.$apply();
     };
 
     me.wiring = function(){

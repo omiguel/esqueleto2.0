@@ -43,7 +43,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     /**
-     * criado por: Bosvaldo e Gustavo
+     * criado por: Osvaldo e Gustavo
      * todo Bosvaldo comenta isso daqui!!!
      */
     $scope.visualidasCadastradosEntidade = function (entidade) {
@@ -55,7 +55,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
         };
 
         var dado = {
-            nomeentidade: entidade.nome
+            nome: entidade.nome
         };
         var msg = new Mensagem(me, 'entidade.read', dado, 'entidade');
         SIOM.emitirServer(msg);
@@ -94,6 +94,11 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
     };
 
+    var retEntidadeDeletede = function (msg) {
+        //todo, faça aqui gustafe.
+        console.log('deletou aqui', msg);
+    };
+
     /**
      * criado/modificado por: gustavo e Bosvaldo
      * retorno do banco com a lista de elementos da entidade requisitada
@@ -117,11 +122,26 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
     };
 
+    var retEntidadeUpdated = function (msg) {
+        //todo, isso é com vc gustafe.
+        console.log('retornou no up', msg);
+    };
+
+    var cretedError = function (msg) {
+        var dado = msg.getErro();
+        //todo: criar um modal de erro, se o dado.code == 11000, significa que erro de email duplicado.
+        //todo: se quiser ver o erro, esta no dado.errmsg.
+        console.log('erro de email', dado);
+    };
+
     var wiring = function () {
 
         listeners['allmodels'] = retallmodels.bind(me);
         listeners['entidade.created'] = retEntidadeCriada.bind(me);
         listeners['entidade.readed'] = retEntidadeReaded.bind(me);
+        listeners['entidade.destroied'] = retEntidadeDeletede.bind(me);
+        listeners['entidade.updated'] = retEntidadeUpdated.bind(me);
+        listeners['entidade.error.created'] = cretedError.bind(me);
 
         for(var name in listeners){
             SIOM.on(name, listeners[name]);

@@ -271,11 +271,11 @@ Mensagem.prototype.fromBrowser = function(msg, rtc){
 Mensagem.prototype.fromBrowserEntidade = function (msg, rtc, callback) {
     this.setRtc(rtc);
     this.setFlag(msg.flag);
-    var novoevento = msg.dados.nomeentidade+'.'+msg.evento.substr(msg.evento.lastIndexOf('.')+1);
+    var novoevento = msg.dados.nome+'.'+msg.evento.substr(msg.evento.lastIndexOf('.')+1);
     this.setEvento(novoevento);
     var dado = {};
     if(msg.success) {
-        dado.res = msg.dados.novaentidade;
+        dado.res = msg.dados.entidade;
     }else{
         dado.err = msg.erro;
     }

@@ -89,8 +89,9 @@ Manager.prototype.update = function(msg){
  * @param msg
  */
 Manager.prototype.destroy = function(msg){
-    var dados = msg.getDado();
-    this.model.remove({_id: dados.id}, function(err, res){
+    var me = this;
+    var dados = msg.getRes();
+    this.model.remove({'_id': dados._id}, function(err, res){
         if(res){
             me.emitManager(msg, '.destroied', {res: res});
         } else{
@@ -112,7 +113,7 @@ Manager.prototype.emitManager = function(msgAntiga, subEvt, dado){
     var me = this;
     var evt = msgAntiga.getFlag()+subEvt;
     console.log(evt);
-    var retorno = msgAntiga.next(me, evt, dado, msgAntiga.getFlag);
+    var retorno = msgAntiga.next(me, evt, dado, msgAntiga.getFlag());
     hub.emit(retorno.getEvento(), retorno);
 };
 
