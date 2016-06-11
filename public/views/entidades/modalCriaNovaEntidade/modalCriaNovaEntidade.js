@@ -6,7 +6,8 @@ app.directive("modalcrianovaentidade", [function() {
         restrict : 'E',
         transclude: true,
         scope: {
-            entidadeselecionada: "="
+            entidadeselecionada: "=",
+            confirmasenha: "="
         },
         templateUrl: '../../../views/entidades/modalCriaNovaEntidade/modalCriaNovaEntidade.html',
 

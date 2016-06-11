@@ -28,17 +28,17 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
         console.log("entidade selecionada",  entidadeNome, entidadeModelo, dadoEntidade);
 
+        for(var index in entidadeModelo){
+            if(dadoEntidade[index] == null){
+                dadoEntidade[index] = null;
+            }
+        }
+
         $scope.entidadeSelecionada = {
             nome: entidadeNome,
             modelo: entidadeModelo,
             dadoentidade: dadoEntidade
         };
-
-        if(!dadoEntidade){
-            for(var index in $scope.entidadeSelecionada.modelo){
-                $scope.entidadeSelecionada.dadoentidade[index] = null;
-            }
-        }
 
     };
 
@@ -62,6 +62,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     /**
+     * criado por: Osvaldo
      * funcao padrao pra todos os controllers, essa funcao faz os pedidos de tudo que precisa para que o controller
      * inicie sua view.
      */
@@ -71,6 +72,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     /**
+     * criado por: Osvaldo
      * essa funcao retorna todos os models criados no banco
      */
     var retallmodels = function (msg) {
@@ -87,20 +89,67 @@ app.controller("entidadesController",['$scope', function ($scope) {
         $scope.modalTitulo = $scope.entidadeSelecionada.nome + " criado!";
         $scope.modalTexto = $scope.entidadeSelecionada.nome + " criado com sucesso!";
 
+        $('#modalRetornoEntidadeCriada').modal();
+        $('#modalCriaEntidade').modal('hide');
+
         $scope.$apply();
 
-        $('#modalCriaEntidade').modal('hide');
-        $('#modalRetornoEntidadeCriada').modal();
-
-    };
-
-    var retEntidadeDeletede = function (msg) {
-        //todo, faça aqui gustafe.
-        console.log('deletou aqui', msg);
     };
 
     /**
-     * criado/modificado por: gustavo e Bosvaldo
+     * criado/modificado por: Gustavo e Osvaldo
+     * retorna na interface que entidade foi deletada
+     */
+    var retEntidadeDeletede = function (msg) {
+
+        $scope.modalTitulo = "deleta " + $scope.entidadeSelecionada.nome;
+        $scope.modalTexto = $scope.entidadeSelecionada.nome + " deletado com sucesso!";
+
+        $('#modalRetornoEntidadeCriada').modal();
+
+        $scope.$apply();
+
+    };
+
+    /**
+     * criado/modificado por: Gustavo e Osvaldo
+     * retorna na interface que entidade foi atualizada
+     */
+    var retEntidadeUpdated = function (msg) {
+
+        $scope.modalTitulo = "atualiza " + $scope.entidadeSelecionada.nome;
+        $scope.modalTexto = $scope.entidadeSelecionada.nome + " atualizado com sucesso!";
+
+        $('#modalRetornoEntidadeCriada').modal();
+        $('#modalCriaEntidade').modal('hide');
+
+        $scope.$apply();
+
+    };
+
+    /**
+     * criado por: Gustavo e Osvaldo
+     * retorno do banco, erro ao criar/atualizar usuario
+     * dado.code == 11000, email duplicado
+     */
+    var cretedError = function (msg) {
+
+        //todo esta criando o usuario com email repetido, arrumar
+
+        var dado = msg.getErro();
+
+        $scope.modalTitulo = "atualiza/cria " + $scope.entidadeSelecionada.nome + " erro!";
+        if(dado.code == 11000){
+            $scope.modalTexto = "parece que o e-mail solicitado já esta cadastrado, favor usar outro e-mail!";
+        } else {
+            $scope.modalTexto = "erro desconhecido " + dado;
+        }
+
+
+    };
+
+    /**
+     * criado/modificado por: Gustavo e Bosvaldo
      * retorno do banco com a lista de elementos da entidade requisitada
      */
     var retEntidadeReaded = function (msg) {
@@ -120,18 +169,6 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
         $('#modalMostraEntidade').modal();
 
-    };
-
-    var retEntidadeUpdated = function (msg) {
-        //todo, isso é com vc gustafe.
-        console.log('retornou no up', msg);
-    };
-
-    var cretedError = function (msg) {
-        var dado = msg.getErro();
-        //todo: criar um modal de erro, se o dado.code == 11000, significa que erro de email duplicado.
-        //todo: se quiser ver o erro, esta no dado.errmsg.
-        console.log('erro de email', dado);
     };
 
     var wiring = function () {

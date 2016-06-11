@@ -1,0 +1,120 @@
+//VARIAVEIS CORES PRINCIPAIS
+@corPrimaria: #0f0f0f;
+@corSecundaria: #585858;
+@corTerciaria: #585858;
+
+//VARIAVEIS COR LETRAS
+@corLetraPrimaria: #9d9d9d;
+@corLetraSecundaria: #ffffff;
+
+
+/*cor verde: #003500, #007000*/
+
+@corAlerta: #a94442;
+
+
+
+body {
+  font-family: Century Gothic, sans-serif;
+  background-color: white;
+  opacity: 1;
+}
+
+img {
+  width: 95%;
+}
+.tam-content{
+  height: 42em;
+  padding-top: 1em;
+}
+.color-border{
+  border-color: lightskyblue;
+}
+.ulnobullet{
+  list-style: none;
+}
+.centralize{
+  text-align: center;
+}
+
+.msg-erro{
+  color: @corAlerta;
+}
+
+/*arrumar scroll bar quando abre um modal de outro modal*/
+.modal {
+  overflow-y: auto;
+}
+
+
+/*---------NAVBAR-STYLE--------------*/
+.navbar-config{
+  border-width: 1px;
+  border-style: solid;
+  border-color: @corSecundaria;
+  background-color: @corPrimaria;
+}
+
+.navbar-texto-config{
+  color: @corLetraPrimaria;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.navbar-link-config{
+  color: @corLetraPrimaria;
+  text-decoration: none;
+  background-color: transparent;
+}
+.navbar-link-config:hover, .navbar-link-config:focus{
+  color: @corLetraSecundaria;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.nav>li>a:focus,.nav>li>a:hover{
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.navbar-toggle-config{
+  border-color: @corLetraPrimaria;
+  border-style: solid;
+}
+
+.navbar-toggle-config > span{
+  background-color: @corLetraSecundaria;
+}
+
+.div-modalMostraEntidade{
+  overflow: scroll;
+  max-height: 30em;
+  max-width: 40em;
+}
+/*----------------------------------*/
+
+/*------------BTN STYLE-------------*/
+button{
+  opacity: 0.8;
+}
+button:hover{
+  opacity:1
+}
+
+.button-style-1{
+  color: @corLetraPrimaria;
+  border-color: @corLetraPrimaria;
+  border-style: solid;
+  background-color: @corTerciaria;
+}
+.button-style-1:hover{
+  color: @corLetraSecundaria;
+}
+/*----------------------------------*/
+
+
+/*POLYMER COMPONENTS*/
+
+/*nome-elemento{}*/
+
+/*------------------*/
