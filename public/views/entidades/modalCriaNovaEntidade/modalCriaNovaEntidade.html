@@ -50,12 +50,15 @@
 								<input type="text" class="form-control" ng-model="entidadeselecionada.dadoentidade.sobrenome">
 							</div>
 							<!--EMAIL-->
-							<div class="form-group" ng-class="{ 'has-error' : formentidade.email.$error.required && formentidade.email.$dirty}">
+							<div class="form-group" ng-class="{ 'has-error' : (formentidade.email.$error.required || formentidade.email.$invalid) && formentidade.email.$dirty}">
 								<label class="control-label">e-mail(String)</label>
 								<input type="email" name="email" class="form-control" ng-model="entidadeselecionada.dadoentidade.email" required>
 								<!--MSG ERRO EMAIL OBRIGATORIO-->
 								<div ng-show="formentidade.email.$error.required && formentidade.email.$dirty" class="msg-erro control-label">
 									email obrigatório!
+								</div>
+								<div ng-show="formentidade.email.$invalid && formentidade.email.$dirty" class="msg-erro control-label">
+									email invalido!
 								</div>
 							</div>
 							<!--SENHA-->
@@ -129,6 +132,7 @@
 									class="btn btn-success"
 									ng-disabled="
 									(formentidade.email.$error.required) ||
+									(formentidade.email.$invalid) ||
 									(formentidade.confirmasenha.$error.required) ||
 									(formentidade.senha.$error.required) ||
 									(formentidade.tipo.$error.required) ||
