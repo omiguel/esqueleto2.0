@@ -30,6 +30,8 @@ Banco.prototype.wiring = function(){
     var me = this;
 
     me.listeners['rtc.usuario.*'] = me.repassaComando.bind(me);
+    me.listeners['rtc.idioma.*'] = me.repassaComando.bind(me);
+    me.listeners['rtc.teste.*'] = me.repassaComando.bind(me);
     me.listeners['modelo'] = me.entidademodelo.bind(me);
     me.listeners['rtc.getallmodels'] = me.enviamodelscompletos.bind(me);
 

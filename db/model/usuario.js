@@ -15,7 +15,8 @@ var obj = Mongoose.Schema({
     sexo: {type: types.String},
     numerocelular: {type: types.String},
     foto: {type: types.String},
-    tipo: {type: types.Number, required: true}
+    tipo: {type: types.Number, required: true},
+    idioma: {type: types.ObjectId, ref: 'idioma'}
 });
 
 new ctrbd('usuario', obj);

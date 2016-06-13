@@ -87,31 +87,26 @@ usuariomanager.prototype.getAllRootLess = function(msg){
  * quando o manager e iniciado, essa funcao verifica se ja existe um usuario no banco, se ainda nao ela cria o primeiro
  * que sera um root.
  */
-usuariomanager.prototype.cadprimeirouser = function () {
-    this.model.find({'tipo': 0}, function(err, res){
-        if(res){
-            if(res.length == 0){
+usuariomanager.prototype.cadprimeirouser = function (idioma) {
+    
+    var user = {
+        nome: 'admin',
+        sobrenome: 'admin',
+        email: 'admin',
+        senha: 'admin',
+        datanascimento: new Date(1988, 01, 02),
+        sexo: 'masculino',
+        numerocelular: '99476823',
+        foto: 'caminhodafoto',
+        tipo: 0,
+        idioma: idioma
+    };
 
-                var user = {
-                    nome: 'admin',
-                    sobrenome: 'admin',
-                    email: 'admin',
-                    senha: 'admin',
-                    datanascimento: new Date(1988, 01, 02),
-                    sexo: 'masculino',
-                    numerocelular: '99476823',
-                    foto: 'caminhodafoto',
-                    tipo: 0
-                };
-
-                this.model.create(user, function (erro, ret) {
-                    if(ret){
-                        console.log('primeiro user criado', ret);
-                    } else {
-                        console.log('algo errado não deu certo', erro);
-                    }
-                })
-            }
+    this.model.create(user, function (erro, ret) {
+        if(ret){
+            console.log('primeiro user criado', ret);
+        } else {
+            console.log('algo errado não deu certo', erro);
         }
     });
 };
@@ -124,12 +119,11 @@ usuariomanager.prototype.wiring = function(){
     me.listeners['banco.usuario.*'] = me.executaCrud.bind(me);
     me.listeners['rtc.logar'] = me.trataLogin.bind(me);
     me.listeners['rtc.cadastrados'] = me.getAllRootLess.bind(me);
+    me.listeners['criaprimeirouser'] = me.cadprimeirouser.bind(me);
 
     for(var name in me.listeners){
         hub.on(name, me.listeners[name]);
     }
-
-    me.cadprimeirouser();
 
 };
 

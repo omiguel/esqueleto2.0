@@ -8,7 +8,9 @@
  * @type {{usuario: usuariomanager}}
  */
 var Mongoosemodels = {
-    usuario: require('./UsuarioManager.js')
+    idioma: require('./IdiomaManager.js'),
+    usuario: require('./UsuarioManager.js'),
+    usuario: require('./testemanager.js')
 };
 
 module.exports = Mongoosemodels;
