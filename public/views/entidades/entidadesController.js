@@ -128,27 +128,6 @@ app.controller("entidadesController",['$scope', function ($scope) {
     };
 
     /**
-     * criado por: Gustavo e Osvaldo
-     * retorno do banco, erro ao criar/atualizar usuario
-     * dado.code == 11000, email duplicado
-     */
-    var cretedError = function (msg) {
-
-        //todo esta criando o usuario com email repetido, arrumar
-
-        var dado = msg.getErro();
-
-        $scope.modalTitulo = "atualiza/cria " + $scope.entidadeSelecionada.nome + " erro!";
-        if(dado.code == 11000){
-            $scope.modalTexto = "parece que o e-mail solicitado já esta cadastrado, favor usar outro e-mail!";
-        } else {
-            $scope.modalTexto = "erro desconhecido " + dado;
-        }
-
-
-    };
-
-    /**
      * criado/modificado por: Gustavo e Bosvaldo
      * retorno do banco com a lista de elementos da entidade requisitada
      */
@@ -178,7 +157,6 @@ app.controller("entidadesController",['$scope', function ($scope) {
         listeners['entidade.readed'] = retEntidadeReaded.bind(me);
         listeners['entidade.destroied'] = retEntidadeDeletede.bind(me);
         listeners['entidade.updated'] = retEntidadeUpdated.bind(me);
-        listeners['entidade.error.created'] = cretedError.bind(me);
 
         for(var name in listeners){
             SIOM.on(name, listeners[name]);

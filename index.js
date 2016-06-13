@@ -26,3 +26,4 @@ http.listen(80, function(err){
 });
 
 app.use('/image', express.static(path.resolve(__dirname + '/image/')));
+app.use('/favicon.ico', express.static(path.resolve(__dirname + '/favicon.ico')));
