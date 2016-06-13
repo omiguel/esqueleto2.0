@@ -12,16 +12,22 @@ app.directive("modalcrianovaentidade", [function() {
         templateUrl: '../../../views/entidades/modalCriaNovaEntidade/modalCriaNovaEntidade.html',
 
         link: function(scope, element){
+
             var me = this;
             var listeners = {};
+
+            //-----------------VARIAVEIS DE VALIDACAO
+
+            scope.emailErro = false;
+
+            //---------------------------------------
 
             /**
             * criado/modificado por: Gustavo e Bosvaldo
             * salva a entidade criado no banco
              */
             scope.salvarEntidade = function(){
-
-                //todo n deixar criar usuarios com o mesmo email
+                
                 var method = null;
 
                 var dado = {
@@ -49,13 +55,12 @@ app.directive("modalcrianovaentidade", [function() {
 
                 var dado = msg.getErro();
 
-                $scope.modalTitulo = "atualiza/cria " + $scope.entidadeSelecionada.nome + " erro!";
+                scope.$apply(function(){
+                    scope.emailErro = true;
+                });
 
-                if(dado.code == 11000){
-                    console.log('erro', dado);
-                    $scope.modalTexto = "parece que o e-mail solicitado já esta cadastrado, favor usar outro e-mail!";
-                } else {
-                    $scope.modalTexto = "erro desconhecido " + dado;
+                if(dado.code != 11000){
+                    console.log('erro desconhecido', dado);
                 }
 
             };

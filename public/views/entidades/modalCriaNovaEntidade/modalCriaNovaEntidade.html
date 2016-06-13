@@ -122,7 +122,7 @@
 								<input type="number" name="tipo" class="form-control" ng-model="entidadeselecionada.dadoentidade.tipo" required>
 								<!--MSG ERRO TIPO OBRIGATORIO-->
 								<div ng-show="formentidade.tipo.$error.required && formentidade.tipo.$dirty" class="msg-erro control-label">
-									email obrigatório!
+									tipo obrigatório!
 								</div>
 							</div>
 						</span>
@@ -142,6 +142,14 @@
 							>
 								Salvar
 							</button>
+						</div>
+
+						<!--MSG ERRO NO BANCO-->
+						<div class="msg-erro control-label">
+							<!--MSG ERRO EMAIL JA UTILIZADO-->
+							<div ng-show="emailErro">
+								<p>Parece que o e-mail solicitado já esta cadastrado, favor usar outro e-mail!</p>
+							</div>
 						</div>
 					</div>
 				</div>
