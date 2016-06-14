@@ -1,4 +1,3 @@
-<!--todo arrumar erro no confirmasenha ainda n esta agindo de forma correta-->
 <div class="modal-dialog">
 	<!-- Modal content-->
 	<div class="modal-content">
@@ -18,21 +17,38 @@
 								<span ng-if="value == 'String'">
 									<div class="form-group">
 										<label class="control-label">{{key}}({{value}})</label>
-										<input type="text" class="form-control" ng-model="entidadeselecionada.dadoentidade.key">
+										<input type="text" class="form-control" ng-model="entidadeselecionada.dadoentidade[key]" />
 									</div>
 								</span>
 								<!--INPUTS DO TIPO NUMBER-->
 								<span ng-if="value == 'Number'">
 									<div class="form-group">
 										<label class="control-label">{{key}}({{value}})</label>
-										<input type="number" class="form-control" ng-model="entidadeselecionada.dadoentidade.key">
+										<input type="number" class="form-control" ng-model="entidadeselecionada.dadoentidade[key]" />
 									</div>
 								</span>
 								<!--INPUTS DO TIPO DATE-->
 								<span ng-if="value == 'Date'">
 									<div class="form-group">
 										<label class="control-label">{{key}}({{value}})</label>
-										<input ui-mask="99/99/9999" class="form-control" ng-model="entidadeselecionada.dadoentidade.key" />
+										<input ui-mask="99/99/9999" class="form-control" ng-model="entidadeselecionada.dadoentidade[key]" />
+									</div>
+								</span>
+								<!--INPUTS DO TIPO REFERENCIA-->
+								<span ng-if="value.referencia">
+									<div class="form-group">
+										<label class="control-label">{{key}}({{value.referencia}})</label>
+										<input
+												class="form-control"
+												ng-model="entidadeselecionada.dadoentidade[key]"
+												ng-click="pegalistareferencia(value)"
+										/>
+
+										<ul>
+											<li ng-repeat="referencianome in listareferencia | filter : entidadeselecionada.dadoentidade[key]">
+												{{referencianome}}
+											</li>
+										</ul>
 									</div>
 								</span>
 							</div>
@@ -95,12 +111,12 @@
 							</div>
 							<!--DATA NASCIMENTO-->
 							<div class="form-group">
-								<label class="control-label">data nascimento(date)</label>
+								<label class="control-label">data nascimento(Date)</label>
 								<input ui-mask="99/99/9999" class="form-control" ng-model="entidadeselecionada.dadoentidade.datanascimento">
 							</div>
 							<!--SEXO-->
 							<div class="form-group">
-								<label class="control-label">sexo(select)</label>
+								<label class="control-label">sexo(sexo)</label>
 								<select class="form-control" ng-model="entidadeselecionada.dadoentidade.sexo">
 									<option value="masculino">masculino</option>
 									<option value="feminino">feminino</option>
@@ -125,18 +141,35 @@
 									tipo obrigatório!
 								</div>
 							</div>
+							<!--IDIOMA-->
+							<div class="form-group">
+								<label>idioma(idioma)</label>
+								<input
+										type="search"
+										class="form-control"
+										ng-model="entidadeselecionada.dadoentidade.idioma"
+										ng-click="pegalistareferencia(value)"
+								>
+
+								<ul>
+									<li ng-repeat="referencianome in listareferencia | filter : entidadeselecionada.dadoentidade[key]">
+										{{referencianome}}
+									</li>
+								</ul>
+							</div>
 						</span>
 						<!--BTN SALVAR-->
 						<div>
 							<button
 									class="btn btn-success"
 									ng-disabled="
-									(formentidade.email.$error.required) ||
+									((formentidade.email.$error.required) ||
 									(formentidade.email.$invalid) ||
 									(formentidade.confirmasenha.$error.required) ||
 									(formentidade.senha.$error.required) ||
 									(formentidade.tipo.$error.required) ||
-									(entidadeselecionada.dadoentidade.senha == confirmasenha)
+									(entidadeselecionada.dadoentidade.senha == confirmasenha))
+									&& entidadeselecionada.nome == 'usuario'
 									"
 									ng-click="salvarEntidade()"
 							>

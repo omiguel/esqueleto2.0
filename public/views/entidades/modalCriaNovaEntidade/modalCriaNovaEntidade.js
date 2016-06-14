@@ -22,6 +22,9 @@ app.directive("modalcrianovaentidade", [function() {
 
             //---------------------------------------
 
+            //lista da referencia do atributo
+            scope.listareferencia = ['jose','joana'];
+
             /**
             * criado/modificado por: Gustavo e Bosvaldo
             * salva a entidade criado no banco
@@ -44,6 +47,7 @@ app.directive("modalcrianovaentidade", [function() {
                 var msg = new Mensagem(me, 'entidade.'+method, dado, 'entidade');
                 SIOM.emitirServer(msg);
 
+                scope.emailErro = false;
             };
 
             /**
@@ -55,14 +59,23 @@ app.directive("modalcrianovaentidade", [function() {
 
                 var dado = msg.getErro();
 
-                scope.$apply(function(){
-                    scope.emailErro = true;
-                });
-
                 if(dado.code != 11000){
                     console.log('erro desconhecido', dado);
+                } else {
+                    scope.$apply(function(){
+                        scope.emailErro = true;
+                    });
                 }
 
+            };
+
+            /**
+             * criado por: Gustavo
+             * pega do banco a lista do atributo a se referenciar
+             */
+            scope.pegalistareferencia = function(referencia){
+                console.log("referencia", referencia);
+                //todo osvaldo pega lista referencia e joga em scope.listareferencia
             };
 
             var wiring = function () {

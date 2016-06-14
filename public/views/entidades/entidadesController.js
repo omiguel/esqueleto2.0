@@ -89,8 +89,8 @@ app.controller("entidadesController",['$scope', function ($scope) {
         $scope.modalTitulo = $scope.entidadeSelecionada.nome + " criado!";
         $scope.modalTexto = $scope.entidadeSelecionada.nome + " criado com sucesso!";
 
-        $('#modalRetornoEntidadeCriada').modal();
-        $('#modalCriaEntidade').modal('hide');
+        $('#modalRetorno').modal();
+        $('#modalCriaEntidade').modal('toggle');
 
         $scope.$apply();
 
@@ -105,7 +105,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
         $scope.modalTitulo = "deleta " + $scope.entidadeSelecionada.nome;
         $scope.modalTexto = $scope.entidadeSelecionada.nome + " deletado com sucesso!";
 
-        $('#modalRetornoEntidadeCriada').modal();
+        $('#modalRetorno').modal();
 
         $scope.$apply();
 
@@ -120,8 +120,8 @@ app.controller("entidadesController",['$scope', function ($scope) {
         $scope.modalTitulo = "atualiza " + $scope.entidadeSelecionada.nome;
         $scope.modalTexto = $scope.entidadeSelecionada.nome + " atualizado com sucesso!";
 
-        $('#modalRetornoEntidadeCriada').modal();
-        $('#modalCriaEntidade').modal('hide');
+        $('#modalRetorno').modal();
+        $('#modalCriaEntidade').modal('toggle');
 
         $scope.$apply();
 
