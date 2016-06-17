@@ -40,10 +40,15 @@ RtcRoot.prototype.wiring = function(){
     me.listeners['entidade.destroied'] = me.emitePraInterface.bind(me);
     me.listeners['entidade.updated'] = me.emitePraInterface.bind(me);
     me.listeners['entidade.error.created'] = me.emitePraInterface.bind(me);
+    me.listeners['referencia.readed'] = me.emitePraInterface.bind(me);
 
     me.ligaEventServer();
 };
 
+/**
+ * essa função esta adaptada para repassar o crud de qualquer entidade por um evento unico.
+ * @param msgDoBrowser
+ */
 RtcRoot.prototype.crudentidade = function (msgDoBrowser) {
     var me = this;
     var mensagem = new Mensagem(me); //source == this
@@ -51,6 +56,19 @@ RtcRoot.prototype.crudentidade = function (msgDoBrowser) {
         console.log('no callback', msg);
         hub.emit('rtc.'+msg.getEvento(), msg);
     }); //rtc == this
+};
+
+/**
+ * funcao responsavel por solicitar a leitura de qualquer referencia de algum model
+ * quando o usuario desejar criar um novo modelo com referencia.
+ * @param msg
+ */
+RtcRoot.prototype.readreferencia = function (msg) {
+    var me = this;
+    var msgserver = me.convertMessageFromBrowserToServer(msg);
+    var evt = msgserver.getRes();
+    msgserver.setEvento(evt.referencia+'.read');
+    hub.emit('rtc.'+msgserver.getEvento(), msgserver);
 };
 
 /**
@@ -64,6 +82,7 @@ RtcRoot.prototype.interfaceWiring = function(){
     me.interfaceListeners['entidade.read'] = me.crudentidade.bind(me);
     me.interfaceListeners['entidade.destroy'] = me.crudentidade.bind(me);
     me.interfaceListeners['entidade.update'] = me.crudentidade.bind(me);
+    me.interfaceListeners['referencia.read'] = me.readreferencia.bind(me);
 
     me.ligaEventCli();
 };

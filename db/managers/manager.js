@@ -47,6 +47,14 @@ Manager.prototype.read = function(msg){
                     me.emitManager(msg, '.error.readed', {err: err});
                 }
             })
+        } else {
+            this.model.find(function(err, res){
+                if(res){
+                    me.emitManager(msg, '.readed', {res: res});
+                } else{
+                    me.emitManager(msg, '.error.readed', {err: err});
+                }
+            })
         }
     } else{
         this.model.find(function(err, res){

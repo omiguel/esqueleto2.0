@@ -75,11 +75,21 @@ app.directive("modalcrianovaentidade", [function() {
              */
             scope.pegalistareferencia = function(referencia){
                 console.log("referencia", referencia);
-                //todo osvaldo pega lista referencia e joga em scope.listareferencia
+                var msg = new Mensagem(me, 'referencia.read', referencia, 'referencia');
+                SIOM.emitirServer(msg);
+            };
+
+            /**
+             * chega o retorno com todas as referencias.
+             * @param msg
+             */
+            var retornoreferencia = function (msg) {
+                scope.listareferencia = msg.getDado();
             };
 
             var wiring = function () {
                 listeners['entidade.error.created'] = cretedError.bind(me);
+                listeners['referencia.readed'] = retornoreferencia.bind(me);
 
                 for(var name in listeners){
                     SIOM.on(name, listeners[name]);
