@@ -32,7 +32,6 @@ utility.inherits(teste, Manager);
 teste.prototype.executaCrud = function(msg){
     var me = this;
     var method = msg.getEvento().substr(msg.getEvento().lastIndexOf('.')+1);
-    console.log(method);
     try {
         me[method](msg);
     }catch (e){

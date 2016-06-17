@@ -26,7 +26,6 @@ Manager.prototype.create = function(msg){
             me.emitManager(msg, '.created', {res: res});
         } else{
             me.emitManager(msg, '.error.created', {err: err});
-            console.log('erro no create', err);
         }
     })
 };
@@ -112,7 +111,6 @@ Manager.prototype.destroy = function(msg){
 Manager.prototype.emitManager = function(msgAntiga, subEvt, dado){
     var me = this;
     var evt = msgAntiga.getFlag()+subEvt;
-    console.log(evt);
     var retorno = msgAntiga.next(me, evt, dado, msgAntiga.getFlag());
     hub.emit(retorno.getEvento(), retorno);
 };
