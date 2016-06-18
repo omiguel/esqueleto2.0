@@ -31,7 +31,7 @@
 								<span ng-if="value == 'Date'">
 									<div class="form-group">
 										<label class="control-label">{{key}}({{value}})</label>
-										<input ui-mask="99/99/9999" class="form-control" ng-model="entidadeselecionada.dadoentidade[key]" />
+										<input type="date" class="form-control" ng-model="entidadeselecionada.dadoentidade[key]" />
 									</div>
 								</span>
 								<!--INPUTS DO TIPO REFERENCIA-->
@@ -40,15 +40,22 @@
 										<label class="control-label">{{key}}({{value.referencia}})</label>
 										<input
 												class="form-control"
+												list="datalist-referencia"
 												ng-model="entidadeselecionada.dadoentidade[key]"
 												ng-click="pegalistareferencia(value)"
 										/>
+										<datalist id="datalist-referencia">
+											<option ng-repeat="referencia in listareferencia" value="{{referencia}}">
+										</datalist>
 
-										<ul>
-											<li ng-repeat="referencianome in listareferencia | filter : entidadeselecionada.dadoentidade[key]">
-												{{referencianome}}
-											</li>
-										</ul>
+										<!--<ul>-->
+											<!--&lt;!&ndash;todo gustavo atualizar dados&ndash;&gt;-->
+											<!--<li ng-repeat="referencianome in listareferencia | filter : entidadeselecionada.dadoentidade[key]">-->
+												<!--<label>ID:</label>{{referencianome}}-->
+												<!--<br>-->
+												<!--<label>'referencia-nome': 'nome'</label> {{}}-->
+											<!--</li>-->
+										<!--</ul>-->
 									</div>
 								</span>
 							</div>
@@ -112,7 +119,7 @@
 							<!--DATA NASCIMENTO-->
 							<div class="form-group">
 								<label class="control-label">data nascimento(Date)</label>
-								<input ui-mask="99/99/9999" class="form-control" ng-model="entidadeselecionada.dadoentidade.datanascimento">
+								<input type="date" class="form-control" ng-model="entidadeselecionada.dadoentidade.datanascimento">
 							</div>
 							<!--SEXO-->
 							<div class="form-group">

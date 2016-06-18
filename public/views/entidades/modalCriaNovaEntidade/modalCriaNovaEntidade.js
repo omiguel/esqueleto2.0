@@ -23,7 +23,7 @@ app.directive("modalcrianovaentidade", [function() {
             //---------------------------------------
 
             //lista da referencia do atributo
-            scope.listareferencia = ['jose','joana'];
+            scope.listareferencia = [];
 
             /**
             * criado/modificado por: Gustavo e Bosvaldo
@@ -32,6 +32,10 @@ app.directive("modalcrianovaentidade", [function() {
             scope.salvarEntidade = function(){
                 
                 var method = null;
+
+
+                console.log("oq vem???", scope.entidadeselecionada);
+                return;
 
                 var dado = {
                     nome: scope.entidadeselecionada.nome,
@@ -74,9 +78,10 @@ app.directive("modalcrianovaentidade", [function() {
              * pega do banco a lista do atributo a se referenciar
              */
             scope.pegalistareferencia = function(referencia){
-                console.log("referencia", referencia);
-                var msg = new Mensagem(me, 'referencia.read', referencia, 'referencia');
-                SIOM.emitirServer(msg);
+                //comentado para impedir de atualizar
+                //console.log("referencia", referencia);
+                //var msg = new Mensagem(me, 'referencia.read', referencia, 'referencia');
+                //SIOM.emitirServer(msg);
             };
 
             /**
@@ -84,7 +89,10 @@ app.directive("modalcrianovaentidade", [function() {
              * @param msg
              */
             var retornoreferencia = function (msg) {
-                scope.listareferencia = msg.getDado();
+                console.log("listareferencia", scope.listareferencia);
+                scope.$apply(function(){
+                    scope.listareferencia = msg.getDado();
+                });
             };
 
             var wiring = function () {
