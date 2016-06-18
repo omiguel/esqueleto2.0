@@ -37,12 +37,12 @@
 
 		<!-- MODAL CRIA ENTIDADE -->
 		<div id="modalCriaEntidade" class="modal fade" role="dialog">
-			<modalcrianovaentidade entidadeselecionada="entidadeSelecionada" confirmasenha="angular.copy(entidadeSelecionada.dadoentidade.senha)"></modalcrianovaentidade>
+			<modalcrianovaentidade entidades="entidades" entidadeselecionada="entidadeSelecionada" confirmasenha="angular.copy(entidadeSelecionada.dadoentidade.senha)"></modalcrianovaentidade>
 		</div>
 
 		<!-- MODAL MOSTRA ENTIDADE -->
 		<div id="modalMostraEntidade" class="modal fade" role="dialog">
-			<modalmostraentidade listaentidade="listaEntidade" callback-fn="selecionaEntidade(entidadediretivanome, entidadediretivamodelo, dadoentidadediretiva)"></modalmostraentidade>
+			<modalmostraentidade listaentidade="listaEntidade" callback-fn="selecionaEntidade(entidadediretivanome, entidadediretivamodelo, dadoentidadediretiva, edit)"></modalmostraentidade>
 		</div>
 
 		<!-- MODAL RETORNO-->

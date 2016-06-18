@@ -19,6 +19,6 @@ var obj = Mongoose.Schema({
     idioma: {type: types.ObjectId, ref: 'idioma'}
 });
 
-new ctrbd('usuario', obj);
+new ctrbd('usuario', obj, 'nome');
 
 module.exports = Mongoose.model('usuario', obj);

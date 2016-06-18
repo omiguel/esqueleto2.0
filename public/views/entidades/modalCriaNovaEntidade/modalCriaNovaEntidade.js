@@ -7,7 +7,8 @@ app.directive("modalcrianovaentidade", [function() {
         transclude: true,
         scope: {
             entidadeselecionada: "=",
-            confirmasenha: "="
+            confirmasenha: "=",
+            entidades: "="
         },
         templateUrl: '../../../views/entidades/modalCriaNovaEntidade/modalCriaNovaEntidade.html',
 
@@ -34,8 +35,9 @@ app.directive("modalcrianovaentidade", [function() {
                 var method = null;
 
 
-                console.log("oq vem???", scope.entidadeselecionada);
-                return;
+                // console.log("oq vem???", scope.entidadeselecionada);
+                // return;
+                delete scope.entidadeselecionada.dadoentidade.ref;
 
                 var dado = {
                     nome: scope.entidadeselecionada.nome,
@@ -78,10 +80,10 @@ app.directive("modalcrianovaentidade", [function() {
              * pega do banco a lista do atributo a se referenciar
              */
             scope.pegalistareferencia = function(referencia){
-                //comentado para impedir de atualizar
-                //console.log("referencia", referencia);
-                //var msg = new Mensagem(me, 'referencia.read', referencia, 'referencia');
-                //SIOM.emitirServer(msg);
+                // // comentado para impedir de atualizar
+                // console.log("referencia", referencia);
+                // var msg = new Mensagem(me, 'referencia.read', referencia, 'referencia');
+                // SIOM.emitirServer(msg);
             };
 
             /**
@@ -89,15 +91,30 @@ app.directive("modalcrianovaentidade", [function() {
              * @param msg
              */
             var retornoreferencia = function (msg) {
-                console.log("listareferencia", scope.listareferencia);
                 scope.$apply(function(){
-                    scope.listareferencia = msg.getDado();
+                    scope.listareferencia[msg.getFlag()] = msg.getDado();
+                    console.log('agora fica assim', scope.listareferencia);
                 });
+            };
+
+            var getReferencias = function (modelo) {
+                scope.listareferencia = {};
+                var minhasrefs = [];
+                for(var attr in modelo){
+                    if(typeof modelo[attr] == 'object'){
+                        minhasrefs.push(modelo[attr]);
+                    }
+                }
+                if(minhasrefs.length > 0){
+                    var msg = new Mensagem(me, 'referencia.read', minhasrefs, 'referencia');
+                    SIOM.emitirServer(msg);
+                }
             };
 
             var wiring = function () {
                 listeners['entidade.error.created'] = cretedError.bind(me);
                 listeners['referencia.readed'] = retornoreferencia.bind(me);
+                listeners['pedereferencias'] = getReferencias.bind(me);
 
                 for(var name in listeners){
                     SIOM.on(name, listeners[name]);

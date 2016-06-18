@@ -10,6 +10,6 @@ var obj = Mongoose.Schema({
     nome: {type: types.String}
 });
 
-new ctrbd('idioma', obj);
+new ctrbd('idioma', obj, 'nome');
 
 module.exports = Mongoose.model('idioma', obj);

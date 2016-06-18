@@ -5,9 +5,11 @@
 var hub = require('../hub/hub.js');
 var Mensagem = require('./mensagem.js');
 
-function controlemodelbd(quem, model) {
+function controlemodelbd(quem, model, ref) {
     var me = this;
-    me.modelo = {};
+    me.modelo = {
+        ref: ref
+    };
     me.sou = quem;
 
     me.criamodel(model);

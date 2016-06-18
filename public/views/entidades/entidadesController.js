@@ -26,7 +26,9 @@ app.controller("entidadesController",['$scope', function ($scope) {
      */
     $scope.selecionaEntidade = function(entidadeNome, entidadeModelo, dadoEntidade){
 
-        console.log("entidade selecionada",  entidadeNome, entidadeModelo, dadoEntidade);
+        // console.log("entidade selecionada",  entidadeNome, entidadeModelo, dadoEntidade);
+
+        SIOM.emit('pedereferencias', entidadeModelo);
 
         for(var index in entidadeModelo){
             if(dadoEntidade[index] == null){
@@ -44,7 +46,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
 
     /**
      * criado por: Osvaldo e Gustavo
-     * todo Bosvaldo comenta isso daqui!!!
+     * chama a lista da entidade selecionada para visualização.
      */
     $scope.visualidasCadastradosEntidade = function (entidade) {
 
@@ -77,6 +79,7 @@ app.controller("entidadesController",['$scope', function ($scope) {
      */
     var retallmodels = function (msg) {
         $scope.entidades = msg.getDado();
+        console.log('chegou aqui', $scope.entidades);
         $scope.$apply();
     };
 

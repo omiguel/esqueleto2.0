@@ -53,7 +53,6 @@ RtcRoot.prototype.crudentidade = function (msgDoBrowser) {
     var me = this;
     var mensagem = new Mensagem(me); //source == this
     mensagem.fromBrowserEntidade(msgDoBrowser, me, function (msg) {
-        console.log('no callback', msg);
         hub.emit('rtc.'+msg.getEvento(), msg);
     }); //rtc == this
 };
@@ -66,9 +65,13 @@ RtcRoot.prototype.crudentidade = function (msgDoBrowser) {
 RtcRoot.prototype.readreferencia = function (msg) {
     var me = this;
     var msgserver = me.convertMessageFromBrowserToServer(msg);
-    var evt = msgserver.getRes();
-    msgserver.setEvento(evt.referencia+'.read');
-    hub.emit('rtc.'+msgserver.getEvento(), msgserver);
+    var dados = msgserver.getRes();
+
+    for(var index in dados){
+        var evt = dados[index].referencia;
+        var msg = new Mensagem(me, evt+'.read', {res: dados[index]}, msgserver.getFlag(), me);
+        hub.emit('rtc.'+msg.getEvento(), msg);
+    }
 };
 
 /**

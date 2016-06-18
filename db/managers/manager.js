@@ -119,6 +119,11 @@ Manager.prototype.destroy = function(msg){
 Manager.prototype.emitManager = function(msgAntiga, subEvt, dado){
     var me = this;
     var evt = msgAntiga.getFlag()+subEvt;
+    if(msgAntiga.getFlag() == 'referencia'){
+        var eventoantigo = msgAntiga.getEvento();
+        var novaflag = eventoantigo.slice(6, eventoantigo.lastIndexOf('.'));
+        msgAntiga.setFlag(novaflag);
+    }
     var retorno = msgAntiga.next(me, evt, dado, msgAntiga.getFlag());
     hub.emit(retorno.getEvento(), retorno);
 };

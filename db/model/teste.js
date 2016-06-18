@@ -8,7 +8,8 @@ var types = Mongoose.Schema.Types;
 
 var obj = Mongoose.Schema({
     usuario: {type: types.ObjectId, ref: 'usuario'},
-    idioma: {type: types.ObjectId, ref: 'idioma'}
+    idioma: {type: types.ObjectId, ref: 'idioma'},
+    endereco: {type: types.String}
 });
 
 new ctrbd('teste', obj);

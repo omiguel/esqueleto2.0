@@ -10,7 +10,7 @@
 var Mongoosemodels = {
     idioma: require('./IdiomaManager.js'),
     usuario: require('./UsuarioManager.js'),
-    usuario: require('./testemanager.js')
+    teste: require('./testemanager.js')
 };
 
 module.exports = Mongoosemodels;
