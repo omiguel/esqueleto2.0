@@ -252,7 +252,7 @@ Mensagem.prototype.toBrowser = function(){
  * Popula esta mensagem com a mensagem que veio do browser
  * Este método dever usado somente dentro do RTC, sendo que este será o source desta mensagem
  * _source => rtc
- * @param {Xasan.model.Mensagem} msgb
+ * @param {mesnagem} msgb
  * @param {Rtc} rtc
  */
 Mensagem.prototype.fromBrowser = function(msg, rtc){
@@ -268,6 +268,13 @@ Mensagem.prototype.fromBrowser = function(msg, rtc){
     this.setDado(dado);
 };
 
+/**
+ * Transforma a mensagem que vem do browser para o server, porém apenas em casos que se usa para entidades
+ * fieta especialmente para o EsqueLabTic.
+ * @param msg
+ * @param rtc
+ * @param callback
+ */
 Mensagem.prototype.fromBrowserEntidade = function (msg, rtc, callback) {
     this.setRtc(rtc);
     this.setFlag(msg.flag);

@@ -3,9 +3,9 @@
  *
  * esse documento possui as funcoes basicas do bando, ele é herdado por todos os managers.
  */
-var hub = require('../../hub/hub.js');
+var hub = require('../../../hub/hub.js');
 
-var types = require('../Banco.js').mongoose.Schema.Types;
+var types = require('../../Banco.js').mongoose.Schema.Types;
 
 /**
  * @constructor

@@ -47,10 +47,6 @@ app.directive("modalcrianovaentidade", [function() {
                 
                 var method = null;
 
-
-                console.log("oq vem???", scope.entidadeselecionada);
-                return;
-
                 delete scope.entidadeselecionada.dadoentidade.ref;
 
                 var dado = {

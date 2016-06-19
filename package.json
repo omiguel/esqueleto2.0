@@ -1,27 +1,28 @@
 {
-  "name": "Esqueleton",
-  "version": "0.0.1",
-  "description": "É o padrão de pastas e arquivos utilizadas no laboratório.",
+  "name": "EsqueLabTic",
+  "version": "2.0",
+  "description": "É o padrão de pastas e arquivos utilizadas no LabTIC.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/omiguel/esqueleton.git"
+    "url": "https://github.com/omiguel/esqueleto2.0.git"
   },
   "keywords": [
     "inicio",
     "esqueleto",
     "evento",
-    "socket"
+    "socket",
+    "LabTIC"
   ],
   "author": "Osvaldo Miguel Junior",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/omiguel/esqueleton/issues"
+    "url": "https://github.com/omiguel/esqueleto2.0/issues"
   },
-  "homepage": "https://github.com/omiguel/esqueleton",
+  "homepage": "https://github.com/omiguel/esqueleto2.0",
   "dependencies": {
     "clone": "^1.0.2",
     "connect-busboy": "0.0.2",

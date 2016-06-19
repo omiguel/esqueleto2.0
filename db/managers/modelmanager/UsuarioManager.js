@@ -1,9 +1,9 @@
 
 var Manager = require('./manager.js');
 var utility = require('util');
-var Model = require('../model/usuario.js');
-var hub = require('../../hub/hub.js');
-var Mensagem = require('../../util/mensagem.js');
+var Model = require('../../model/usuario.js');
+var hub = require('../../../hub/hub.js');
+var Mensagem = require('../../../util/mensagem.js');
 
 /**
  * @constructor

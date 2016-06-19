@@ -1,5 +1,5 @@
 /**
- * Created by udesc on 21/05/2016.
+ * Created by Osvaldo on 21/05/2016.
  */
 
 var hub = require('../hub/hub.js');
@@ -15,6 +15,13 @@ function controlemodelbd(quem, model, ref) {
     me.criamodel(model);
 }
 
+/**
+ * Se o atributo do model for um array, ele monta o array e cria o modelo deste,
+ * depois joga dentro de callback, onde ele é setado dentro do array do model que
+ * esta sendo criado.
+ * @param model
+ * @param cb
+ */
 controlemodelbd.prototype.montaarray = function (model, cb) {
     var me = this;
     var ret = {};
@@ -34,6 +41,11 @@ controlemodelbd.prototype.montaarray = function (model, cb) {
 
 };
 
+/**
+ * responsavel por criar um modelo da entidade que está no banco, mostrando quais são
+ * os atributos e os tipos deles.
+ * @param model
+ */
 controlemodelbd.prototype.criamodel = function (model) {
     var me = this;
     var ozmodel = model.paths;

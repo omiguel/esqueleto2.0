@@ -1,5 +1,41 @@
 <div class="container">
 	<div class="row">
-		<h1>Home do Bosvaldo</h1>
+		<h1>Bem vindo ao EsqueLabTic!</h1>
+		<h3>Essa ferramenta foi criada para quem está interessado (a) em trabalhar com a tecnologia javascript!</h3>
+		<pre>
+			Ainda em fase de testes, o EsqueLabTic proporciona algumas funcionalidades implementadas no que diz respieto
+			a banco de dados.
+			Sempre que criada uma entidade no banco de dados passando pelo mongoose, essas entidades serão reprensatadas na
+			interface com formularios, onde pode-se por meio deles, criar novas entidades completas, remover a entidade desejada,
+			visulizar ou até mesmo editar.
+			O EsqueLabTic utiliza tecnologia de evento para comunicação com o server.
+
+			Quando baixado você encontra a seguinte estrutura de pastas.
+			<font style="color: blue">db
+			hub
+			public
+			rtc
+			util</font>
+
+			<font style="color: purple">db - encontra-se as pastas managers e model, onde pode-se fazer todo o controle do banco de dados, como já citado
+			todas as solicitações chegam até os documentos atravéz de evento. Nela também encontram-se os documentos Banco.js e index.js
+			responsaveis por inicar a conecção com o banco de dades e por repassar as funções crud.</font>
+
+			<font style="color: purple">hub - possui o arquivo hub.js, que é por onde passam os eventos que ocorrem no servidor, em resumo é o canal
+			de comunicação entre os arquivos do servidor.</font>
+
+			<font style="color: orange; margin-left: -1em" class="btn" ng-click="mostrapublic()">public - para saber sobre esta pasta, click nesse texto!</font>
+			<font style="color: green" ng-if="showtexto" class="btn" ng-click="ocultapublic()">Explicação sobre o public em breve!</font>
+			<font style="color: purple; margin-left: -0.6em"> rtc - possui os arquivos que ligam os eventos enviados da interface para o servidor, atravéz dele fazemos a restrição
+			por tipo de usuario, se o usuario tem restrições comparado a outro tipo, o evento responsavel pela função desejada
+			não será implementado no rtc que representa esse tipo de usuario.</font>
+
+			<font style="color: purple">util - possui o arquivo ctrbd.js, mensagem.js e util.js. O ctrbd.js pussui funções uteis para a construção do crud de entidades
+			fornecido pelo EsqueLabTic, o mensagem.js é responsavel por padronizar as mensagens do servidor e importante na hora de
+			saber qual o rtc está fazendo a solicitação e o util.js possui algumas funções de verificação.</font>
+
+			<font style="color: red">Ainda estamos montando um manual de uso, mas virão mais facilidades, uma dela para criar as entidades, que ainda
+			está sendo feita de maneira manual.</font>
+		</pre>
 	</div>
 </div>
