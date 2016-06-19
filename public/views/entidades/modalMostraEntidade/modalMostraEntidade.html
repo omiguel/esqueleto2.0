@@ -1,7 +1,4 @@
-<!--todo fazer a largura do modal com col-md-->
 <!--todo alterar scroll para tabela-->
-<!--todo criar modal confirmacao delete-->
-<!--todo criar modal edita usuario-->
 <div class="modal-dialog modal-mostraentidade">
     <div class="modal-content">
         <!--CABECARIO-->
@@ -29,11 +26,11 @@
                     <tr ng-repeat="entidade in listaentidade.lista">
                         <!--BTN EDIT-->
                         <td align="center">
+                            <!--data-toggle="modal"
+                                    data-target="#modalCriaEntidade"-->
                             <button
                                     class="btn button-style-1"
                                     data-dismiss="modal"
-                                    data-toggle="modal"
-                                    data-target="#modalCriaEntidade"
                                     ng-click="selecionavardiretiva({entidadediretivanome: listaentidade.nome, entidadediretivamodelo: listaentidade.modelo, dadoentidadediretiva: entidade})"
                             >
                                 <i class="glyphicon glyphicon-cog"></i>
@@ -41,11 +38,11 @@
                         </td>
                         <!--BTN DELETE-->
                         <td align="center">
+                            <!--data-toggle="modal"
+                                    data-target="#modalConfirmaEntidadeDelete"-->
                             <button
                                     class="btn btn-danger"
                                     data-dismiss="modal"
-                                    data-toggle="modal"
-                                    data-target="#modalConfirmaEntidadeDelete"
                                     ng-click="selecionavardiretiva({entidadediretivanome: listaentidade.nome, entidadediretivamodelo: listaentidade.modelo, dadoentidadediretiva: entidade})"
                             >
                                 <i class="glyphicon glyphicon-remove"></i>

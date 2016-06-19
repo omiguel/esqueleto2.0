@@ -20,20 +20,25 @@ app.controller("entidadesController",['$scope', function ($scope) {
     var listeners = {};
 
     /**
-     * criado por: Gustavo
+     * criado/modificado por: Gustavo e Osvaldo
      * joga a entidade desejada dentro da variavel $scope.entidadeSelecionada
      * cria e popula objeto dadoentidade da variavel $scope.entidadeSelecionada
+     * transforma o Date que vem do banco em tipo Date
      */
     $scope.selecionaEntidade = function(entidadeNome, entidadeModelo, dadoEntidade){
 
-        // console.log("entidade selecionada",  entidadeNome, entidadeModelo, dadoEntidade);
-
-        SIOM.emit('pedereferencias', entidadeModelo);
+         console.log("entidade selecionada",  entidadeNome, entidadeModelo, dadoEntidade);
 
         for(var index in entidadeModelo){
+
             if(dadoEntidade[index] == null){
                 dadoEntidade[index] = null;
             }
+
+            if(entidadeModelo[index] == 'Date'){
+                dadoEntidade[index] = new Date(dadoEntidade[index]);
+            }
+
         }
 
         $scope.entidadeSelecionada = {
@@ -41,6 +46,8 @@ app.controller("entidadesController",['$scope', function ($scope) {
             modelo: entidadeModelo,
             dadoentidade: dadoEntidade
         };
+
+        SIOM.emit('pedereferencias', $scope.entidadeSelecionada);
 
     };
 

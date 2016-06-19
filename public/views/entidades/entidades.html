@@ -17,8 +17,6 @@
 		        		<button
 								class="btn btn-info"
 								ng-click="selecionaEntidade(entidade.nome, entidade.modelo, {})"
-								data-toggle="modal"
-								data-target="#modalCriaEntidade"
 		        		>
 		        			Criar {{entidade.nome}}
 		        		</button>
@@ -37,12 +35,18 @@
 
 		<!-- MODAL CRIA ENTIDADE -->
 		<div id="modalCriaEntidade" class="modal fade" role="dialog">
-			<modalcrianovaentidade entidades="entidades" entidadeselecionada="entidadeSelecionada" confirmasenha="angular.copy(entidadeSelecionada.dadoentidade.senha)"></modalcrianovaentidade>
+			<modalcrianovaentidade
+					entidades="entidades"
+					confirmasenha="entidadeSelecionada.dadoentidade.senha"
+			></modalcrianovaentidade>
 		</div>
 
 		<!-- MODAL MOSTRA ENTIDADE -->
 		<div id="modalMostraEntidade" class="modal fade" role="dialog">
-			<modalmostraentidade listaentidade="listaEntidade" callback-fn="selecionaEntidade(entidadediretivanome, entidadediretivamodelo, dadoentidadediretiva, edit)"></modalmostraentidade>
+			<modalmostraentidade
+					listaentidade="listaEntidade"
+					callback-fn="selecionaEntidade(entidadediretivanome, entidadediretivamodelo, dadoentidadediretiva, edit)"
+			></modalmostraentidade>
 		</div>
 
 		<!-- MODAL RETORNO-->

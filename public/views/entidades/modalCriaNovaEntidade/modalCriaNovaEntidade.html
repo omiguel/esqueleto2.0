@@ -38,12 +38,12 @@
 								<!--INPUTS DO TIPO REFERENCIA-->
 								<span ng-if="value.referencia">
 									<div class="form-group">
-										<label class="control-label">{{key}}({{value.referencia}})</label>
+										<label class="control-label">{{key}}({{value.referencia}}) [procurado por : {{entidades[key].modelo.ref}}]</label>
 										<input
 												class="form-control"
 												list="datalist-{{key}}"
-												ng-model="referencianome.key"
-												ng-change="setReferencia(referencianome.key ,key)"
+												ng-model="referencianome[key]"
+												ng-change="setReferencia(referencianome[key] ,key)"
 										/>
 										<datalist id="datalist-{{key}}">
 											<option 

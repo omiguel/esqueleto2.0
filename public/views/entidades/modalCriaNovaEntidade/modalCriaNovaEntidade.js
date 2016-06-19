@@ -6,7 +6,6 @@ app.directive("modalcrianovaentidade", [function() {
         restrict : 'E',
         transclude: true,
         scope: {
-            entidadeselecionada: "=",
             confirmasenha: "=",
             entidades: "="
         },
@@ -25,6 +24,26 @@ app.directive("modalcrianovaentidade", [function() {
 
             //lista da referencia do atributo
             scope.listareferencia = [];
+            //referencia para o usuario
+            scope.referencianome = {};
+
+            /**
+             * criado por: Gustavo
+             * popula scope.referencianome
+             */
+            scope.populareferencianome = function(){
+                for(var dado in scope.entidadeselecionada.modelo){
+
+                    var nomeref = scope.entidadeselecionada.modelo[dado].referencia;
+
+                    if(nomeref != undefined){
+                        scope.referencianome[nomeref] = scope.entidadeselecionada.dadoentidade[nomeref];
+                    }
+                }
+
+                $('#modalCriaEntidade').modal('toggle');
+
+            };
 
             /**
              * criado por: Gustavo
@@ -100,18 +119,25 @@ app.directive("modalcrianovaentidade", [function() {
              * criado por: Osvaldo
              * todo comentar
              */
-            var getReferencias = function (modelo) {
+            var getReferencias = function (dado) {
+
                 scope.listareferencia = {};
+                scope.entidadeselecionada = dado;
+                console.log("modelo", dado.modelo);
+
                 var minhasrefs = [];
-                for(var attr in modelo){
-                    if(typeof modelo[attr] == 'object'){
-                        minhasrefs.push(modelo[attr]);
+                for(var attr in dado.modelo){
+                    if(typeof dado.modelo[attr] == 'object'){
+                        minhasrefs.push(dado.modelo[attr]);
                     }
                 }
                 if(minhasrefs.length > 0){
                     var msg = new Mensagem(me, 'referencia.read', minhasrefs, 'referencia');
                     SIOM.emitirServer(msg);
                 }
+
+                scope.populareferencianome();
+
             };
 
             var wiring = function () {
