@@ -39,27 +39,26 @@
 								<span ng-if="value.referencia">
 									<div class="form-group">
 										<label class="control-label">{{key}}({{value.referencia}})</label>
+										<input
+												class="form-control"
+												list="datalist-{{key}}"
+												ng-model="referencianome.key"
+												ng-change="setReferencia(referencianome.key ,key)"
+										/>
+										<datalist id="datalist-{{key}}">
+											<option 
+												ng-repeat="referencia in listareferencia[key] track by $index" 
+												value="{{referencia[entidades[key].modelo.ref]}}-{{referencia._id}}-{{$index}}"
+											>
+										</datalist>
 
-										<select ng-options="item as item[entidades[key].modelo.ref] for item in listareferencia[key]" value="item" ng-model="entidadeselecionada.dadoentidade[key]"></select>
-
-										<!--<input-->
-												<!--class="form-control"-->
-												<!--list="datalist-referencia"-->
-												<!--ng-model="entidadeselecionada.dadoentidade[key]"-->
-												<!--ng-click="pegalistareferencia(value)"-->
-										<!--/>-->
-										<!--<datalist id="datalist-referencia">-->
-											<!--<option ng-repeat="referencia in listareferencia[key]" value="{{referencia}}">-->
-										<!--</datalist>-->
-
-										<!--<ul>-->
-											<!--&lt;!&ndash;todo gustavo atualizar dados&ndash;&gt;-->
-											<!--<li ng-repeat="referencianome in listareferencia | filter : entidadeselecionada.dadoentidade[key]">-->
-												<!--<label>ID:</label>{{referencianome}}-->
-												<!--<br>-->
-												<!--<label>'referencia-nome': 'nome'</label> {{}}-->
-											<!--</li>-->
-										<!--</ul>-->
+										<!-- CRIADO POR OSVALDO -->
+										<!-- <select 
+											ng-options="item as item[entidades[key].modelo.ref] for item in listareferencia[key]" 
+											value="item" 
+											ng-model="entidadeselecionada.dadoentidade[key]"
+										>
+										</select> -->
 									</div>
 								</span>
 							</div>
@@ -155,21 +154,22 @@
 							<!--IDIOMA-->
 							<div class="form-group">
 								<label>idioma(idioma)</label>
+								<input 
+									class="form-control" 
+									list="datalist-idioma" 
+									ng-model="referencianome.idioma"
+									ng-change="setReferencia(referencianome.idioma , 'idioma')"
+								>
+								<datalist id="datalist-idioma">
+									<option 
+										ng-repeat="referencia in listareferencia.idioma track by $index" 
+										value="{{referencia.nome}}-{{referencia._id}}-{{$index}}"
+									>
+								</datalist>
 
-								<select ng-options="item as item.nome for item in listareferencia.idioma" value="item" ng-model="entidadeselecionada.dadoentidade.idioma"></select>
-
-								<!--<input-->
-										<!--type="search"-->
-										<!--class="form-control"-->
-										<!--ng-model="entidadeselecionada.dadoentidade.idioma"-->
-										<!--ng-click="pegalistareferencia(value)"-->
-								<!--&gt;-->
-
-								<!--<ul>-->
-									<!--<li ng-repeat="referencianome in listareferencia | filter : entidadeselecionada.dadoentidade[key]">-->
-										<!--{{referencianome}}-->
-									<!--</li>-->
-								<!--</ul>-->
+								<!-- CRIADO POR OSVALDO -->
+								<!-- <select ng-options="item as item.nome for item in listareferencia.idioma" value="item" ng-model="entidadeselecionada.dadoentidade.idioma"></select>
+ 								-->
 							</div>
 						</span>
 						<!--BTN SALVAR-->

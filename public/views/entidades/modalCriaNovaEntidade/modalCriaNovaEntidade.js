@@ -27,6 +27,19 @@ app.directive("modalcrianovaentidade", [function() {
             scope.listareferencia = [];
 
             /**
+             * criado por: Gustavo
+             * coloca o objeto desejado em dadoentidade
+             */
+            scope.setReferencia = function(referencia, key){
+
+                var referenciaindex = referencia.slice(-1);
+                var dadoreferencia = scope.listareferencia[key][referenciaindex];
+
+                scope.entidadeselecionada.dadoentidade[key] = dadoreferencia;
+
+            };
+
+            /**
             * criado/modificado por: Gustavo e Bosvaldo
             * salva a entidade criado no banco
              */
@@ -35,8 +48,9 @@ app.directive("modalcrianovaentidade", [function() {
                 var method = null;
 
 
-                // console.log("oq vem???", scope.entidadeselecionada);
-                // return;
+                console.log("oq vem???", scope.entidadeselecionada);
+                return;
+
                 delete scope.entidadeselecionada.dadoentidade.ref;
 
                 var dado = {
@@ -76,19 +90,8 @@ app.directive("modalcrianovaentidade", [function() {
             };
 
             /**
-             * criado por: Gustavo
-             * pega do banco a lista do atributo a se referenciar
-             */
-            scope.pegalistareferencia = function(referencia){
-                // // comentado para impedir de atualizar
-                // console.log("referencia", referencia);
-                // var msg = new Mensagem(me, 'referencia.read', referencia, 'referencia');
-                // SIOM.emitirServer(msg);
-            };
-
-            /**
+             * criado/modificado por: Gustavo e Osvaldo
              * chega o retorno com todas as referencias.
-             * @param msg
              */
             var retornoreferencia = function (msg) {
                 scope.$apply(function(){
@@ -97,6 +100,10 @@ app.directive("modalcrianovaentidade", [function() {
                 });
             };
 
+            /**
+             * criado por: Osvaldo
+             * todo comentar
+             */
             var getReferencias = function (modelo) {
                 scope.listareferencia = {};
                 var minhasrefs = [];
