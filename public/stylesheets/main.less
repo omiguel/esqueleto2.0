@@ -8,15 +8,29 @@
 @corLetraSecundaria: #ffffff;
 
 
-/*cor verde: #003500, #007000*, #13eb0a/
+/*cor verde: #003500, #007000*, #13eb0a*/
 
 @corAlerta: #a94442;
 
 
-
-datalist { 
-    display: true;
+.div-modalMostraEntidade{
+  overflow-x: auto;
+  max-height: 60%;
 }
+
+.div-texto {
+  background-color: #f5f5f5;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc;
+  border-radius: 4px;
+}
+
+.msg-erro{
+  color: @corAlerta;
+}
+
+/*---------CONFIGURACOES PADROES-----*/
 
 body {
   font-family: Century Gothic, sans-serif;
@@ -27,28 +41,18 @@ body {
 img {
   width: 95%;
 }
-.tam-content{
-  height: 42em;
-  padding-top: 1em;
-}
-.color-border{
-  border-color: lightskyblue;
-}
-.ulnobullet{
-  list-style: none;
-}
-.centralize{
-  text-align: center;
-}
 
-.msg-erro{
-  color: @corAlerta;
+body .modal-mostraentidade {
+  width: 80%;
+  margin-left: 10%;
 }
 
 /*arrumar scroll bar quando abre um modal de outro modal*/
 .modal {
   overflow-y: auto;
 }
+
+/*-----------------------------------*/
 
 /*---------NAVBAR-STYLE--------------*/
 .navbar-config{
@@ -89,10 +93,6 @@ img {
   background-color: @corLetraSecundaria;
 }
 
-.div-modalMostraEntidade{
-  overflow: scroll;
-  max-height: 60%;
-}
 /*----------------------------------*/
 
 /*------------BTN STYLE-------------*/
@@ -120,10 +120,3 @@ button:hover{
 /*nome-elemento{}*/
 
 /*------------------*/
-
-body .modal-mostraentidade {
-    /* new custom width */
-    width: 80%;
-    /* must be half of the width, minus scrollbar on the left (30px) */
-    margin-left: 10%;
-}

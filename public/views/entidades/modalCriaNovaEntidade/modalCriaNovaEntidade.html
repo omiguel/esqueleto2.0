@@ -38,7 +38,7 @@
 								<!--INPUTS DO TIPO REFERENCIA-->
 								<span ng-if="value.referencia">
 									<div class="form-group">
-										<label class="control-label">{{key}}({{value.referencia}}) [procurado por : {{entidades[key].modelo.ref}}]</label>
+										<label class="control-label">{{key}}({{value.referencia}}) [busca por : {{entidades[key].modelo.ref}}]</label>
 										<input
 												class="form-control"
 												list="datalist-{{key}}"
@@ -153,7 +153,7 @@
 							</div>
 							<!--IDIOMA-->
 							<div class="form-group">
-								<label>idioma(idioma)</label>
+								<label>idioma(idioma) [busca por : nome]</label>
 								<input 
 									class="form-control" 
 									list="datalist-idioma" 
