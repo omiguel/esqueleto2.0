@@ -1,3 +1,4 @@
+'use strict'
 /**
  * Created by Osvaldo on 05/10/15.
  */
@@ -37,10 +38,9 @@ app.controller("loginController",['$scope', '$location', 'setUserLogado', '$rout
     */
     me.logou = function(msg){
 
-        console.log('mandando');
-
         setUserLogado.setLogado(msg.getDado());
         SIOM.emit('setarota', msg.getDado().tipo);
+
     };
 
     /**
@@ -49,7 +49,11 @@ app.controller("loginController",['$scope', '$location', 'setUserLogado', '$rout
     */
     me.destroy = function () {
         for(var name in me.listeners){
-            SIOM.removeListener(name, me.listeners[name]);
+            if(me.listeners.hasOwnProperty(name)){
+
+                SIOM.removeListener(name, me.listeners[name]);
+
+            }
         }
     };
 
@@ -97,9 +101,11 @@ app.controller("loginController",['$scope', '$location', 'setUserLogado', '$rout
         me.listeners['rotasetada'] = me.nextView.bind(me);
 
         for(var name in me.listeners){
+            if(me.listeners.hasOwnProperty(name)){
 
-            SIOM.on(name, me.listeners[name]);
+                SIOM.on(name, me.listeners[name]);
 
+            }
         }
 
     };

@@ -31,5 +31,15 @@
     "mongoose": "^4.4.1",
     "node": "0.0.0",
     "socket.io": "^1.4.5"
+  },
+  "jscsConfig": {
+    "preset": "jscs-angular",
+    "plugins": [
+      "jscs-angular"
+    ],
+    "maxErrors": -1,
+    "validateLineBreaks": false,
+    "disallowTrailingWhitespace": false,
+    "requireTrailingComma": false
   }
 }
