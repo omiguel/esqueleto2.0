@@ -16,7 +16,7 @@
 		        	<td align="center">
 		        		<button
 								class="btn btn-info"
-								ng-click="selecionaEntidade(entidade.nome, entidade.modelo, {})"
+								ng-click="selecionaEntidade(entidade.nome, entidade.modelo, {}, 'modalMostraEntidade')"
 		        		>
 		        			Criar {{entidade.nome}}
 		        		</button>
@@ -45,7 +45,7 @@
 		<div id="modalMostraEntidade" class="modal fade" role="dialog">
 			<modalmostraentidade
 					listaentidade="listaEntidade"
-					callback-fn="selecionaEntidade(entidadediretivanome, entidadediretivamodelo, dadoentidadediretiva, edit)"
+					callback-fn="selecionaEntidade(entidadediretivanome, entidadediretivamodelo, dadoentidadediretiva, modal, edit)"
 			></modalmostraentidade>
 		</div>
 

@@ -26,7 +26,7 @@ app.controller("entidadesController", ['$scope', function ($scope) {
    * cria e popula objeto dadoentidade da variavel $scope.entidadeSelecionada;
    * transforma o Date que vem do banco em tipo Date;
    */
-  $scope.selecionaEntidade = function (entidadeNome, entidadeModelo, dadoEntidade) {
+  $scope.selecionaEntidade = function (entidadeNome, entidadeModelo, dadoEntidade, modal) {
 
     for (var index in entidadeModelo) {
       if(entidadeModelo.hasOwnProperty(index)){
@@ -48,7 +48,11 @@ app.controller("entidadesController", ['$scope', function ($scope) {
       dadoentidade: dadoEntidade
     };
 
-    SIOM.emit('pedereferencias', $scope.entidadeSelecionada);
+    if(modal === "modalMostraEntidade"){
+      SIOM.emit('pedereferencias', $scope.entidadeSelecionada);
+    } else {
+      $('#' + modal).modal();
+    }
 
   };
 

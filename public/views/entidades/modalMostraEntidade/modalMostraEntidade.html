@@ -29,7 +29,14 @@
                             <button
                                     class="btn button-style-1"
                                     data-dismiss="modal"
-                                    ng-click="selecionavardiretiva({entidadediretivanome: listaentidade.nome, entidadediretivamodelo: listaentidade.modelo, dadoentidadediretiva: entidade})"
+                                    ng-click="
+                                        selecionavardiretiva({
+                                            entidadediretivanome: listaentidade.nome,
+                                            entidadediretivamodelo: listaentidade.modelo,
+                                            dadoentidadediretiva: entidade,
+                                            modal: 'modalMostraEntidade'
+                                        })
+                                    "
                             >
                                 <i class="glyphicon glyphicon-cog"></i>
                             </button>
@@ -39,7 +46,14 @@
                             <button
                                     class="btn btn-danger"
                                     data-dismiss="modal"
-                                    ng-click="selecionavardiretiva({entidadediretivanome: listaentidade.nome, entidadediretivamodelo: listaentidade.modelo, dadoentidadediretiva: entidade})"
+                                    ng-click="
+                                        selecionavardiretiva({
+                                            entidadediretivanome: listaentidade.nome,
+                                            entidadediretivamodelo: listaentidade.modelo,
+                                            dadoentidadediretiva: entidade,
+                                            modal: 'modalConfirmaEntidadeDelete'
+                                        })
+                                    "
                             >
                                 <i class="glyphicon glyphicon-remove"></i>
                             </button>
