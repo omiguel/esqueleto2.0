@@ -28,10 +28,12 @@ app.controller("entidadesController", ['$scope', function ($scope) {
    */
   $scope.selecionaEntidade = function (entidadeNome, entidadeModelo, dadoEntidade, modal) {
 
+    dadoEntidade.confirmasenha = dadoEntidade.senha;
+
     for (var index in entidadeModelo) {
       if(entidadeModelo.hasOwnProperty(index)){
 
-        if (dadoEntidade[index] === null) {
+        if (dadoEntidade[index] === undefined) {
           dadoEntidade[index] = null;
         }
 

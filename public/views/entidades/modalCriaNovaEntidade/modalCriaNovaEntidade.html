@@ -90,7 +90,12 @@
 							<!--SENHA-->
 							<div
 									class="form-group"
-									ng-class="{ 'has-error' : (formentidade.senha.$error.required && formentidade.senha.$dirty) || (entidadeselecionada.dadoentidade.senha != confirmasenha)}"
+									ng-class="
+									{
+										'has-error' :
+										(formentidade.senha.$error.required && formentidade.senha.$dirty) ||
+										(entidadeselecionada.dadoentidade.senha != entidadeselecionada.dadoentidade.confirmasenha)
+									}"
 							>
 								<label class="control-label">senha(String)</label>
 								<input type="password" name="senha" class="form-control" ng-model="entidadeselecionada.dadoentidade.senha" required>
@@ -99,23 +104,42 @@
 									senha obrigatório!
 								</div>
 								<!--MSG ERRO SENHA E CONFIRMA SENHA DIFERENTES-->
-								<div ng-show="entidadeselecionada.dadoentidade.senha != confirmasenha" class="msg-erro control-label">
+								<div
+										ng-show="entidadeselecionada.dadoentidade.senha != entidadeselecionada.dadoentidade.confirmasenha"
+										class="msg-erro control-label">
 									senha e confirma senha estão diferentes!
 								</div>
 							</div>
 							<!--CONFIRMA SENHA-->
 							<div
 									class="form-group"
-									ng-class="{ 'has-error' : (formentidade.confirmasenha.$error.required && formentidade.confirmasenha.$dirty) || (entidadeselecionada.dadoentidade.senha != confirmasenha)}"
+									ng-class="
+									{
+										'has-error' :
+										(formentidade.confirmasenha.$error.required && formentidade.confirmasenha.$dirty) ||
+										(entidadeselecionada.dadoentidade.senha != entidadeselecionada.dadoentidade.confirmasenha)
+									}"
 							>
 								<label class="control-label">confirma senha(String)</label>
-								<input type="password" name="confirmasenha" class="form-control" ng-model="confirmasenha" required>
+								<input
+										type="password"
+										name="confirmasenha"
+										class="form-control"
+										ng-model="entidadeselecionada.dadoentidade.confirmasenha"
+										required
+								>
 								<!--MSG ERRO CONFIRMA SENHA OBRIGATORIO-->
-								<div ng-show="formentidade.confirmasenha.$error.required && formentidade.confirmasenha.$dirty" class="msg-erro control-label">
+								<div
+										ng-show="formentidade.confirmasenha.$error.required && formentidade.confirmasenha.$dirty"
+										class="msg-erro control-label"
+								>
 									confirma senha obrigatório!
 								</div>
 								<!--MSG ERRO SENHA E CONFIRMA SENHA DIFERENTES-->
-								<div ng-show="entidadeselecionada.dadoentidade.senha != confirmasenha" class="msg-erro control-label">
+								<div
+										ng-show="entidadeselecionada.dadoentidade.senha != entidadeselecionada.dadoentidade.confirmasenha"
+										class="msg-erro control-label"
+								>
 									senha e confirma senha estão diferentes!
 								</div>
 							</div>
@@ -182,7 +206,7 @@
 									(formentidade.confirmasenha.$error.required) ||
 									(formentidade.senha.$error.required) ||
 									(formentidade.tipo.$error.required) ||
-									(entidadeselecionada.dadoentidade.senha === confirmasenha))
+									(entidadeselecionada.dadoentidade.senha !== entidadeselecionada.dadoentidade.confirmasenha))
 									&& entidadeselecionada.nome == 'usuario'
 									"
 									ng-click="salvarEntidade()"

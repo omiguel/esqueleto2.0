@@ -7,7 +7,6 @@ app.directive("modalcrianovaentidade", [function () {
     restrict: 'E',
     transclude: true,
     scope: {
-      confirmasenha: "=",
       entidades: "="
     },
     templateUrl: '../../../views/entidades/modalCriaNovaEntidade/modalCriaNovaEntidade.html',
@@ -72,6 +71,7 @@ app.directive("modalcrianovaentidade", [function () {
         var method = null;
 
         delete scope.entidadeselecionada.dadoentidade.ref;
+        delete scope.entidadeselecionada.dadoentidade.confirmasenha;
 
         var dado = {
           nome: scope.entidadeselecionada.nome,
