@@ -4,7 +4,7 @@
   "description": "É o padrão de pastas e arquivos utilizadas no LabTIC.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -32,14 +32,20 @@
     "node": "0.0.0",
     "socket.io": "^1.4.5"
   },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "chai-json-schema": "^1.2.0",
+    "codeceptjs": "^0.3.5",
+    "mocha": "^2.5.3",
+    "phantomjs-prebuilt": "^2.1.7",
+    "selenium-standalone": "^5.1.1",
+    "webdriverio": "^4.0.9"
+  },
   "jscsConfig": {
-    "preset": "jscs-angular",
-    "plugins": [
-      "jscs-angular"
-    ],
+    "preset": "node-style-guide",
     "maxErrors": -1,
     "validateLineBreaks": false,
-    "disallowTrailingWhitespace": false,
-    "requireTrailingComma": false
+    "disallowTrailingWhitespace": false
   }
 }

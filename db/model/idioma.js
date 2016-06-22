@@ -1,15 +1,16 @@
+'use strict';
 /**
  * Created by Osvaldo on 13/06/2016.
  */
-var ctrbd = require('../../util/ctrbd.js');
-var Mongoose = require('../Banco.js').mongoose;
+const Ctrbd = require('../../util/ctrbd.js');
+const Mongoose = require('../Banco.js').mongoose;
 
-var types = Mongoose.Schema.Types;
+const types = Mongoose.Schema.Types;
 
-var obj = Mongoose.Schema({
-    nome: {type: types.String}
+let obj = Mongoose.Schema({
+  nome: {type: types.String},
 });
 
-new ctrbd('idioma', obj, 'nome');
+let ctrbd = new Ctrbd('idioma', obj, 'nome');
 
 module.exports = Mongoose.model('idioma', obj);

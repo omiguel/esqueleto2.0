@@ -1,0 +1,14 @@
+{
+  "db": {
+    "mongodb": {
+      "local": "localhost",
+      "nomedobanco": "nomeDoBanco"
+    }
+  },
+  "server": {
+    "domain": "",
+    "porta": 80,
+    "images":"",
+    "socketio": {}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "db": {
+    "mongodb": {
+      "nomedobanco": "nomeDoBanco"
+    }
+  },
+  "express": {
+    "domain": "",
+    "porta": 80,
+    "socketio": {}
+  }
+}

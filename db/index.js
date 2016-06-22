@@ -1,22 +1,33 @@
+'use strict';
 /**
  * Created by Osvaldo on 13/03/15.
  */
-var hub = require('../hub/hub.js');
-var Managers = null;
+const hub = require('../hub/hub.js');
 
-/**
- * se escutar 'banco.status.ready' no hub, carrega os managers que seraão usados e da um emit informando que o banco está
- * pronto.
- */
-hub.on('banco.status.ready', function(){
-    console.log('vou chamar os managers');
+class dbIndex {
+  constructor(dbconfig) {
+    this.managers = null;
 
-    Managers = require('./managers/');
+    /**
+     * Se escutar 'banco.status.ready' no hub, carrega os managers que seraão
+     * usados
+     * e da um emit informando que o banco está
+     * pronto.
+     */
+    hub.on('banco.status.ready', function() {
+      console.log('vou chamar os managers');
 
-    process.nextTick(function(){
+      this.managers = require('./managers/');
+
+      process.nextTick(function() {
         console.log('banco finalizado');
         hub.emit('banco.ready');
+      });
     });
-});
 
-var banco = require('./Banco.js');
+    let banco = require('./Banco.js');
+    banco.init(dbconfig);
+  }
+}
+
+module.exports = dbIndex;

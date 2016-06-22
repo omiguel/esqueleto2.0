@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Created by Osvaldo on 06/10/15.
  */
@@ -7,10 +8,10 @@
  *
  * @type {{usuario: usuariomanager}}
  */
-var Mongoosemodels = {
-    idioma: require('./modelmanager/IdiomaManager.js'),
-    usuario: require('./modelmanager/UsuarioManager.js'),
-    teste: require('./modelmanager/testemanager.js')
+let Mongoosemodels = {
+  idioma: require('./modelmanager/IdiomaManager.js'),
+  usuario: require('./modelmanager/UsuarioManager.js'),
+  teste: require('./modelmanager/Testemanager.js'),
 };
 
 module.exports = Mongoosemodels;

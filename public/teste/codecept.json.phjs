@@ -1,0 +1,22 @@
+{
+  "tests": "./*_test.js",
+  "timeout": 10000,
+  "output": "./output",
+  "helpers": {
+    "WebDriverIO": {
+      "singleton": true,
+      "url": "http://localhost:90",
+      "browser": "phantomjs",
+      "port": 5555,
+      "windowSize": "1280x720"
+    }
+  },
+  "include": {
+    "I": "./steps_file.js",
+    "loginPage": "./pages/login.js",
+    "administracaoPage": "./pages/administracao.js"
+  },
+  "bootstrap": "./beforeTests.js",
+  "mocha": {},
+  "name": "test"
+}
