@@ -7,8 +7,13 @@
   },
   "server": {
     "domain": "",
-    "porta": 80,
+    "porta": 1337,
     "images":"",
     "socketio": {}
+  },
+  "eventConfig": {
+    "wildcard": true,
+    "newListener": true,
+    "maxListeners": 2000
   }
 }

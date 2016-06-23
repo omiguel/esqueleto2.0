@@ -5,8 +5,9 @@
 
 const path = require('path');
 const express = require('express');
-const http = require('http');
-const socketio = require('socket.io');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const fs = require('fs');
 const busboy = require('connect-busboy');
 const Banco = require('./db/');
@@ -14,17 +15,17 @@ const Banco = require('./db/');
 
 class Aplicacao {
   constructor(pathConfig) {
+
     var me = this;
     this.config = require(pathConfig);
-    this.app = express();
-    this.http = http.Server(this.app);
-    this.io = socketio(http);
+    this.app = app;
+    this.http = http;
+    this.io = io;
     this.bd = new Banco(this.config.db);
     
     this.rtcLogin = require('./rtc/rtcLoginManager.js');
-    
 
-
+    console.log('rtc', this.rtcLogin);
 
     this.app.set('view engine', 'ejs');
     this.app.set('views', path.resolve(__dirname + '/views'));
@@ -33,7 +34,6 @@ class Aplicacao {
     this.app.use(busboy());
 
     this.io.on('connection',function(socket) {
-      console.log('chegou no socket', socket);
       let rtc = new this.rtcLogin({socket: socket});
     });
 
@@ -42,15 +42,10 @@ class Aplicacao {
     });
 
     this.app.use('/image', express.static(path.resolve(__dirname + '/image/')));
-    this.app.use('/favicon.ico', 
+    this.app.use('/favicon.ico',
       express.static(path.resolve(__dirname + '/favicon.ico'))
     );
 
-
-  }
-
-  getConfig() {
-    return this.config;
   }
 
 }

@@ -1,30 +1,23 @@
 'use strict';
 /**
- * Created by Raupp on 27/10/2014.
+ * Created by Osvaldo on 23/06/2016.
  */
 
-var util = require('util');
-var EventEmitter2 = require('eventemitter2').EventEmitter2;
-var me;
+const util = require('util');
+const EventEmitter2 = require('eventemitter2').EventEmitter2;
+const config = require('../config.json').eventConfig;
 
-/**
- *
- * @constructor
- */
-function Hub() {
-  me = this;
-  EventEmitter2.call(this, {
-    wildcard: true,
-    newListener: true,
-    maxListeners: 2000,
-  });
+class Hub extends EventEmitter2{
+  constructor() {
+    console.log('thisssssssss',this);
+    super(this, {
+      wildcard: true,
+      newListener: true,
+      maxListeners: 2000,
+    });
+
+    console.log('config', config);
+  }
 }
-util.inherits(Hub, EventEmitter2);
-
-Hub.prototype.emitir = function(evt, msg) {
-  process.nextTick(function() {
-    me.emit(evt, msg);
-  });
-};
 
 module.exports = new Hub();
