@@ -25,8 +25,6 @@ class Aplicacao {
     
     this.rtcLogin = require('./rtc/rtcLoginManager.js');
 
-    console.log('rtc', this.rtcLogin);
-
     this.app.set('view engine', 'ejs');
     this.app.set('views', path.resolve(__dirname + '/views'));
     this.app.use(express['static'](path.resolve(__dirname + '/public')));

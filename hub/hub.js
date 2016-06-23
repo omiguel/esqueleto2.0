@@ -8,16 +8,9 @@ const EventEmitter2 = require('eventemitter2').EventEmitter2;
 const config = require('../config.json').eventConfig;
 
 class Hub extends EventEmitter2{
-  constructor() {
-    console.log('thisssssssss',this);
-    super(this, {
-      wildcard: true,
-      newListener: true,
-      maxListeners: 2000,
-    });
-
-    console.log('config', config);
+  constructor(me, eventConfig) {
+    super(me, eventConfig);
   }
 }
 
-module.exports = new Hub();
+module.exports = new Hub(this, config);

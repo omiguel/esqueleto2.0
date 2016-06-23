@@ -1,119 +1,131 @@
+'use strict';
 /**
  * Created by Osvaldo on 16/10/15.
  */
-var Mensagem = require('../util/mensagem.js');
-var hub = require('../hub/hub.js');
+const Mensagem = require('../util/mensagem.js');
+const hub = require('../hub/hub.js');
 
-/**
- * @constructor
- */
-function BasicRtc(){}
+class BasicRtc {
+  constructor() {
+    this.hub = hub;
+    this.mensagem = Mensagem;
+    this.listeners = {};
+    this.interfaceListeners = {};
+  }
 
-BasicRtc.prototype.listeners = {};
-BasicRtc.prototype.interfaceListeners = {};
+  /**
+   * Destroy o objeto, desconectando ele de todos os eventos.
+   */
+  destroy(login) {
+    let me = this;
+    if (login === me) {
+      this.desconectCli();
+      this.desconectServer();
+    }
+  }
 
-/**
- * destroy o objeto, desconectando ele de todos os eventos.
- */
-BasicRtc.prototype.destroy = function(login){
-    var me = this;
-    if(login == me){
-        me.desconectCli();
-        me.desconectServer();
+  /**
+   * Desconecta os eventos que vem do cliente.
+   */
+  desconectCli() {
+
+    for (let name in this.interfaceListeners) {
+      if (this.interfaceListeners.hasOwnProperty(name)) {
+        this.config.socket.removeListener(name, this.interfaceListeners[name]);
+      }
+    }
+  }
+
+  /**
+   * Desconecta os eventos que vem do servidor.
+   */
+  desconectServer() {
+
+    for (let name in this.listeners) {
+      if (this.listeners.hasOwnProperty(name)) {
+        hub.removeListener(name, this.listeners[name]);
+      }
     }
 
-};
+  }
 
-/**
- * desconecta os eventos que vem do cliente.
- */
-BasicRtc.prototype.desconectCli = function () {
-    var me = this;
+  /**
+   * Ligas os eventos do listeners no hub.
+   */
+  ligaEventServer() {
 
-    for(var name in me.interfaceListeners){
-        me.config.socket.removeListener(name, me.interfaceListeners[name]);
-    }
-};
-
-/**
- * desconecta os eventos que vem do servidor.
- */
-BasicRtc.prototype.desconectServer = function () {
-    var me = this;
-
-    for(var name in me.listeners){
-        hub.removeListener(name, me.listeners[name]);
+    for (let name in this.listeners) {
+      if (this.listeners.hasOwnProperty(name)) {
+        hub.on(name, this.listeners[name]);
+      }
     }
 
-};
+  }
 
-/**
- * ligas os eventos do listeners no hub.
- */
-BasicRtc.prototype.ligaEventServer = function () {
-    var me = this;
+  /**
+   * Liga os eventos do interfaceListeners no socket.
+   */
+  ligaEventCli() {
 
-    for(var name in me.listeners){
-        hub.on(name, me.listeners[name]);
+    for (let name in this.interfaceListeners) {
+      if (this.interfaceListeners.hasOwnProperty(name)) {
+        this.config.socket.on(name, this.interfaceListeners[name]);
+      }
     }
-};
+  }
 
-/**
- * liga os eventos do interfaceListeners no socket.
- */
-BasicRtc.prototype.ligaEventCli = function () {
-    var me = this;
-
-    for(var name in me.interfaceListeners){
-        me.config.socket.on(name, me.interfaceListeners[name]);
+  /**
+   * Envia a msg para a interface.
+   *
+   * @param msg
+   */
+  emitePraInterface(msg) {
+    let me = this;
+    if (msg.getRtc() === me) {
+      var msgToBrowser = me.convertMessageFromServerToBrowser(msg);
+      me.config.socket.emit('retorno', msgToBrowser);
     }
-};
+  }
 
-/**
- * envia a msg para a interface.
- *
- * @param msg
- */
-BasicRtc.prototype.emitePraInterface = function(msg){
-    var me = this;
-    if(msg.getRtc() == me){
-        var msgToBrowser = me.convertMessageFromServerToBrowser(msg);
-        me.config.socket.emit('retorno',msgToBrowser);
-    }
-};
+  /**
+   * Converte a msg que vem do cliente para o padrao de masg do servidor.
+   *
+   * @param msgDoBrowser
+   * @returns {Mensagem}
+   */
+  convertMessageFromBrowserToServer(msgDoBrowser) {
 
-/**
- * converte a msg que vem do cliente para o padrao de masg do servidor.
- *
- * @param msgDoBrowser
- * @returns {Mensagem}
- */
-BasicRtc.prototype.convertMessageFromBrowserToServer = function(msgDoBrowser){
-    var me = this;
-    var mensagem = new Mensagem(me); //source == this
-    mensagem.fromBrowser(msgDoBrowser, me); //rtc == this
+    let me = this;
+    let mensagem = new Mensagem(me); // Source == this
+    mensagem.fromBrowser(msgDoBrowser, me); // Rtc == this
     return mensagem;
 
-};
+  }
 
-/**
- * converte a msg do servidor para um msg entendida pelo cliente.
- *
- * @param mensagem
- * @returns {{success, dado, erro, flag, evento}|{success: {boolean}, dado: {object}, error: {object}, flag: {boolean}}}
- */
-BasicRtc.prototype.convertMessageFromServerToBrowser = function(mensagem){
-    var msgb = mensagem.toBrowser();
+  /**
+   * Converte a msg do servidor para um msg entendida pelo cliente.
+   *
+   * @param mensagem
+   * @returns {{success, dado, erro, flag, evento}|{success: {boolean},
+   * dado: {object}, error: {object}, flag: {boolean}}}
+   */
+  convertMessageFromServerToBrowser(mensagem) {
+
+    let msgb = mensagem.toBrowser();
     return msgb;
-};
+  }
 
-/**
- * recebe uma msg que vem da interface e a repassa por meio de evento.
- * @param msgDoBrowser
- */
-BasicRtc.prototype.daInterface = function(msgDoBrowser){
-    var me = this;
-    hub.emit('rtc.'+msgDoBrowser.evento, me.convertMessageFromBrowserToServer(msgDoBrowser));
-};
+  /**
+   * Recebe uma msg que vem da interface e a repassa por meio de evento.
+   * @param msgDoBrowser
+   */
+  daInterface(msgDoBrowser) {
+    let me = this;
+    hub.emit('rtc.' + msgDoBrowser.evento,
+      me.convertMessageFromBrowserToServer(msgDoBrowser));
+  }
+
+}
+
 
 module.exports = BasicRtc;
