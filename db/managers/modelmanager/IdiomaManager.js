@@ -33,6 +33,7 @@ class Idiomamanager extends Manager {
    * no banco, se ainda nao ela cria o primeiro que sera um root.
    */
   cadprimeiroidioma() {
+    var me = this;
     this.model.find(function(err, res) {
       if (res) {
         if (res.length === 0) {
@@ -43,7 +44,7 @@ class Idiomamanager extends Manager {
 
           this.model.create(idioma, function(erro, ret) {
             if (ret) {
-              this.hub.emit('criaprimeirouser', ret);
+              me.hub.emit('criaprimeirouser', ret);
             } else {
               console.log('algo errado não deu certo', erro);
             }
