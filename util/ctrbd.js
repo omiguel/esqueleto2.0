@@ -1,71 +1,82 @@
+'use strict';
 /**
  * Created by Osvaldo on 21/05/2016.
  */
 
-var hub = require('../hub/hub.js');
-var Mensagem = require('./mensagem.js');
+const hub = require('../hub/hub.js');
+const Mensagem = require('./mensagem.js');
 
-function controlemodelbd(quem, model, ref) {
-    var me = this;
-    me.modelo = {
-        ref: ref
+class ControleModeBd {
+  constructor(quem, model, ref) {
+    this.hub = hub;
+    this.mensagem = Mensagem;
+
+    this.modelo = {
+      ref: ref
     };
-    me.sou = quem;
+    this.sou = quem;
 
-    me.criamodel(model);
-}
+    this.criamodel(model);
+  }
 
-/**
- * Se o atributo do model for um array, ele monta o array e cria o modelo deste,
- * depois joga dentro de callback, onde ele é setado dentro do array do model que
- * esta sendo criado.
- * @param model
- * @param cb
- */
-controlemodelbd.prototype.montaarray = function (model, cb) {
-    var me = this;
-    var ret = {};
+  /**
+   * Se o atributo do model for um array, ele monta o array e cria o modelo
+   * deste, depois joga dentro de callback, onde ele é setado dentro do array
+   * do model que esta sendo criado.
+   * @param model
+   * @param cb
+   */
+  montaarray(model, cb) {
+    let ret = {};
 
-    for(var atributo in model){
-        var tipo = model[atributo].instance;
-        if(tipo == 'Array'){
-            me.montaarray(model[atributo].schema.paths, function (res) {
-                ret[atributo] = res;
-            });
+    for (let atributo in model) {
+      if (model.hasOwnProperty(atributo)) {
+        let tipo = model[atributo].instance;
+        if (tipo == 'Array') {
+          this.montaarray(model[atributo].schema.paths, function (res) {
+            ret[atributo] = res;
+          });
         } else {
-            ret[atributo] = tipo;
+          ret[atributo] = tipo;
         }
+      }
     }
 
     cb(ret);
 
-};
+  }
 
-/**
- * responsavel por criar um modelo da entidade que está no banco, mostrando quais são
- * os atributos e os tipos deles.
- * @param model
- */
-controlemodelbd.prototype.criamodel = function (model) {
-    var me = this;
-    var ozmodel = model.paths;
+  /**
+   * Responsavel por criar um modelo da entidade que está no banco, mostrando
+   * quais são os atributos e os tipos deles.
+   * @param model
+   */
+  criamodel(model) {
+    let ozmodel = model.paths;
 
-    for(var atributo in ozmodel){
-        var tipo = ozmodel[atributo].instance;
-        if(tipo == 'Array'){
-            me.montaarray(ozmodel[atributo].schema.paths, function (res) {
-                me.modelo[atributo] = [res];
-            });
+    for (let atributo in ozmodel) {
+      if(ozmodel.hasOwnProperty(atributo)){
+        let tipo = ozmodel[atributo].instance;
+        if (tipo == 'Array') {
+          this.montaarray(ozmodel[atributo].schema.paths, function (res) {
+            this.modelo[atributo] = [res];
+          });
         }
-        else if(atributo != '_id' && tipo == 'ObjectID'){
-            me.modelo[atributo] = {referencia: ozmodel[atributo].options.ref};
-        }else {
-            me.modelo[atributo] = tipo;
+        else if (atributo != '_id' && tipo == 'ObjectID') {
+          this.modelo[atributo] = {referencia: ozmodel[atributo].options.ref};
+        } else {
+          this.modelo[atributo] = tipo;
         }
+      }
     }
-    var msg = new Mensagem(me, 'modelo', {nome: me.sou, modelo: me.modelo}, 'modelo');
+    let msg = new Mensagem(this, 'modelo', {
+      nome: this.sou,
+      modelo: this.modelo
+    }, 'modelo');
     hub.emit(msg.getEvento(), msg);
 
-};
+  }
 
-module.exports = controlemodelbd;
+}
+
+module.exports = ControleModeBd;

@@ -17,8 +17,7 @@ class BasicRtc {
    * Destroy o objeto, desconectando ele de todos os eventos.
    */
   destroy(login) {
-    let me = this;
-    if (login === me) {
+    if (login === this) {
       this.desconectCli();
       this.desconectServer();
     }
@@ -93,7 +92,7 @@ class BasicRtc {
    * @returns {Mensagem}
    */
   convertMessageFromBrowserToServer(msgDoBrowser) {
-    let mensagem = new Mensagem(this); // Source == this
+    let mensagem = new this.mensagem(this); // Source == this
     mensagem.fromBrowser(msgDoBrowser, this); // Rtc == this
     return mensagem;
 

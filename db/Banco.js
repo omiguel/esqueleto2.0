@@ -42,7 +42,7 @@ class Banco {
   wiring() {
 
     this.listeners['rtc.usuario.*'] = this.repassaComando.bind(this);
-    this.listeners['rtc.idioma.read'] = this.repassaComando.bind(this);
+    this.listeners['rtc.idioma.*'] = this.repassaComando.bind(this);
     this.listeners['rtc.teste.*'] = this.repassaComando.bind(this);
     this.listeners['modelo'] = this.entidademodelo.bind(this);
     this.listeners['rtc.getallmodels'] = this.enviamodelscompletos.bind(this);
@@ -84,7 +84,6 @@ class Banco {
    */
   repassaComando(msg) {
     var novoEvento = 'banco.' + msg.getEvento();
-    console.log('repassando', novoEvento);
     msg.setEvento(novoEvento);
     this.hub.emit(novoEvento, msg);
   }

@@ -3,39 +3,21 @@
  * Created by Osvaldo on 23/07/15.
  */
 
-const Mensagem = require('../util/mensagem.js');
-const Basico = require('./basicRtc.js');
+const Admin = require('./rtcAdmin.js');
 
-class RtcRoot extends Basico {
+class RtcRoot extends Admin {
 
   constructor(conf, login) {
-    super();
-    this.config = conf;
+    super(conf, login);
 
     console.log('RtcRoot', this.config.socket.id);
 
-    this.hub.emit('rtcLogin.destroy', login);
+    this.rootlisteners = {};
+    this.rootinterfaceListeners = {};
 
-    this.wiring();
-    this.interfaceWiring();
+    this.rootWiring();
+    this.rootInterfaceWiring();
 
-  }
-
-  /**
-   * Liga os eventos do servidor.
-   */
-  wiring() {
-
-    this.listeners['allmodels'] = this.emitePraInterface.bind(this);
-    this.listeners['entidade.created'] = this.emitePraInterface.bind(this);
-    this.listeners['entidade.readed'] = this.emitePraInterface.bind(this);
-    this.listeners['entidade.destroied'] = this.emitePraInterface.bind(this);
-    this.listeners['entidade.updated'] = this.emitePraInterface.bind(this);
-    this.listeners['entidade.error.created'] = this.emitePraInterface
-      .bind(this);
-    this.listeners['referencia.readed'] = this.emitePraInterface.bind(this);
-
-    this.ligaEventServer();
   }
 
   /**
@@ -45,10 +27,9 @@ class RtcRoot extends Basico {
    */
   crudentidade(msgDoBrowser) {
     let me = this;
-    let mensagem = new Mensagem(this); // Source == this
+    let mensagem = new this.mensagem(this); // Source == this
     mensagem.fromBrowserEntidade(msgDoBrowser, this, function (msg) {
       me.hub.emit('rtc.' + msg.getEvento(), msg);
-      console.log('quem eh o hub', me.hub);
     }); // Rtc == this
   }
 
@@ -59,16 +40,40 @@ class RtcRoot extends Basico {
    * @param msg
    */
   readreferencia(msg) {
-    let me = this;
-    let msgserver = me.convertMessageFromBrowserToServer(msg);
+    let msgserver = this.convertMessageFromBrowserToServer(msg);
     let dados = msgserver.getRes();
 
     for (let index in dados) {
       if (dados.hasOwnProperty(index)) {
         let evt = dados[index].referencia;
-        let msg = new Mensagem(me, evt + '.read', {res: dados[index]}, 
-          msgserver.getFlag(), me);
-        hub.emit('rtc.' + msg.getEvento(), msg);
+        let msg = new this.mensagem(this, evt + '.read', {res: dados[index]},
+          msgserver.getFlag(), this);
+        this.hub.emit('rtc.' + msg.getEvento(), msg);
+      }
+    }
+  }
+
+  /**
+   * Ligas os eventos do listeners no hub.
+   */
+  rootLigaEventServer() {
+
+    for (let name in this.rootlisteners) {
+      if (this.rootlisteners.hasOwnProperty(name)) {
+        this.hub.on(name, this.rootlisteners[name]);
+      }
+    }
+
+  }
+
+  /**
+   * Liga os eventos do interfaceListeners no socket.
+   */
+  rootLigaEventCli() {
+
+    for (let name in this.rootinterfaceListeners) {
+      if (this.rootinterfaceListeners.hasOwnProperty(name)) {
+        this.config.socket.on(name, this.rootinterfaceListeners[name]);
       }
     }
   }
@@ -76,17 +81,40 @@ class RtcRoot extends Basico {
   /**
    * Liga os eventos da interface.
    */
-  interfaceWiring() {
+  rootInterfaceWiring() {
 
-    this.interfaceListeners['getallmodels'] = this.daInterface.bind(this);
-    this.interfaceListeners['entidade.read'] = this.crudentidade.bind(this);
-    // this.interfaceListeners['entidade.read'] = this.crudentidade.bind(this);
-    // this.interfaceListeners['entidade.destroy'] = this.crudentidade.bind(this);
-    // this.interfaceListeners['entidade.update'] = this.crudentidade.bind(this);
-    this.interfaceListeners['referencia.read'] = this.readreferencia.bind(this);
+    this.rootinterfaceListeners['getallmodels'] = this.daInterface
+      .bind(this);
+    this.rootinterfaceListeners['entidade.create'] = this.crudentidade
+      .bind(this);
+    this.rootinterfaceListeners['entidade.read'] = this.crudentidade.bind(this);
+    this.rootinterfaceListeners['entidade.destroy'] = this.crudentidade
+      .bind(this);
+    this.rootinterfaceListeners['entidade.update'] = this.crudentidade
+      .bind(this);
+    this.rootinterfaceListeners['referencia.read'] = this.readreferencia
+      .bind(this);
 
-    this.ligaEventCli();
-  };
+    this.rootLigaEventCli();
+  }
+
+  /**
+   * Liga os eventos do servidor.
+   */
+  rootWiring() {
+
+    this.rootlisteners['allmodels'] = this.emitePraInterface.bind(this);
+    this.rootlisteners['entidade.created'] = this.emitePraInterface.bind(this);
+    this.rootlisteners['entidade.readed'] = this.emitePraInterface.bind(this);
+    this.rootlisteners['entidade.destroied'] = this.emitePraInterface
+      .bind(this);
+    this.rootlisteners['entidade.updated'] = this.emitePraInterface.bind(this);
+    this.rootlisteners['entidade.error.created'] = this.emitePraInterface
+      .bind(this);
+    this.rootlisteners['referencia.readed'] = this.emitePraInterface.bind(this);
+
+    this.rootLigaEventServer();
+  }
 
 }
 

@@ -7,10 +7,10 @@ const util = require('util');
 const EventEmitter2 = require('eventemitter2').EventEmitter2;
 const config = require('../config.json').eventConfig;
 
-class Hub extends EventEmitter2{
-  constructor(me, eventConfig) {
-    super(me, eventConfig);
+class Hub extends EventEmitter2 {
+  constructor(eventConfig) {
+    super(eventConfig);
   }
 }
 
-module.exports = new Hub(this, config);
+module.exports = new Hub(config);

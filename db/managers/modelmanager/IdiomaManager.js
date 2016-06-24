@@ -57,7 +57,7 @@ class Idiomamanager extends Manager {
    * Funcao responsavel por ligar os eventos escutados por esse documento.
    */
   wiring() {
-    this.listeners['banco.idioma.read'] = this.executaCrud.bind(this);
+    this.listeners['banco.idioma.*'] = this.executaCrud.bind(this);
 
     this.ligaListeners();
 

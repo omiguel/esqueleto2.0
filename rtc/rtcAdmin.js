@@ -1,48 +1,63 @@
+'use strict';
 /**
  * Created by Osvaldo on 19/10/15.
  */
 
-var hub = require('../hub/hub.js');
-var Mensagem = require('../util/mensagem.js');
-var utility = require('util');
-var basico = require('./basicRtc.js');
-utility.inherits(RtcAdmin, basico);
 
-/**
- * recebe o socktId passado pelo cliente.
- * 
- * @param conf
- * @constructor
- */
-function RtcAdmin(conf, login){
-    var me = this;
-    me.config = conf;
+var Comun = require('./rtcComum.js');
 
-    console.log('rtcAdmin', me.config.socket.id);
+class RtcAdmin extends Comun {
+  constructor(conf, login) {
+    super(conf, login);
 
-    hub.emit('rtcLogin.destroy', login);
+    console.log('rtcAdmin', this.config.socket.id);
 
-    me.wiring();
-    me.interfaceWiring();
+    this.adminlisteners = {};
+    this.admininterfaceListeners = {};
+
+    this.adminWiring();
+    this.adminInterfaceWiring();
+  }
+
+  /**
+   * Liga os eventos do servidor.
+   */
+  adminWiring() {
+    this.ligaEventServer();
+  }
+
+  /**
+   * Liga os eventos da interface.
+   */
+  adminInterfaceWiring() {
+    this.ligaEventCli();
+  }
+
+  /**
+   * Ligas os eventos do listeners no hub.
+   */
+  adminLigaEventServer() {
+
+    for (let name in this.adminlisteners) {
+      if (this.adminlisteners.hasOwnProperty(name)) {
+        this.hub.on(name, this.adminlisteners[name]);
+      }
+    }
+
+  }
+
+  /**
+   * Liga os eventos do interfaceListeners no socket.
+   */
+  adminLigaEventCli() {
+
+    for (let name in this.admininterfaceListeners) {
+      if (this.admininterfaceListeners.hasOwnProperty(name)) {
+        this.config.socket.on(name, this.admininterfaceListeners[name]);
+      }
+    }
+  }
 
 }
-
-/**
- * liga os eventos do servidor.
- */
-RtcAdmin.prototype.wiring = function(){
-    var me = this;
-
-    me.ligaEventServer();
-};
-
-/**
- * liga os eventos da interface.
- */
-RtcAdmin.prototype.interfaceWiring = function(){
-    var me = this;
-
-    me.ligaEventCli();
-};
 
 module.exports = RtcAdmin;

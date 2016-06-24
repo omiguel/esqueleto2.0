@@ -1,47 +1,38 @@
+'use strict';
 /**
  * Created by Osvaldo on 19/10/15.
  */
 
-var hub = require('../hub/hub.js');
-var Mensagem = require('../util/mensagem.js');
-var utility = require('util');
-var basico = require('./basicRtc.js');
-utility.inherits(RtcComum, basico);
 
-/**
- * recebe o socketId passado pelo cliente.
- *
- * @param conf
- * @constructor
- */
-function RtcComum(conf, login){
-    var me = this;
-    me.config = conf;
+var Basico = require('./basicRtc.js');
 
-    console.log('rtcComum', me.config.socket.id);
-    
-    hub.emit('rtcLogin.destroy', login);
+class RtcComum extends Basico {
+  constructor(conf, login) {
+    super();
+    this.config = conf;
 
-    me.wiring();
-    me.interfaceWiring();
+    console.log('rtcComum', this.config.socket.id);
+
+    this.hub.emit('rtcLogin.destroy', login);
+
+    this.wiring();
+    this.interfaceWiring();
+  }
+
+  /**
+   * Liga os eventos do servidor.
+   */
+  wiring() {
+    this.ligaEventServer();
+  }
+
+  /**
+   * Liga os eventos da interface.
+   */
+  interfaceWiring() {
+    this.ligaEventCli();
+  }
+
 }
-
-/**
- * liga os eventos do servidor.
- */
-RtcComum.prototype.wiring = function(){
-    var me = this;
-
-    me.ligaEventServer();
-};
-
-/**
- * liga os eventos da interface.
- */
-RtcComum.prototype.interfaceWiring = function(){
-    var me = this;
-
-    me.ligaEventCli();
-};
 
 module.exports = RtcComum;
