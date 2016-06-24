@@ -61,7 +61,7 @@ class Banco {
    * @param msg
    */
   enviamodelscompletos(msg) {
-    var retorno = msg.next(this, 'allmodels', {res: this.models}, msg.getFlag);
+    var retorno = msg.next(this, 'allmodels', {res: this.models}, msg.getFlag());
     this.hub.emit(retorno.getEvento(), retorno);
   }
 
