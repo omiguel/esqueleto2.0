@@ -1,4 +1,4 @@
-'use strict';
+'[use strict]';
 /**
  * Created by Gustavo on 03/06/2016.
  */
@@ -8,7 +8,7 @@ app.directive('modalmostraentidade', [function() {
     transclude: true,
     scope: {
       listaentidade: '=',
-      selecionavardiretiva: '&callbackFn'
+      selecionavardiretiva: '&callbackFn',
     },
     templateUrl: '../../../views/entidades/modalMostraEntidade/' +
     'modalMostraEntidade.html',

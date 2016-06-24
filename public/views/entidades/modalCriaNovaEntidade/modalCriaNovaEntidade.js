@@ -1,48 +1,49 @@
-'use strict';
+'[use strict]';
 /**
  * Created by Gustavo on 21/05/2016.
  */
-app.directive("modalcrianovaentidade", [function () {
+app.directive('modalcrianovaentidade', [function() {
   return {
     restrict: 'E',
     transclude: true,
     scope: {
-      entidades: "="
+      entidades: '=',
     },
-    templateUrl: '../../../views/entidades/modalCriaNovaEntidade/modalCriaNovaEntidade.html',
+    templateUrl: '../../../views/entidades/modalCriaNovaEntidade/' +
+    'modalCriaNovaEntidade.html',
 
-    link: function (scope, element) {
+    link: function(scope) {
 
       var me = this;
       var listeners = {};
 
-      //-----------------VARIAVEIS DE VALIDACAO
+      // -----------------VARIAVEIS DE VALIDACAO
 
       scope.emailErro = false;
 
-      //---------------------------------------
+      // ---------------------------------------
 
-      //lista da referencia do atributo
+      // Lista da referencia do atributo
       scope.listareferencia = [];
-      //referencia para o usuario
+      // Referencia para o usuario
       scope.referencianome = {};
 
       /**
-       * criado por: Gustavo
-       * popula scope.referencianome
+       * Criado por: Gustavo;
+       * Popula scope.referencianome;
        */
-      scope.populareferencianome = function () {
+      scope.populareferencianome = function() {
 
         for (var dado in scope.entidadeselecionada.modelo) {
+          if (scope.entidadeselecionada.modelo.hasOwnProperty(dado)) {
 
-          if(scope.entidadeselecionada.modelo.hasOwnProperty(dado)){
             var nomeref = scope.entidadeselecionada.modelo[dado].referencia;
 
             if (nomeref !== undefined) {
               scope.referencianome[nomeref] = scope.entidadeselecionada.dadoentidade[nomeref];
             }
-          }
 
+          }
         }
 
         $('#modalCriaEntidade').modal('toggle');
@@ -50,10 +51,10 @@ app.directive("modalcrianovaentidade", [function () {
       };
 
       /**
-       * criado por: Gustavo
-       * coloca o objeto desejado em dadoentidade
+       * Criado por: Gustavo;
+       * Coloca o objeto desejado em dadoentidade;
        */
-      scope.setReferencia = function (referencia, key) {
+      scope.setReferencia = function(referencia, key) {
 
         var referenciaindex = referencia.slice(-1);
         var dadoreferencia = scope.listareferencia[key][referenciaindex];
@@ -63,10 +64,10 @@ app.directive("modalcrianovaentidade", [function () {
       };
 
       /**
-       * criado/modificado por: Gustavo e Bosvaldo
-       * salva a entidade criado no banco
+       * Criado/modificado por: Gustavo e Bosvaldo;
+       * Salva a entidade criado no banco;
        */
-      scope.salvarEntidade = function () {
+      scope.salvarEntidade = function() {
 
         var method = null;
 
@@ -75,7 +76,7 @@ app.directive("modalcrianovaentidade", [function () {
 
         var dado = {
           nome: scope.entidadeselecionada.nome,
-          entidade: scope.entidadeselecionada.dadoentidade
+          entidade: scope.entidadeselecionada.dadoentidade,
         };
 
         if (dado.entidade._id) {
@@ -91,18 +92,18 @@ app.directive("modalcrianovaentidade", [function () {
       };
 
       /**
-       * criado por: Gustavo e Osvaldo
-       * retorno do banco, erro ao criar/atualizar usuario
-       * dado.code == 11000, email duplicado
+       * Criado por: Gustavo e Osvaldo;
+       * Retorno do banco, erro ao criar/atualizar usuario;
+       * Dado.code == 11000, email duplicado;
        */
-      var cretedError = function (msg) {
+      var cretedError = function(msg) {
 
         var dado = msg.getErro();
 
         if (dado.code !== 11000) {
           console.log('erro desconhecido', dado);
         } else {
-          scope.$apply(function () {
+          scope.$apply(function() {
             scope.emailErro = true;
           });
         }
@@ -110,18 +111,18 @@ app.directive("modalcrianovaentidade", [function () {
       };
 
       /**
-       * criado/modificado por: Gustavo e Osvaldo
-       * chega o retorno com todas as referencias.
+       * Criado/modificado por: Gustavo e Osvaldo;
+       * Chega o retorno com todas as referencias;
        */
-      var retornoreferencia = function (msg) {
-        scope.$apply(function () {
+      var retornoreferencia = function(msg) {
+        scope.$apply(function() {
           scope.listareferencia[msg.getFlag()] = msg.getDado();
         });
       };
 
       /**
-       * criado por: Osvaldo
-       * todo comentar
+       * Criado por: Osvaldo;
+       * todo comentar;
        */
       var getReferencias = function (dado) {
 
@@ -135,7 +136,14 @@ app.directive("modalcrianovaentidade", [function () {
           }
         }
         if (minhasrefs.length > 0) {
-          var msg = new Mensagem(me, 'referencia.read', minhasrefs, 'referencia');
+
+          var msg = new Mensagem(
+            me,
+            'referencia.read',
+            minhasrefs,
+            'referencia'
+          );
+
           SIOM.emitirServer(msg);
         }
 
