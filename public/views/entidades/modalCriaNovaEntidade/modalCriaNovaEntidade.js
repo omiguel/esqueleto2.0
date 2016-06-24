@@ -71,9 +71,6 @@ app.directive('modalcrianovaentidade', [function() {
 
         var method = null;
 
-        delete scope.entidadeselecionada.dadoentidade.ref;
-        delete scope.entidadeselecionada.dadoentidade.confirmasenha;
-
         var dado = {
           nome: scope.entidadeselecionada.nome,
           entidade: scope.entidadeselecionada.dadoentidade,
@@ -124,7 +121,7 @@ app.directive('modalcrianovaentidade', [function() {
        * Criado por: Osvaldo;
        * todo comentar;
        */
-      var getReferencias = function (dado) {
+      var getReferencias = function(dado) {
 
         scope.listareferencia = {};
         scope.entidadeselecionada = dado;
@@ -151,7 +148,7 @@ app.directive('modalcrianovaentidade', [function() {
 
       };
 
-      var wiring = function () {
+      var wiring = function() {
         listeners['entidade.error.created'] = cretedError.bind(me);
         listeners['referencia.readed'] = retornoreferencia.bind(me);
         listeners['pedereferencias'] = getReferencias.bind(me);

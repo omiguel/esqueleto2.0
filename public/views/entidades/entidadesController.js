@@ -31,8 +31,7 @@ app.controller('entidadesController', [
   $scope.selecionaEntidade =
     function(entidadeNome, entidadeModelo, dadoEntidade, modal) {
 
-    dadoEntidade.confirmasenha = dadoEntidade.senha;
-
+    // Popula dadoEntidade
     for (var index in entidadeModelo) {
       if (entidadeModelo.hasOwnProperty(index)) {
 
@@ -47,13 +46,19 @@ app.controller('entidadesController', [
       }
     }
 
+    // Ref desnecessario em dadoEntidade
+    delete dadoEntidade.ref;
+
+    // Polula $scope.entidadeSelecionada
     $scope.entidadeSelecionada = {
       nome: entidadeNome,
       modelo: entidadeModelo,
       dadoentidade: dadoEntidade,
     };
 
+    // Decide o que fazer dependendo do modal
     if (modal === 'modalMostraEntidade') {
+      $scope.entidadeSelecionada.confirmasenha = dadoEntidade.senha;
       SIOM.emit('pedereferencias', $scope.entidadeSelecionada);
     } else {
       $('#' + modal).modal();

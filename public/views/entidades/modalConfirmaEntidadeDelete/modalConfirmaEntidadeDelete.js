@@ -12,8 +12,12 @@ app.directive('modalconfirmaentidadedelete', [function() {
     templateUrl: '../../../views/entidades/modalConfirmaEntidadeDelete/' +
     'modalConfirmaEntidadeDelete.html',
 
-    link: function(scope, element) {
+    link: function(scope) {
       var me = this;
+
+      scope.teste = function() {
+        console.log("oq vem???",scope.entidadeselecionada);
+      };
 
       /**
        * Criado por: Gustavo;
