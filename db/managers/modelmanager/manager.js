@@ -9,6 +9,8 @@ const hub = require('../../../hub/hub.js');
 
 class Manager {
   constructor() {
+    this.hub = hub;
+    this.listeners = {};
   }
 
   /**
@@ -70,7 +72,7 @@ class Manager {
    *
    * @param msg
    */
-  updatefunction(msg) {
+  update(msg) {
     var me = this;
     var dados = msg.getRes();
     this.model.findByIdAndUpdate(dados._id, {$set: dados}, function (err, res) {
@@ -96,7 +98,7 @@ class Manager {
   destroy(msg) {
     var me = this;
     var dados = msg.getRes();
-    this.model.remove({'_id': dados._id}, function(err, res) {
+    this.model.remove({'_id': dados._id}, function (err, res) {
       if (res) {
         me.emitManager(msg, '.destroied', {res: res});
       } else {
@@ -123,7 +125,17 @@ class Manager {
       msgAntiga.setFlag(novaflag);
     }
     var retorno = msgAntiga.next(this, evt, dado, msgAntiga.getFlag());
-    hub.emit(retorno.getEvento(), retorno);
+    this.hub.emit(retorno.getEvento(), retorno);
+  }
+
+  ligaListeners() {
+
+    for (let name in this.listeners) {
+      if (this.listeners.hasOwnProperty(name)) {
+        this.hub.on(name, this.listeners[name]);
+      }
+    }
+
   }
 
 }

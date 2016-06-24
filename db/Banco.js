@@ -5,88 +5,90 @@
 const Mongoose = require('mongoose');
 const hub = require('../hub/hub.js');
 
-class Banco{
+class Banco {
   constructor() {
-    let me = this;
+
     let db;
-    me.listeners = {};
-    me.models = {};
+    this.listeners = {};
+    this.models = {};
+    this.hub = hub;
 
     this.mongoose = Mongoose;
 
-    let conectado = false;
+    this.conectado = false;
 
     db = this.mongoose.connection;
 
-    db.on('error', function(err, val) {
+    db.on('error', function (err, val) {
       return console.log('error', err, val);
     });
-    db.once('open', function() {
-      me.wiring();
-      conectado = true;
-      hub.emit('banco.status.ready');
-    });
+    db.once('open', this.dbOpen.bind(this));
   }
-}
 
-Banco.prototype.init = function(config) {
-  this.mongoose.connect('mongodb://' + config.mongodb.local + '/' +
-    config.mongodb.nomedobanco);
-};
+  init(config) {
+    this.mongoose.connect('mongodb://' + config.mongodb.local + '/' +
+      config.mongodb.nomedobanco);
+  }
 
-/**
- * Liga todos os eventos escutados por esse documento.
- */
-Banco.prototype.wiring = function() {
-  var me = this;
+  dbOpen() {
+      this.wiring();
+      this.conectado = true;
+      this.hub.emit('banco.status.ready');
+  }
 
-  me.listeners['rtc.usuario.*'] = me.repassaComando.bind(me);
-  me.listeners['rtc.idioma.*'] = me.repassaComando.bind(me);
-  me.listeners['rtc.teste.*'] = me.repassaComando.bind(me);
-  me.listeners['modelo'] = me.entidademodelo.bind(me);
-  me.listeners['rtc.getallmodels'] = me.enviamodelscompletos.bind(me);
+  /**
+   * Liga todos os eventos escutados por esse documento.
+   */
+  wiring() {
 
-  for (var name in me.listeners) {
-    if (me.listeners.hasOwnProperty(name)) {
-      hub.on(name, me.listeners[name]);
+    this.listeners['rtc.usuario.*'] = this.repassaComando.bind(this);
+    this.listeners['rtc.idioma.read'] = this.repassaComando.bind(this);
+    this.listeners['rtc.teste.*'] = this.repassaComando.bind(this);
+    this.listeners['modelo'] = this.entidademodelo.bind(this);
+    this.listeners['rtc.getallmodels'] = this.enviamodelscompletos.bind(this);
+
+    for (var name in this.listeners) {
+      if (this.listeners.hasOwnProperty(name)) {
+        this.hub.on(name, this.listeners[name]);
+      }
     }
+    this.hub.emit('banco.status.wired');
   }
-  hub.emit('banco.status.wired');
-};
 
-/**
- * Funcao que envia para a interface todos os models do banco e seus atributos.
- *
- * @param msg
- */
-Banco.prototype.enviamodelscompletos = function(msg) {
-  var me = this;
-  var retorno = msg.next(me, 'allmodels', {res: me.models}, msg.getFlag);
-  hub.emit(retorno.getEvento(), retorno);
-};
+  /**
+   * Funcao que envia para a interface todos os models do banco e seus atributos.
+   *
+   * @param msg
+   */
+  enviamodelscompletos(msg) {
+    var retorno = msg.next(this, 'allmodels', {res: this.models}, msg.getFlag);
+    this.hub.emit(retorno.getEvento(), retorno);
+  }
 
-/**
- * Quando um model do banco e criado esse documento escuta, pega o model que
- * veio dentro da msg e salva em um array.
- *
- * @param msg
- */
-Banco.prototype.entidademodelo = function(msg) {
-  var me = this;
-  var model = msg.getDado();
-  console.log(model.nome);
-  me.models[model.nome] = model;
-};
+  /**
+   * Quando um model do banco e criado esse documento escuta, pega o model que
+   * veio dentro da msg e salva em um array.
+   *
+   * @param msg
+   */
+  entidademodelo(msg) {
+    var model = msg.getDado();
+    console.log(model.nome);
+    this.models[model.nome] = model;
+  }
 
-/**
- * Repassa todos os eventos basicos (crud).
- *
- * @param msg
- */
-Banco.prototype.repassaComando = function(msg) {
-  var novoEvento = 'banco.' + msg.getEvento();
-  msg.setEvento(novoEvento);
-  hub.emit(novoEvento, msg);
-};
+  /**
+   * Repassa todos os eventos basicos (crud).
+   *
+   * @param msg
+   */
+  repassaComando(msg) {
+    var novoEvento = 'banco.' + msg.getEvento();
+    console.log('repassando', novoEvento);
+    msg.setEvento(novoEvento);
+    this.hub.emit(novoEvento, msg);
+  }
+
+}
 
 module.exports = new Banco();

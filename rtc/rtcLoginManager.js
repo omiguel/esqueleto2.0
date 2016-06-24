@@ -32,25 +32,24 @@ class RtcLoginManager extends Basico {
    * @param msg
    */
   trataLogin(msg) {
-    var me = this;
 
     let rtc = null;
 
-    if (msg.getRtc() === me) {
-      var dado = msg.getRes();
+    if (msg.getRtc() === this) {
+      let dado = msg.getRes();
       switch (dado.tipo) {
         case 0:
-          rtc = new rtcRoot(me.config, me);
+          rtc = new rtcRoot(this.config, this);
           break;
         case 1:
-          rtc = new rtcAdmin(me.config, me);
+          rtc = new rtcAdmin(this.config, this);
           break;
         case 2:
-          rtc = new rtcComum(me.config, me);
+          rtc = new rtcComum(this.config, this);
           break;
       }
 
-      me.emitePraInterface(msg);
+      this.emitePraInterface(msg);
     }
   }
 
@@ -60,26 +59,24 @@ class RtcLoginManager extends Basico {
  * liga os eventos do cliente.
  */
 RtcLoginManager.prototype.interfaceWiring = function () {
-  var me = this;
 
-  me.interfaceListeners['logar'] = me.daInterface.bind(me);
+  this.interfaceListeners['logar'] = this.daInterface.bind(this);
 
-  me.ligaEventCli();
+  this.ligaEventCli();
 };
 
 /**
  * liga os eventos do servidor.
  */
 RtcLoginManager.prototype.wiring = function () {
-  var me = this;
 
-  me.listeners['usuario.error.logar'] = me.emitePraInterface.bind(me);
-  me.listeners['usuario.senhaincorreta'] = me.emitePraInterface.bind(me);
-  me.listeners['usuario.emailnaocadastrado'] = me.emitePraInterface.bind(me);
-  me.listeners['usuario.login'] = me.trataLogin.bind(me);
-  me.listeners['rtcLogin.destroy'] = me.destroy.bind(me);
+  this.listeners['usuario.error.logar'] = this.emitePraInterface.bind(this);
+  this.listeners['usuario.senhaincorreta'] = this.emitePraInterface.bind(this);
+  this.listeners['usuario.emailnaocadastrado'] = this.emitePraInterface.bind(this);
+  this.listeners['usuario.login'] = this.trataLogin.bind(this);
+  this.listeners['rtcLogin.destroy'] = this.destroy.bind(this);
 
-  me.ligaEventServer();
+  this.ligaEventServer();
 
 };
 

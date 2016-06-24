@@ -4,17 +4,13 @@
  */
 
 var Manager = require('./manager.js');
-var utility = require('util');
 var Model = require('../../model/idioma.js');
-var hub = require('../../../hub/hub.js');
-var Mensagem = require('../../../util/mensagem.js');
 
 class Idiomamanager extends Manager {
   constructor() {
     super();
 
     this.model = Model;
-    this.listeners = {};
     this.wiring();
 
   }
@@ -24,12 +20,11 @@ class Idiomamanager extends Manager {
    * função que vai ser executada por meio da herança.
    */
   executaCrud(msg) {
-    var me = this;
-    var method = msg.getEvento().substr(msg.getEvento().lastIndexOf('.') + 1);
+    let method = msg.getEvento().substr(msg.getEvento().lastIndexOf('.') + 1);
     try {
-      me[method](msg);
+      this[method](msg);
     } catch (e) {
-      me.emitManager(msg, '.error.manager', {err: e});
+      this.emitManager(msg, '.error.manager', {err: e});
     }
   }
 
@@ -48,7 +43,7 @@ class Idiomamanager extends Manager {
 
           this.model.create(idioma, function(erro, ret) {
             if (ret) {
-              hub.emit('criaprimeirouser', ret);
+              this.hub.emit('criaprimeirouser', ret);
             } else {
               console.log('algo errado não deu certo', erro);
             }
@@ -62,16 +57,11 @@ class Idiomamanager extends Manager {
    * Funcao responsavel por ligar os eventos escutados por esse documento.
    */
   wiring() {
-    var me = this;
-    me.listeners['banco.idioma.*'] = me.executaCrud.bind(me);
+    this.listeners['banco.idioma.read'] = this.executaCrud.bind(this);
 
-    for (var name in me.listeners) {
-      if (me.listeners.hasOwnProperty(name)) {
-        hub.on(name, me.listeners[name]);
-      }
-    }
+    this.ligaListeners();
 
-    me.cadprimeiroidioma();
+    this.cadprimeiroidioma();
 
   }
 

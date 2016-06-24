@@ -43,7 +43,7 @@ class BasicRtc {
 
     for (let name in this.listeners) {
       if (this.listeners.hasOwnProperty(name)) {
-        hub.removeListener(name, this.listeners[name]);
+        this.hub.removeListener(name, this.listeners[name]);
       }
     }
 
@@ -56,7 +56,7 @@ class BasicRtc {
 
     for (let name in this.listeners) {
       if (this.listeners.hasOwnProperty(name)) {
-        hub.on(name, this.listeners[name]);
+        this.hub.on(name, this.listeners[name]);
       }
     }
 
@@ -80,10 +80,9 @@ class BasicRtc {
    * @param msg
    */
   emitePraInterface(msg) {
-    let me = this;
-    if (msg.getRtc() === me) {
-      var msgToBrowser = me.convertMessageFromServerToBrowser(msg);
-      me.config.socket.emit('retorno', msgToBrowser);
+    if (msg.getRtc() === this) {
+      var msgToBrowser = this.convertMessageFromServerToBrowser(msg);
+      this.config.socket.emit('retorno', msgToBrowser);
     }
   }
 
@@ -94,10 +93,8 @@ class BasicRtc {
    * @returns {Mensagem}
    */
   convertMessageFromBrowserToServer(msgDoBrowser) {
-
-    let me = this;
-    let mensagem = new Mensagem(me); // Source == this
-    mensagem.fromBrowser(msgDoBrowser, me); // Rtc == this
+    let mensagem = new Mensagem(this); // Source == this
+    mensagem.fromBrowser(msgDoBrowser, this); // Rtc == this
     return mensagem;
 
   }
@@ -121,7 +118,7 @@ class BasicRtc {
    */
   daInterface(msgDoBrowser) {
     let me = this;
-    hub.emit('rtc.' + msgDoBrowser.evento,
+    this.hub.emit('rtc.' + msgDoBrowser.evento,
       me.convertMessageFromBrowserToServer(msgDoBrowser));
   }
 

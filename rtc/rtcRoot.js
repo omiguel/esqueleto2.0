@@ -1,93 +1,93 @@
+'use strict';
 /**
  * Created by Osvaldo on 23/07/15.
  */
 
-var hub = require('../hub/hub.js');
-var Mensagem = require('../util/mensagem.js');
-var utility = require('util');
-var basico = require('./basicRtc.js');
-var fs = require('fs');
-utility.inherits(RtcRoot, basico);
+const Mensagem = require('../util/mensagem.js');
+const Basico = require('./basicRtc.js');
 
-/**
- * recebe o socketId enviado pelo cliente.
- *
- * @param conf
- * @constructor
- */
-function RtcRoot(conf, login){
-    var me = this;
-    me.config = conf;
+class RtcRoot extends Basico {
 
-    console.log('rtcRoot', me.config.socket.id);
+  constructor(conf, login) {
+    super();
+    this.config = conf;
 
-    hub.emit('rtcLogin.destroy', login);
+    console.log('RtcRoot', this.config.socket.id);
 
-    me.wiring();
-    me.interfaceWiring();
+    this.hub.emit('rtcLogin.destroy', login);
+
+    this.wiring();
+    this.interfaceWiring();
+
+  }
+
+  /**
+   * Liga os eventos do servidor.
+   */
+  wiring() {
+
+    this.listeners['allmodels'] = this.emitePraInterface.bind(this);
+    this.listeners['entidade.created'] = this.emitePraInterface.bind(this);
+    this.listeners['entidade.readed'] = this.emitePraInterface.bind(this);
+    this.listeners['entidade.destroied'] = this.emitePraInterface.bind(this);
+    this.listeners['entidade.updated'] = this.emitePraInterface.bind(this);
+    this.listeners['entidade.error.created'] = this.emitePraInterface
+      .bind(this);
+    this.listeners['referencia.readed'] = this.emitePraInterface.bind(this);
+
+    this.ligaEventServer();
+  }
+
+  /**
+   * Essa função esta adaptada para repassar o crud de qualquer entidade por
+   * um evento unico.
+   * @param msgDoBrowser
+   */
+  crudentidade(msgDoBrowser) {
+    let me = this;
+    let mensagem = new Mensagem(this); // Source == this
+    mensagem.fromBrowserEntidade(msgDoBrowser, this, function (msg) {
+      me.hub.emit('rtc.' + msg.getEvento(), msg);
+      console.log('quem eh o hub', me.hub);
+    }); // Rtc == this
+  }
+
+  /**
+   * Funcao responsavel por solicitar a leitura de qualquer referencia de
+   * algum model quando o usuario desejar criar um novo modelo com referencia.
+   *
+   * @param msg
+   */
+  readreferencia(msg) {
+    let me = this;
+    let msgserver = me.convertMessageFromBrowserToServer(msg);
+    let dados = msgserver.getRes();
+
+    for (let index in dados) {
+      if (dados.hasOwnProperty(index)) {
+        let evt = dados[index].referencia;
+        let msg = new Mensagem(me, evt + '.read', {res: dados[index]}, 
+          msgserver.getFlag(), me);
+        hub.emit('rtc.' + msg.getEvento(), msg);
+      }
+    }
+  }
+
+  /**
+   * Liga os eventos da interface.
+   */
+  interfaceWiring() {
+
+    this.interfaceListeners['getallmodels'] = this.daInterface.bind(this);
+    this.interfaceListeners['entidade.read'] = this.crudentidade.bind(this);
+    // this.interfaceListeners['entidade.read'] = this.crudentidade.bind(this);
+    // this.interfaceListeners['entidade.destroy'] = this.crudentidade.bind(this);
+    // this.interfaceListeners['entidade.update'] = this.crudentidade.bind(this);
+    this.interfaceListeners['referencia.read'] = this.readreferencia.bind(this);
+
+    this.ligaEventCli();
+  };
 
 }
-
-/**
- * liga os eventos do servidor.
- */
-RtcRoot.prototype.wiring = function(){
-    var me = this;
-
-    me.listeners['allmodels'] = me.emitePraInterface.bind(me);
-    me.listeners['entidade.created'] = me.emitePraInterface.bind(me);
-    me.listeners['entidade.readed'] = me.emitePraInterface.bind(me);
-    me.listeners['entidade.destroied'] = me.emitePraInterface.bind(me);
-    me.listeners['entidade.updated'] = me.emitePraInterface.bind(me);
-    me.listeners['entidade.error.created'] = me.emitePraInterface.bind(me);
-    me.listeners['referencia.readed'] = me.emitePraInterface.bind(me);
-
-    me.ligaEventServer();
-};
-
-/**
- * essa função esta adaptada para repassar o crud de qualquer entidade por um evento unico.
- * @param msgDoBrowser
- */
-RtcRoot.prototype.crudentidade = function (msgDoBrowser) {
-    var me = this;
-    var mensagem = new Mensagem(me); //source == this
-    mensagem.fromBrowserEntidade(msgDoBrowser, me, function (msg) {
-        hub.emit('rtc.'+msg.getEvento(), msg);
-    }); //rtc == this
-};
-
-/**
- * funcao responsavel por solicitar a leitura de qualquer referencia de algum model
- * quando o usuario desejar criar um novo modelo com referencia.
- * @param msg
- */
-RtcRoot.prototype.readreferencia = function (msg) {
-    var me = this;
-    var msgserver = me.convertMessageFromBrowserToServer(msg);
-    var dados = msgserver.getRes();
-
-    for(var index in dados){
-        var evt = dados[index].referencia;
-        var msg = new Mensagem(me, evt+'.read', {res: dados[index]}, msgserver.getFlag(), me);
-        hub.emit('rtc.'+msg.getEvento(), msg);
-    }
-};
-
-/**
- * liga os eventos da interface.
- */
-RtcRoot.prototype.interfaceWiring = function(){
-    var me = this;
-
-    me.interfaceListeners['getallmodels'] = me.daInterface.bind(me);
-    me.interfaceListeners['entidade.create'] = me.crudentidade.bind(me);
-    me.interfaceListeners['entidade.read'] = me.crudentidade.bind(me);
-    me.interfaceListeners['entidade.destroy'] = me.crudentidade.bind(me);
-    me.interfaceListeners['entidade.update'] = me.crudentidade.bind(me);
-    me.interfaceListeners['referencia.read'] = me.readreferencia.bind(me);
-
-    me.ligaEventCli();
-};
 
 module.exports = RtcRoot;
