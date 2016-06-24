@@ -16,7 +16,7 @@ app.directive('navbar', [
       scope: {},
       templateUrl: '../../views/navbar/navbar.html',
 
-      link: function (scope, element) {
+      link: function(scope, element) {
         var me = this;
         me.listeners = {};
 
@@ -26,7 +26,7 @@ app.directive('navbar', [
          * Criado por: Gustavo;
          * Desloga usuario;
          */
-        scope.sair = function (local) {
+        scope.sair = function(local) {
 
           setUserLogado.setLogado(null);
           scope.usuariologado = null;
@@ -44,7 +44,7 @@ app.directive('navbar', [
          * Criado por: Gustavo;
          * Troca de tela;
          */
-        scope.navega = function (local) {
+        scope.navega = function(local) {
 
           scope.usuariologado = getUserLogado.getLogado();
 
@@ -57,7 +57,7 @@ app.directive('navbar', [
          * Criado por: Gustavo;
          * Mostra menu do navbar para usuario;
          */
-        var usuarioLogou = function () {
+        var usuarioLogou = function() {
           scope.usuariologado = getUserLogado.getLogado();
         };
 
@@ -65,7 +65,7 @@ app.directive('navbar', [
          * Criado por: Osvaldo
          * Funcao responsavel por ligar os eventos;
          */
-        var wiring = function () {
+        var wiring = function() {
           me.listeners['setarota'] = usuarioLogou.bind(me);
 
           for (var name in me.listeners) {
