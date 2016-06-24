@@ -40,30 +40,36 @@ class Manager {
     let dados = msg.getRes();
     if (dados) {
       if (dados._id) {
-        this.model.findById(dados._id, function (err, res) {
-          if (res) {
-            me.emitManager(msg, '.readed', {res: res});
-          } else {
-            me.emitManager(msg, '.error.readed', {err: err});
-          }
-        });
+        this.model.findById(dados._id)
+          .select('-__v')
+          .exec(function (err, res) {
+            if (res) {
+              me.emitManager(msg, '.readed', {res: res});
+            } else {
+              me.emitManager(msg, '.error.readed', {err: err});
+            }
+          });
       } else {
-        this.model.find(function (err, res) {
-          if (res) {
-            me.emitManager(msg, '.readed', {res: res});
-          } else {
-            me.emitManager(msg, '.error.readed', {err: err});
-          }
-        });
+        this.model.find()
+          .select('-__v')
+          .exec(function (err, res) {
+            if (res) {
+              me.emitManager(msg, '.readed', {res: res});
+            } else {
+              me.emitManager(msg, '.error.readed', {err: err});
+            }
+          });
       }
     } else {
-      this.model.find(function (err, res) {
-        if (res) {
-          me.emitManager(msg, '.readed', {res: res});
-        } else {
-          me.emitManager(msg, '.error.readed', {err: err});
-        }
-      });
+      this.model.find()
+        .select('-__v')
+        .exec(function (err, res) {
+          if (res) {
+            me.emitManager(msg, '.readed', {res: res});
+          } else {
+            me.emitManager(msg, '.error.readed', {err: err});
+          }
+        });
     }
   }
 

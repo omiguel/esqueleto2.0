@@ -155,15 +155,6 @@ app.controller('entidadesController', [
 
     $scope.listaEntidade.lista = angular.copy(msg.getDado());
 
-    //todo OSVALDO remover depois, apenas usado para tirar __v
-    for (var index in $scope.listaEntidade.lista) {
-      for (var procuraV in $scope.listaEntidade.lista[index]) {
-        if (procuraV === "__v") {
-          delete $scope.listaEntidade.lista[index][procuraV];
-        }
-      }
-    }
-
     $scope.$apply();
 
     $('#modalMostraEntidade').modal();

@@ -42,7 +42,7 @@ app.controller('loginController', [
 
     /**
      * Criado por: Osvaldo;
-     * todo comentar;
+     * quando o usuario entra, joga o usuario logado globalmente.
      */
     me.logou = function(msg) {
 
@@ -53,7 +53,7 @@ app.controller('loginController', [
 
     /**
      * Criado por: Osvaldo;
-     * todo comentar;
+     * destroy a interface.
      */
     me.destroy = function() {
       for (var name in me.listeners) {
