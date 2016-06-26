@@ -9,6 +9,9 @@ app.factory('seguranca', ['md5', function(md5){
     },
     empacota: function (value) {
       return sjcl.codec.utf8String.toBits(value);
+    },
+    cifra: function (value) {
+      return sjcl.encrypt(value, value, {mode : "ocb2"});
     }
   };
 

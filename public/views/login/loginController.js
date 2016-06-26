@@ -28,7 +28,7 @@ app.controller('loginController', [
       console.log('teste de igualdade', has === dpct);
 
       // {mode : "ccm || gcm || ocb2"}
-      let t = sjcl.encrypt(has, has, {mode : "ocb2"});
+      let t = seguranca.cifra(has);
       console.log('cifrado', t);
       let d = sjcl.decrypt(dpct, t);
       console.log('decifrado', d);
