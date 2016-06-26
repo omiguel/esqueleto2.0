@@ -1,47 +1,58 @@
-<div class="panel">
-    <div class="panel-heading">
-        <div class="row">
-            <!-- TITULO -->
-            <div class="col-md-offset-4 col-md-5 col-sm-offset-3 col-sm-8 col-xs-offset-3 col-xs-8">
-                <h1>Bem vindo ao Esqueleto 2.0!</h1>
-            </div>
+<div class="row">
+    <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12">
+
+        <!-- TITULO -->
+        <div align="center">
+            <h1>Bem vindo ao Esqueleto 2.0!</h1>
         </div>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
-                <!-- SUB TITULO -->
-                <div>
-                    <h4>Faça seu login abaixo</h4>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10">
+
+                    <div>
+                        <h4>Faça seu login abaixo</h4>
+                    </div>
+                    <form name="formLogin">
+                        <!-- EMAIL -->
+                        <div class="form-group" ng-class="{ 'has-error' : !validoEmailCadastrado}">
+                            <label class="control-label">Email:</label>
+                            <input
+                                    class="form-control"
+                                    type="text"
+                                    ng-model="usuario.email"
+                            />
+                        </div>
+                        <!-- SENHA -->
+                        <div class="form-group" ng-class="{ 'has-error' : !validoSenha}">
+                            <label class="control-label">Senha:</label>
+                            <input
+                                    class="form-control"
+                                    type="password"
+                                    ng-model="usuario.senha"
+                                    ng-change="criaHash()"
+                            />
+                        </div>
+                        <!-- BTN LOGAR -->
+                        <div class="form-group">
+                            <button class="btn btn-lg button-style-1 btn-block" ng-click="logar()">Logar
+                            </button>
+                        </div>
+                        <!-- MSGS DE ERRO -->
+                        <div>
+                            <div ng-show="!validoSenha" class="msg-erro control-label">
+                                <h5>Ops! A senha está incorreta!</h5>
+                            </div>
+                            <div ng-show="!validoEmailCadastrado" class="msg-erro control-label">
+                                <h5>Ops! O Usuario não está cadastrado ou e-mail está incorreto!</h5>
+                            </div>
+                            <div ng-show="!validoServer" class="msg-erro control-label">
+                                <h5>Ops! parece que tivemos um problema com o server, tente mais tarde!</h5>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
-                <form name="formDevMan">
-                    <!-- EMAIL -->
-                    <div class="form-group" ng-class="{ 'has-error' : !validoEmailCadastrado}">
-                        <label class="control-label">Email:</label>
-                        <input class="form-control" type="text" placeholder="Digite seu nome" ng-model="usuario.email"/>
-                    </div>
-                    <!-- SENHA -->
-                    <div class="form-group" ng-class="{ 'has-error' : !validoSenha}">
-                        <label class="control-label">Senha:</label>
-                        <input class="form-control" type="password" placeholder="Digite sua senha" ng-model="usuario.senha"/>
-                    </div>
-                    <!-- BTN LOGAR -->
-                    <div class="form-group">
-                        <button class="btn btn-lg button-style-1 btn-block" ng-click="logar()">Logar</button>
-                    </div>
-                    <!-- MSGS DE ERRO -->
-                    <span>
-                        <div ng-show="!validoSenha" class="msg-erro control-label">
-                            <h5>Ops! A senha está incorreta!</h5>
-                        </div>
-                        <div ng-show="!validoEmailCadastrado" class="msg-erro control-label">
-                            <h5>Ops! O Usuario não está cadastrado ou e-mail está incorreto!</h5>
-                        </div>
-                        <div ng-show="!validoServer" class="msg-erro control-label">
-                            <h5>Ops! parece que tivemos um problema com o server, tente mais tarde!</h5>
-                        </div>
-                    </span>
-                </form>
             </div>
         </div>
     </div>

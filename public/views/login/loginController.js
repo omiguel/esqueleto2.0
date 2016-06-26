@@ -40,21 +40,30 @@ app.controller('loginController', [
     teste('admin');
 
     me.listeners = {};
+    me.senhaHash = null;
 
     // ----------------USADO APENAS PARA AGILIZAR LOGIN
     $scope.usuario = {
-      email: "admin",
-      senha: "admin"
+      email: 'admin',
+      senha: 'admin'
     };
     // ------------------------------------------------
 
-    //-------VARIAVEIS DE VALIDACAO
+    // -------VARIAVEIS DE VALIDACAO
     $scope.validoSenha = true;
     $scope.validoEmailCadastrado = true;
     $scope.validoServer = true;
-    //-----------------------------
+    // -----------------------------
 
     me.wind = '/home';
+
+    /**
+     * Criado por: Gustavo
+     * Transforma senha em hash
+     */
+    $scope.criaHash = function() {
+      me.senhaHash = seguranca.hash(angular.copy($scope.usuario.senha));
+    };
 
     /**
      * Criado por: Osvaldo;
@@ -62,7 +71,12 @@ app.controller('loginController', [
      */
     $scope.logar = function() {
 
-      var msg = new Mensagem(me, 'logar', $scope.usuario, 'usuario');
+      me.senhaHash = seguranca.hash(angular.copy($scope.usuario.senha));
+
+      var user = angular.copy($scope.usuario);
+      user.senha = seguranca.cifra(me.senhaHash);
+
+      var msg = new Mensagem(me, 'logar', user, 'usuario');
       SIOM.logar(msg);
 
     };

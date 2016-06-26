@@ -46,9 +46,9 @@
 												ng-change="setReferencia(referencianome[key] ,key)"
 										/>
 										<datalist id="datalist-{{key}}">
-											<option 
-												ng-repeat="referencia in listareferencia[key] track by $index" 
-												value="{{referencia[entidades[key].modelo.ref]}}-{{referencia._id}}-{{$index}}"
+											<option
+												ng-repeat="referencia in listareferencia[key] track by $index"
+												value="{{referencia[entidades[key].modelo.ref] + '(' + referencia._id + ')-' + $index}}"
 											>
 										</datalist>
 
@@ -187,7 +187,7 @@
 								<datalist id="datalist-idioma">
 									<option 
 										ng-repeat="referencia in listareferencia.idioma track by $index" 
-										value="{{referencia.nome}}-{{referencia._id}}-{{$index}}"
+										value="{{referencia.nome + '(' + referencia._id + ')-' + $index}}"
 									>
 								</datalist>
 
