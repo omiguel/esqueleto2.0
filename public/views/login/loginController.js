@@ -3,14 +3,41 @@
  * Created by Osvaldo on 05/10/15.
  */
 
+// var sjcl = require('sjcl');
+
 app.controller('loginController', [
   '$scope',
   '$location',
   'setUserLogado',
   '$route',
-  function($scope, $location, setUserLogado, $route) {
+  'seguranca',
+  function($scope, $location, setUserLogado, $route, seguranca) {
 
     var me = this;
+
+    function teste(pass) {
+
+      var has = seguranca.hash(pass);
+      console.log('senha em hash', has);
+
+      var pct = seguranca.empacota(has);
+      console.log('pct', pct);
+
+      var dpct = sjcl.codec.utf8String.fromBits(pct);
+      console.log('desempacotando', dpct);
+      console.log('teste de igualdade', has === dpct);
+
+      // {mode : "ccm || gcm || ocb2"}
+      let t = sjcl.encrypt(has, has, {mode : "ocb2"});
+      console.log('cifrado', t);
+      let d = sjcl.decrypt(dpct, t);
+      console.log('decifrado', d);
+
+      console.log('teste com decifrado', has === d);
+
+    }
+
+    teste('osvaldo');
 
     me.listeners = {};
 

@@ -30,6 +30,7 @@
     "express": "^4.13.4",
     "mongoose": "^4.4.1",
     "node": "0.0.0",
+    "sjcl": "^1.0.3",
     "socket.io": "^1.4.5"
   },
   "devDependencies": {

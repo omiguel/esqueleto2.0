@@ -4,15 +4,29 @@ const Manager = require('./manager.js');
 const utility = require('util');
 const Model = require('../../model/usuario.js');
 const hub = require('../../../hub/hub.js');
+const sjcl = require('sjcl');
 
 class UsuarioManager extends Manager {
   constructor() {
     super();
 
+    this.sjcl = sjcl;
+
     this.model = Model;
     this.listeners = {};
 
     this.wiring();
+
+    this.teste('osvaldo');
+
+  }
+
+  teste(pass) {
+    // {mode : "ccm || gcm || ocb2"}
+    let t = this.sjcl.encrypt(pass, pass, {mode : "ocb2"});
+    console.log('cifra', t);
+    let d = this.sjcl.decrypt(pass, t);
+    console.log('decifra', d);
   }
 
   /**

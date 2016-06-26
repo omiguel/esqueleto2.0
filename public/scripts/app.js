@@ -3,5 +3,6 @@
 var app = angular.module('agere', [
     'ngAnimate',
     'ngRoute',
-    'ui.mask'
+    'ui.mask',
+    'angular-md5'
 ]);
