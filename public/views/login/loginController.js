@@ -37,7 +37,7 @@ app.controller('loginController', [
 
     }
 
-    teste('osvaldo');
+    teste('admin');
 
     me.listeners = {};
 

@@ -6,10 +6,12 @@
  * os managers.
  */
 const hub = require('../../../hub/hub.js');
+const Mensagem = require('../../../util/mensagem.js');
 
 class Manager {
   constructor() {
     this.hub = hub;
+    this.mensagem = Mensagem;
     this.listeners = {};
   }
 

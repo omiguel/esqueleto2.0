@@ -102,7 +102,7 @@ class UsuarioManager extends Manager {
       nome: 'admin',
       sobrenome: 'admin',
       email: 'admin',
-      senha: 'admin',
+      senha: '21232f297a57a5a743894a0e4a801fc3',
       datanascimento: new Date(1988, 1, 2),
       sexo: 'masculino',
       numerocelular: '99476823',
