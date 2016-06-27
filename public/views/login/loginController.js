@@ -45,7 +45,7 @@ app.controller('loginController', [
     // ----------------USADO APENAS PARA AGILIZAR LOGIN
     $scope.usuario = {
       email: 'admin',
-      senha: 'admin'
+      senha: 'admin',
     };
     // ------------------------------------------------
 
@@ -59,6 +59,7 @@ app.controller('loginController', [
 
     /**
      * Criado por: Gustavo
+     *
      * Transforma senha em hash
      */
     $scope.criaHash = function() {
@@ -67,6 +68,7 @@ app.controller('loginController', [
 
     /**
      * Criado por: Osvaldo;
+     *
      * Tenta logar usuario;
      */
     $scope.logar = function() {
@@ -83,7 +85,10 @@ app.controller('loginController', [
 
     /**
      * Criado por: Osvaldo;
+     *
      * quando o usuario entra, joga o usuario logado globalmente.
+     *
+     * @param msg
      */
     me.logou = function(msg) {
 
@@ -94,6 +99,7 @@ app.controller('loginController', [
 
     /**
      * Criado por: Osvaldo;
+     *
      * destroy a interface.
      */
     me.destroy = function() {
@@ -108,6 +114,7 @@ app.controller('loginController', [
 
     /**
      * Criado por: Osvaldo;
+     *
      * Troca rota;
      */
     me.nextView = function() {
@@ -117,7 +124,10 @@ app.controller('loginController', [
 
     /**
      * Criado/modificado por: Osvaldo e Gustavo;
+     *
      * Retorno do server de erro do server;
+     *
+     * @param msg
      */
     me.serverError = function(msg) {
       $scope.validoServer = false;
@@ -126,7 +136,10 @@ app.controller('loginController', [
 
     /**
      * Criado/modificado por: Osvaldo e Gustavo;
+     *
      * Retorno do server de email nao cadastrado;
+     *
+     * @param msg
      */
     me.invalidUser = function(msg) {
       $scope.validoEmailCadastrado = false;
@@ -135,7 +148,10 @@ app.controller('loginController', [
 
     /**
      * Criado/modificado por: Osvaldo e Gustavo;
+     *
      * Retorno do server de senha incorreta;
+     *
+     * @param msg
      */
     me.senhaincorreta = function(msg) {
       $scope.validoSenha = false;

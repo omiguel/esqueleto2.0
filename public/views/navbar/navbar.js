@@ -24,7 +24,10 @@ app.directive('navbar', [
 
         /**
          * Criado por: Gustavo;
+         *
          * Desloga usuario;
+         *
+         * @param local
          */
         scope.sair = function(local) {
 
@@ -42,7 +45,10 @@ app.directive('navbar', [
 
         /**
          * Criado por: Gustavo;
+         *
          * Troca de tela;
+         *
+         * @param local
          */
         scope.navega = function(local) {
 

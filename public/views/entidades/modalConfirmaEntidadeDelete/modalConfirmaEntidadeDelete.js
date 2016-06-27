@@ -15,13 +15,12 @@ app.directive('modalconfirmaentidadedelete', [function() {
     link: function(scope) {
       var me = this;
 
-      scope.teste = function() {
-        console.log("oq vem???",scope.entidadeselecionada);
-      };
-
       /**
        * Criado por: Gustavo;
+       *
        * Deleta entidade no banco;
+       *
+       * @param entidade
        */
       scope.delete = function(entidade) {
         var dado = {

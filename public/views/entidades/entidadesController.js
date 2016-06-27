@@ -24,9 +24,15 @@ app.controller('entidadesController', [
 
   /**
    * Criado/modificado por: Gustavo e Osvaldo;
+   *
    * Joga a entidade desejada dentro da variavel $scope.entidadeSelecionada;
    * Cria e popula objeto dadoentidade da variavel $scope.entidadeSelecionada;
    * Transforma o Date que vem do banco em tipo Date;
+   *
+   * @param entidadeNome
+   * @param entidadeModelo
+   * @param dadoEntidade
+   * @param modal
    */
   $scope.selecionaEntidade =
     function(entidadeNome, entidadeModelo, dadoEntidade, modal) {
@@ -68,7 +74,10 @@ app.controller('entidadesController', [
 
   /**
    * Criado por: Osvaldo e Gustavo;
+   *
    * Chama a lista da entidade selecionada para visualização;
+   *
+   * @param entidade
    */
   $scope.visualidasCadastradosEntidade = function(entidade) {
 
@@ -87,6 +96,7 @@ app.controller('entidadesController', [
 
   /**
    * Criado por: Osvaldo;
+   *
    * Funcao padrao pra todos os controllers, essa funcao faz os pedidos de tudo
    * Que precisa para que o controller;
    * Inicie sua view;
@@ -98,7 +108,10 @@ app.controller('entidadesController', [
 
   /**
    * Criado por: Osvaldo;
+   *
    * Essa funcao retorna todos os models criados no banco;
+   *
+   * @param msg
    */
   var retallmodels = function(msg) {
     $scope.entidades = msg.getDado();
@@ -107,12 +120,16 @@ app.controller('entidadesController', [
 
   /**
    * Criado/modificado por: Gustavo e Bosvaldo;
+   *
    * Retorna na interface que entidade foi criada;
+   *
+   * @param msg
    */
   var retEntidadeCriada = function(msg) {
 
     $scope.modalTitulo = $scope.entidadeSelecionada.nome + ' criado!';
-    $scope.modalTexto = $scope.entidadeSelecionada.nome + ' criado com sucesso!';
+    $scope.modalTexto = $scope.entidadeSelecionada.nome + ' criado com ' +
+      'sucesso!';
 
     $('#modalRetorno').modal();
     $('#modalCriaEntidade').modal('toggle');
@@ -123,12 +140,16 @@ app.controller('entidadesController', [
 
   /**
    * Criado/modificado por: Gustavo e Osvaldo;
+   *
    * Retorna na interface que entidade foi deletada;
+   *
+   * @param msg
    */
   var retEntidadeDeletede = function(msg) {
 
     $scope.modalTitulo = 'deleta ' + $scope.entidadeSelecionada.nome;
-    $scope.modalTexto = $scope.entidadeSelecionada.nome + ' deletado com sucesso!';
+    $scope.modalTexto = $scope.entidadeSelecionada.nome + ' deletado com ' +
+      'sucesso!';
 
     $('#modalRetorno').modal();
 
@@ -138,12 +159,16 @@ app.controller('entidadesController', [
 
   /**
    * Criado/modificado por: Gustavo e Osvaldo;
+   *
    * Retorna na interface que entidade foi atualizada;
+   *
+   * @param msg
    */
   var retEntidadeUpdated = function(msg) {
 
     $scope.modalTitulo = 'atualiza ' + $scope.entidadeSelecionada.nome;
-    $scope.modalTexto = $scope.entidadeSelecionada.nome + ' atualizado com sucesso!';
+    $scope.modalTexto = $scope.entidadeSelecionada.nome + ' atualizado com ' +
+      'sucesso!';
 
     $('#modalRetorno').modal();
     $('#modalCriaEntidade').modal('toggle');
@@ -154,7 +179,10 @@ app.controller('entidadesController', [
 
   /**
    * Criado/modificado por: Gustavo e Bosvaldo;
+   *
    * Retorno do banco com a lista de elementos da entidade requisitada;
+   *
+   * @param msg
    */
   var retEntidadeReaded = function(msg) {
 

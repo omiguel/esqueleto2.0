@@ -30,6 +30,7 @@ app.directive('modalcrianovaentidade', [function() {
 
       /**
        * Criado por: Gustavo;
+       *
        * Popula scope.referencianome;
        */
       scope.populareferencianome = function() {
@@ -52,7 +53,11 @@ app.directive('modalcrianovaentidade', [function() {
 
       /**
        * Criado por: Gustavo;
+       *
        * Coloca o objeto desejado em dadoentidade;
+       *
+       * @param referencia
+       * @param key
        */
       scope.setReferencia = function(referencia, key) {
 
@@ -65,6 +70,7 @@ app.directive('modalcrianovaentidade', [function() {
 
       /**
        * Criado/modificado por: Gustavo e Bosvaldo;
+       *
        * Salva a entidade criado no banco;
        */
       scope.salvarEntidade = function() {
@@ -90,8 +96,11 @@ app.directive('modalcrianovaentidade', [function() {
 
       /**
        * Criado por: Gustavo e Osvaldo;
+       *
        * Retorno do banco, erro ao criar/atualizar usuario;
        * Dado.code == 11000, email duplicado;
+       *
+       * @param msg
        */
       var cretedError = function(msg) {
 
@@ -109,7 +118,10 @@ app.directive('modalcrianovaentidade', [function() {
 
       /**
        * Criado/modificado por: Gustavo e Osvaldo;
+       *
        * Chega o retorno com todas as referencias;
+       *
+       * @param msg
        */
       var retornoreferencia = function(msg) {
         scope.$apply(function() {
@@ -119,7 +131,10 @@ app.directive('modalcrianovaentidade', [function() {
 
       /**
        * Criado por: Osvaldo;
-       * todo comentar;
+       *
+       * todo Osvaldo comentar;
+       *
+       * @param msg
        */
       var getReferencias = function(dado) {
 
