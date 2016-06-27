@@ -16,6 +16,7 @@ app.controller('loginController', [
     var me = this;
 
     function teste(pass) {
+      console.log('antes de tudo', pass);
 
       var has = seguranca.hash(pass);
       console.log('senha em hash', has);
@@ -37,7 +38,7 @@ app.controller('loginController', [
 
     }
 
-    teste('admin');
+    teste('comum');
 
     me.listeners = {};
     me.senhaHash = null;

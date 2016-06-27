@@ -49,8 +49,6 @@ class UsuarioManager extends Manager {
     var me = this;
     var dado = msg.getRes();
 
-    console.log('senha', dado.senha);
-
     this.model.findOne({'email': dado.email}, function (err, res) {
       if (res) {
 
@@ -91,12 +89,13 @@ class UsuarioManager extends Manager {
    * no banco, se ainda nao ela cria o primeiro que sera um root.
    */
   cadprimeirouser(idioma) {
+    let users = [];
 
-    let user = {
-      nome: 'admin',
-      sobrenome: 'admin',
-      email: 'admin',
-      senha: '21232f297a57a5a743894a0e4a801fc3',
+    let root = {
+      nome: 'root',
+      sobrenome: 'root',
+      email: 'root',
+      senha: '63a9f0ea7bb98050796b649e85481845',
       datanascimento: new Date(1988, 1, 2),
       sexo: 'masculino',
       numerocelular: '99476823',
@@ -105,9 +104,41 @@ class UsuarioManager extends Manager {
       idioma: idioma
     };
 
-    this.model.create(user, function (erro, ret) {
+    users.push(root);
+
+    let admin = {
+      nome: 'admin',
+      sobrenome: 'admin',
+      email: 'admin',
+      senha: '21232f297a57a5a743894a0e4a801fc3',
+      datanascimento: new Date(1988, 1, 2),
+      sexo: 'masculino',
+      numerocelular: '99476823',
+      foto: 'caminhodafoto',
+      tipo: 1,
+      idioma: idioma
+    };
+
+    users.push(admin);
+
+    let comum = {
+      nome: 'comum',
+      sobrenome: 'comum',
+      email: 'comum',
+      senha: '6d769ecb25444b49111b669de9ec6104',
+      datanascimento: new Date(1988, 1, 2),
+      sexo: 'masculino',
+      numerocelular: '99476823',
+      foto: 'caminhodafoto',
+      tipo: 2,
+      idioma: idioma
+    };
+
+    users.push(comum);
+
+    this.model.create(users, function (erro, ret) {
       if (ret) {
-        console.log('primeiro user criado', ret);
+        console.log('primeiros users criados', ret);
       } else {
         console.log('algo errado não deu certo', erro);
       }
