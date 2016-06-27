@@ -69,8 +69,10 @@ class RtcLoginManager extends Basico {
   wiring() {
 
     this.listeners['usuario.error.logar'] = this.emitePraInterface.bind(this);
-    this.listeners['usuario.senhaincorreta'] = this.emitePraInterface.bind(this);
-    this.listeners['usuario.emailnaocadastrado'] = this.emitePraInterface.bind(this);
+    this.listeners['usuario.senhaincorreta'] = this.emitePraInterface
+      .bind(this);
+    this.listeners['usuario.emailnaocadastrado'] = this.emitePraInterface
+      .bind(this);
     this.listeners['usuario.login'] = this.trataLogin.bind(this);
     this.listeners['rtcLogin.destroy'] = this.destroy.bind(this);
 

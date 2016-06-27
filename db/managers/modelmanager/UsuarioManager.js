@@ -53,11 +53,12 @@ class UsuarioManager extends Manager {
 
     this.model.findOne({'email': dado.email}, function (err, res) {
       if (res) {
-        console.log('dentro do res', me.sjcl.decrypt(res.senha, dado.senha));
-        if (me.sjcl.decrypt(res.senha, dado.senha) === res.senha) {
+
+        try {
+          me.sjcl.decrypt(res.senha, dado.senha);
           res.senha = null;
           me.emitManager(msg, '.login', {res: res});
-        } else {
+        } catch (e){
           me.emitManager(msg, '.senhaincorreta', {res: null});
         }
       } else if (err) {
