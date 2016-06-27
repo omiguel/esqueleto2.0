@@ -53,31 +53,31 @@ class RtcLoginManager extends Basico {
     }
   }
 
+  /**
+   * liga os eventos do cliente.
+   */
+  interfaceWiring() {
+
+    this.interfaceListeners['logar'] = this.daInterface.bind(this);
+
+    this.ligaEventCli();
+  }
+
+  /**
+   * liga os eventos do servidor.
+   */
+  wiring() {
+
+    this.listeners['usuario.error.logar'] = this.emitePraInterface.bind(this);
+    this.listeners['usuario.senhaincorreta'] = this.emitePraInterface.bind(this);
+    this.listeners['usuario.emailnaocadastrado'] = this.emitePraInterface.bind(this);
+    this.listeners['usuario.login'] = this.trataLogin.bind(this);
+    this.listeners['rtcLogin.destroy'] = this.destroy.bind(this);
+
+    this.ligaEventServer();
+
+  }
+
 }
-
-/**
- * liga os eventos do cliente.
- */
-RtcLoginManager.prototype.interfaceWiring = function () {
-
-  this.interfaceListeners['logar'] = this.daInterface.bind(this);
-
-  this.ligaEventCli();
-};
-
-/**
- * liga os eventos do servidor.
- */
-RtcLoginManager.prototype.wiring = function () {
-
-  this.listeners['usuario.error.logar'] = this.emitePraInterface.bind(this);
-  this.listeners['usuario.senhaincorreta'] = this.emitePraInterface.bind(this);
-  this.listeners['usuario.emailnaocadastrado'] = this.emitePraInterface.bind(this);
-  this.listeners['usuario.login'] = this.trataLogin.bind(this);
-  this.listeners['rtcLogin.destroy'] = this.destroy.bind(this);
-
-  this.ligaEventServer();
-
-};
 
 module.exports = RtcLoginManager;

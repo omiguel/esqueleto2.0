@@ -17,16 +17,6 @@ class UsuarioManager extends Manager {
 
     this.wiring();
 
-    this.teste('osvaldo');
-
-  }
-
-  teste(pass) {
-    // {mode : "ccm || gcm || ocb2"}
-    let t = this.sjcl.encrypt(pass, pass, {mode : "ocb2"});
-    console.log('cifra', t);
-    let d = this.sjcl.decrypt(pass, t);
-    console.log('decifra', d);
   }
 
   /**
@@ -59,9 +49,12 @@ class UsuarioManager extends Manager {
     var me = this;
     var dado = msg.getRes();
 
+    console.log('senha', dado.senha);
+
     this.model.findOne({'email': dado.email}, function (err, res) {
       if (res) {
-        if (dado.senha === res.senha) {
+        console.log('dentro do res', me.sjcl.decrypt(res.senha, dado.senha));
+        if (me.sjcl.decrypt(res.senha, dado.senha) === res.senha) {
           res.senha = null;
           me.emitManager(msg, '.login', {res: res});
         } else {
