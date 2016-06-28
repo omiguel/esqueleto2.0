@@ -1,0 +1,171 @@
+<div class="">
+    <form name="formcadastrausuario">
+        <!--NOME-->
+        <div class="form-group">
+            <label class="control-label">nome(String)</label>
+            <input type="text" class="form-control" ng-model="dadousuario.nome">
+        </div>
+        <!--SOBRENOME-->
+        <div class="form-group">
+            <label class="control-label">sobrenome(String)</label>
+            <input type="text" class="form-control" ng-model="dadousuario.sobrenome">
+        </div>
+        <!--EMAIL-->
+        <div
+                class="form-group"
+                ng-class="{
+                    'has-error' :
+                    (formcadastrausuario.email.$error.required || formcadastrausuario.email.$invalid) &&
+                    formcadastrausuario.email.$dirty
+                }"
+        >
+            <label class="control-label">e-mail(String)</label>
+            <input type="email" name="email" class="form-control" ng-model="dadousuario.email" required>
+            <!--MSG ERRO EMAIL OBRIGATORIO-->
+            <div
+                    ng-show="formcadastrausuario.email.$error.required && formcadastrausuario.email.$dirty"
+                    class="msg-erro control-label"
+            >
+                email obrigatório!
+            </div>
+            <div
+                    ng-show="formcadastrausuario.email.$invalid && formcadastrausuario.email.$dirty"
+                    class="msg-erro control-label"
+            >
+                email invalido!
+            </div>
+        </div>
+        <!--SENHA-->
+        <div
+                class="form-group"
+                ng-class="{
+				    'has-error' :
+					(formcadastrausuario.senha.$error.required && formcadastrausuario.senha.$dirty) ||
+					(dadousuario.senha != dadousuario.confirmasenha)
+				}"
+        >
+            <label class="control-label">senha(String)</label>
+            <input
+                    type="password"
+                    name="senha"
+                    class="form-control"
+                    ng-model="dadousuario.senha"
+                    required
+            >
+            <!--MSG ERRO SENHA OBRIGATORIO-->
+            <div
+                    ng-show="formcadastrausuario.senha.$error.required && formcadastrausuario.senha.$dirty"
+                    class="msg-erro control-label"
+            >
+                senha obrigatório!
+            </div>
+            <!--MSG ERRO SENHA E CONFIRMA SENHA DIFERENTES-->
+            <div
+                    ng-show="dadousuario.senha != dadousuario.confirmasenha"
+                    class="msg-erro control-label"
+            >
+                senha e confirma senha estão diferentes!
+            </div>
+        </div>
+        <!--CONFIRMA SENHA-->
+        <div
+                class="form-group"
+                ng-class="{
+				    'has-error' :
+					(formcadastrausuario.confirmasenha.$error.required && formcadastrausuario.confirmasenha.$dirty) ||
+					(dadousuario.senha != dadousuario.confirmasenha)
+				}"
+        >
+            <label class="control-label">confirma senha(String)</label>
+            <input
+                    type="password"
+                    name="confirmasenha"
+                    class="form-control"
+                    ng-model="dadousuario.confirmasenha"
+                    required
+            >
+            <!--MSG ERRO CONFIRMA SENHA OBRIGATORIO-->
+            <div
+                    ng-show="
+                        formcadastrausuario.confirmasenha.$error.required &&
+                        formcadastrausuario.confirmasenha.$dirty
+                    "
+                    class="msg-erro control-label"
+            >
+                confirma senha obrigatório!
+            </div>
+            <!--MSG ERRO SENHA E CONFIRMA SENHA DIFERENTES-->
+            <div
+                    ng-show="dadousuario.senha != dadousuario.confirmasenha"
+                    class="msg-erro control-label"
+            >
+                senha e confirma senha estão diferentes!
+            </div>
+        </div>
+        <!--DATA NASCIMENTO-->
+        <div class="form-group">
+            <label class="control-label">data nascimento(Date)</label>
+            <input type="date" class="form-control" ng-model="dadousuario.datanascimento">
+        </div>
+        <!--SEXO-->
+        <div class="form-group">
+            <label class="control-label">sexo(sexo)</label>
+            <select class="form-control" ng-model="dadousuario.sexo">
+                <option value="masculino">masculino</option>
+                <option value="feminino">feminino</option>
+            </select>
+        </div>
+        <!--NUMERO CELULAR-->
+        <div class="form-group">
+            <label class="control-label">numero celular(String)</label>
+            <input type="text" class="form-control" ng-model="dadousuario.numerocelular">
+        </div>
+
+        <!--FOTO-->
+        <div class="form-group">
+            <label class="control-label">foto(String)</label>
+            <input type="text" class="form-control" ng-model="dadousuario.foto">
+        </div>
+        <!--TIPO-->
+        <div
+                class="form-group"
+                ng-class="{ 'has-error' : formcadastrausuario.tipo.$error.required && formcadastrausuario.tipo.$dirty}"
+        >
+            <label class="control-label">tipo(Number)</label>
+            <input type="number" name="tipo" class="form-control" ng-model="dadousuario.tipo" required>
+            <!--MSG ERRO TIPO OBRIGATORIO-->
+            <div
+                    ng-show="formcadastrausuario.tipo.$error.required && formcadastrausuario.tipo.$dirty"
+                    class="msg-erro control-label"
+            >
+                tipo obrigatório!
+            </div>
+        </div>
+
+        <!--BTN SALVAR-->
+        <div>
+            <button
+                    class="btn btn-success"
+                    ng-disabled="
+					    formcadastrausuario.email.$error.required ||
+						formcadastrausuario.email.$invalid ||
+						formcadastrausuario.confirmasenha.$error.required ||
+						formcadastrausuario.senha.$error.required ||
+						formcadastrausuario.tipo.$error.required ||
+						(dadousuario.senha !== dadousuario.confirmasenha)
+					"
+                    ng-click="salvausuario()"
+            >
+                Salvar
+            </button>
+        </div>
+
+        <!--MSG ERRO NO BANCO-->
+        <div class="msg-erro control-label">
+            <!--MSG ERRO EMAIL JA UTILIZADO-->
+            <div ng-show="emailErro">
+                <p>Parece que o e-mail solicitado já esta cadastrado, favor usar outro e-mail!</p>
+            </div>
+        </div>
+    </form>
+</div>

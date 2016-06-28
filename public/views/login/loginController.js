@@ -3,7 +3,7 @@
  * Created by Osvaldo on 05/10/15.
  */
 
-// var sjcl = require('sjcl');
+// Var sjcl = require('sjcl');
 
 app.controller('loginController', [
   '$scope',
@@ -11,7 +11,7 @@ app.controller('loginController', [
   'setUserLogado',
   '$route',
   'seguranca',
-  function($scope, $location, setUserLogado, $route, seguranca) {
+  function ($scope, $location, setUserLogado, $route, seguranca) {
 
     var me = this;
 
@@ -41,7 +41,11 @@ app.controller('loginController', [
     teste('comum');
 
     me.listeners = {};
+    // Senha codificada
     me.senhaHash = null;
+    // True quando mostra-se login
+    $scope.mostraLogin = true;
+
 
     // ----------------USADO APENAS PARA AGILIZAR LOGIN
     $scope.usuario = {
@@ -157,6 +161,28 @@ app.controller('loginController', [
     me.senhaincorreta = function(msg) {
       $scope.validoSenha = false;
       $scope.$apply();
+    };
+
+    /**
+     * Criado por: Gustavo;
+     *
+     * Alterna entre mostra formulario de cadastro e formulario de login;
+     *
+     * @param alterna
+     * @param esconde
+     * @param mostra
+     */
+    $scope.trocaLoginCadastro = function(alterna, esconde, mostra) {
+
+      $('.' + mostra).fadeIn('slow');
+      $('.' + esconde).fadeOut('slow', function() {
+
+        $scope.mostraLogin = alterna;
+        $scope.$apply();
+
+      });
+
+
     };
 
     me.wiring = function() {

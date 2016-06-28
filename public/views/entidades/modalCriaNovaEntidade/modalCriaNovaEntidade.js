@@ -17,12 +17,6 @@ app.directive('modalcrianovaentidade', [function() {
       var me = this;
       var listeners = {};
 
-      // -----------------VARIAVEIS DE VALIDACAO
-
-      scope.emailErro = false;
-
-      // ---------------------------------------
-
       // Lista da referencia do atributo
       scope.listareferencia = [];
       // Referencia para o usuario
@@ -41,7 +35,8 @@ app.directive('modalcrianovaentidade', [function() {
             var nomeref = scope.entidadeselecionada.modelo[dado].referencia;
 
             if (nomeref !== undefined) {
-              scope.referencianome[nomeref] = scope.entidadeselecionada.dadoentidade[nomeref];
+              scope.referencianome[nomeref] =
+                scope.entidadeselecionada.dadoentidade[nomeref];
             }
 
           }
@@ -72,14 +67,17 @@ app.directive('modalcrianovaentidade', [function() {
        * Criado/modificado por: Gustavo e Bosvaldo;
        *
        * Salva a entidade criado no banco;
+       *
+       * @param nomedaentidade
+       * @param dadodaentidade
        */
-      scope.salvarEntidade = function() {
+      scope.salvarEntidade = function(nomedaentidade, dadodaentidade) {
 
         var method = null;
 
         var dado = {
-          nome: scope.entidadeselecionada.nome,
-          entidade: scope.entidadeselecionada.dadoentidade,
+          nome: nomedaentidade,
+          entidade: dadodaentidade,
         };
 
         if (dado.entidade._id) {
@@ -95,6 +93,7 @@ app.directive('modalcrianovaentidade', [function() {
       };
 
       /**
+       * TODO remover
        * Criado por: Gustavo e Osvaldo;
        *
        * Retorno do banco, erro ao criar/atualizar usuario;
@@ -134,7 +133,7 @@ app.directive('modalcrianovaentidade', [function() {
        *
        * todo Osvaldo comentar;
        *
-       * @param msg
+       * @param dado
        */
       var getReferencias = function(dado) {
 
