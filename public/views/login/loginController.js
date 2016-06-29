@@ -15,30 +15,35 @@ app.controller('loginController', [
 
     var me = this;
 
-    function teste(pass) {
-      console.log('antes de tudo', pass);
+    function teste(login) {
+      console.log('antes de tudo', login);
 
-      var has = seguranca.hash(pass);
-      console.log('senha em hash', has);
+      var has = seguranca.hash(login.senha);
+      login.senha = has;
+      console.log('senha em hash', login);
 
-      var pct = seguranca.empacota(has);
+      var pct = seguranca.empacota(JSON.stringify(login));
       console.log('pct', pct);
 
       var dpct = sjcl.codec.utf8String.fromBits(pct);
       console.log('desempacotando', dpct);
-      console.log('teste de igualdade', has === dpct);
 
-      // {mode : "ccm || gcm || ocb2"}
-      let t = seguranca.cifra(has);
-      console.log('cifrado', t);
-      let d = sjcl.decrypt(dpct, t);
-      console.log('decifrado', d);
+      var obj = JSON.parse(dpct);
 
-      console.log('teste com decifrado', has === d);
+      let aqui = sjcl.encrypt(obj.senha, JSON.stringify(obj), {mode: 'ocb2'});
+      console.log('aquiiii', aqui);
+
+      let outrod = sjcl.decrypt(obj.senha, aqui);
+      console.log('decifrado', outrod);
 
     }
 
-    teste('comum');
+    let logsc = {
+      nome: 'osvaldo',
+      senha: 'admin'
+    };
+
+    teste(logsc);
 
     me.listeners = {};
     // Senha codificada
@@ -79,7 +84,20 @@ app.controller('loginController', [
       me.senhaHash = seguranca.hash(angular.copy($scope.usuario.senha));
 
       var user = angular.copy($scope.usuario);
-      user.senha = seguranca.cifra(me.senhaHash);
+      user.senha = me.senhaHash;
+      var nonce = Math.floor((Math.random() * 1000000000) + 1);
+      user.nonce = nonce;
+
+        user = seguranca.cifra(user);
+
+      console.log('user', user);
+
+      var dec = JSON.parse(sjcl.decrypt(me.senhaHash, user));
+
+      console.log('decifra', dec);
+
+      console.log('nonce verify', nonce, dec.nonce+1);
+      return;
 
       var msg = new Mensagem(me, 'logar', user, 'usuario');
       SIOM.logar(msg);

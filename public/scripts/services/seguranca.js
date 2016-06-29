@@ -12,7 +12,7 @@ app.factory('seguranca', ['md5', function(md5) {
       return sjcl.codec.utf8String.toBits(value);
     },
     cifra: function(value) {
-      return sjcl.encrypt(value, value, {mode: 'ocb2'});
+      return sjcl.encrypt(value.senha, JSON.stringify(value), {mode: 'ocb2'});
     },
   };
 
