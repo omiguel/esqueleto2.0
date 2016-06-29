@@ -1,3 +1,8 @@
+@import "buttons";
+@import "navbar";
+@import "loadinganimation";
+@import "boxes";
+
 //VARIAVEIS CORES PRINCIPAIS
 @corPrimaria: #0f0f0f;
 @corSecundaria: #585858;
@@ -12,29 +17,8 @@
 @corAlerta: #a94442;
 
 
-.div-modalMostraEntidade{
-  overflow-x: auto;
-  max-height: 60%;
-}
-
-.div-texto {
-  background-color: #f5f5f5;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ccc;
-  border-radius: 4px;
-}
-.div-textologin {
-  max-width: 30em;
-  margin: 0 auto
-}
-
 .msg-erro{
   color: @corAlerta;
-}
-
-.span-cadastrausuario{
-  display:none
 }
 
 /*---------CONFIGURACOES PADROES-----*/
@@ -60,70 +44,3 @@ body .modal-mostraentidade {
 }
 
 /*-----------------------------------*/
-
-/*---------NAVBAR-STYLE--------------*/
-.navbar-config{
-  border-width: 1px;
-  border-style: solid;
-  border-color: @corSecundaria;
-  background-color: @corPrimaria;
-}
-
-.navbar-texto-config{
-  color: @corLetraPrimaria;
-  text-decoration: none;
-  background-color: transparent;
-}
-
-.navbar-link-config{
-  color: @corLetraPrimaria;
-  text-decoration: none;
-  background-color: transparent;
-}
-.navbar-link-config:hover, .navbar-link-config:focus{
-  color: @corLetraSecundaria;
-  text-decoration: none;
-  background-color: transparent;
-}
-
-.nav>li>a:focus,.nav>li>a:hover{
-  text-decoration: none;
-  background-color: transparent;
-}
-
-.navbar-toggle-config{
-  border-color: @corLetraPrimaria;
-  border-style: solid;
-}
-
-.navbar-toggle-config > span{
-  background-color: @corLetraSecundaria;
-}
-
-/*----------------------------------*/
-
-/*------------BTN STYLE-------------*/
-button{
-  opacity: 0.8;
-}
-button:hover{
-  opacity:1
-}
-
-.button-style-1{
-  color: @corLetraPrimaria;
-  border-color: @corLetraPrimaria;
-  border-style: solid;
-  background-color: @corTerciaria;
-}
-.button-style-1:hover{
-  color: @corLetraSecundaria;
-}
-/*----------------------------------*/
-
-
-/*POLYMER COMPONENTS*/
-
-/*nome-elemento{}*/
-
-/*------------------*/
