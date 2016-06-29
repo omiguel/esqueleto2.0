@@ -172,10 +172,9 @@ app.controller('loginController', [
      */
     $scope.trocaLoginCadastro = function(alterna, esconde, mostra) {
 
-      $('.' + esconde).fadeOut('slow', function() {
-        $('.' + mostra).fadeIn('slow');
+      $('.' + esconde).animate({width: 'toggle'},350, function() {
+        $('.' + mostra).animate({width: 'toggle'},350);
       });
-
 
     };
 
