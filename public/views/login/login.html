@@ -1,80 +1,83 @@
 <div class="row">
     <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12">
 
-        <!-- TITULO -->
-        <div align="center">
-            <h1>Bem vindo ao Esqueleto 2.0!</h1>
-        </div>
+        <div class="div-texto div-textologin">
+            <!-- TITULO -->
+            <div align="center">
+                <h1>Bem vindo ao Esqueleto 2.0!</h1>
+            </div>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10">
 
-                    <!--LOGIN-->
-                    <div class="span-loginusuario" ng-if="mostraLogin">
-                        <div>
-                            <h4>Faça seu login abaixo</h4>
-                        </div>
-                        <form name="formLogin">
-                            <!-- EMAIL -->
-                            <div class="form-group" ng-class="{ 'has-error' : !validoEmailCadastrado}">
-                                <label class="control-label">Email:</label>
-                                <input
-                                        class="form-control"
-                                        type="text"
-                                        ng-model="usuario.email"
-                                />
-                            </div>
-                            <!-- SENHA -->
-                            <div class="form-group" ng-class="{ 'has-error' : !validoSenha}">
-                                <label class="control-label">Senha:</label>
-                                <input
-                                        class="form-control"
-                                        type="password"
-                                        ng-model="usuario.senha"
-                                        ng-change="criaHash()"
-                                />
-                            </div>
-                            <!-- BTN LOGAR -->
-                            <div class="form-group">
-                                <button class="btn btn-lg button-style-1 btn-block" ng-click="logar()">
-                                    Logar
-                                </button>
-                            </div>
-                            <!-- BTN CADASTRA USUARIO -->
-                            <div class="form-group">
-                                <button class="btn btn-lg btn-block" ng-click="trocaLoginCadastro(0, 'span-loginusuario', 'span-cadastrausuario')">
-                                    Cadastre-se
-                                </button>
-                            </div>
-                            <!-- MSGS DE ERRO -->
+                        <!--LOGIN-->
+                        <div class="span-loginusuario">
                             <div>
-                                <div ng-show="!validoSenha" class="msg-erro control-label">
-                                    <h5>Ops! A senha está incorreta!</h5>
-                                </div>
-                                <div ng-show="!validoEmailCadastrado" class="msg-erro control-label">
-                                    <h5>Ops! O Usuario não está cadastrado ou e-mail está incorreto!</h5>
-                                </div>
-                                <div ng-show="!validoServer" class="msg-erro control-label">
-                                    <h5>Ops! parece que tivemos um problema com o server, tente mais tarde!</h5>
-                                </div>
+                                <h4>Faça seu login abaixo</h4>
                             </div>
-                        </form>
-                    </div>
-
-                    <!--CADASTRA USUARIO-->
-                    <div class="span-cadastrausuario" ng-if="!mostraLogin">
-                        <!-- BTN CADASTRA USUARIO -->
-                        <div class="form-group" align="right">
-                            <button class="btn btn-sm" ng-click="trocaLoginCadastro(1, 'span-cadastrausuario', 'span-loginusuario')">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </button>
+                            <form name="formLogin">
+                                <!-- EMAIL -->
+                                <div class="form-group" ng-class="{ 'has-error' : !validoEmailCadastrado}">
+                                    <label class="control-label">Email:</label>
+                                    <input
+                                            class="form-control"
+                                            type="text"
+                                            ng-model="usuario.email"
+                                    />
+                                </div>
+                                <!-- SENHA -->
+                                <div class="form-group" ng-class="{ 'has-error' : !validoSenha}">
+                                    <label class="control-label">Senha:</label>
+                                    <input
+                                            class="form-control"
+                                            type="password"
+                                            ng-model="usuario.senha"
+                                            ng-change="criaHash()"
+                                    />
+                                </div>
+                                <!-- BTN LOGAR -->
+                                <div class="form-group">
+                                    <button class="btn btn-lg button-style-1 btn-block" ng-click="logar()">
+                                        Logar
+                                    </button>
+                                </div>
+                                <!-- BTN CADASTRA USUARIO -->
+                                <div class="form-group">
+                                    <button class="btn btn-info btn-lg btn-block" ng-click="trocaLoginCadastro(0, 'span-loginusuario', 'span-cadastrausuario')">
+                                        Cadastre-se
+                                    </button>
+                                </div>
+                                <!-- MSGS DE ERRO -->
+                                <div>
+                                    <div ng-show="!validoSenha" class="msg-erro control-label">
+                                        <h5>Ops! A senha está incorreta!</h5>
+                                    </div>
+                                    <div ng-show="!validoEmailCadastrado" class="msg-erro control-label">
+                                        <h5>Ops! O Usuario não está cadastrado ou e-mail está incorreto!</h5>
+                                    </div>
+                                    <div ng-show="!validoServer" class="msg-erro control-label">
+                                        <h5>Ops! parece que tivemos um problema com o server, tente mais tarde!</h5>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <formulariousuario></formulariousuario>
-                    </div>
 
+                        <!--CADASTRA USUARIO-->
+                        <div class="span-cadastrausuario">
+                            <!-- BTN CADASTRA USUARIO -->
+                            <div class="form-group" align="right">
+                                <button class="btn btn-sm" ng-click="trocaLoginCadastro(1, 'span-cadastrausuario', 'span-loginusuario')">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </button>
+                            </div>
+                            <formulariousuario></formulariousuario>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>

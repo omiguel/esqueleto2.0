@@ -43,8 +43,6 @@ app.controller('loginController', [
     me.listeners = {};
     // Senha codificada
     me.senhaHash = null;
-    // True quando mostra-se login
-    $scope.mostraLogin = true;
 
 
     // ----------------USADO APENAS PARA AGILIZAR LOGIN
@@ -174,12 +172,8 @@ app.controller('loginController', [
      */
     $scope.trocaLoginCadastro = function(alterna, esconde, mostra) {
 
-      $('.' + mostra).fadeIn('slow');
       $('.' + esconde).fadeOut('slow', function() {
-
-        $scope.mostraLogin = alterna;
-        $scope.$apply();
-
+        $('.' + mostra).fadeIn('slow');
       });
 
 
