@@ -1,8 +1,7 @@
-
+'[use strict]';
 
 var app = angular.module('agere', [
     'ngAnimate',
     'ngRoute',
-    'ui.mask',
-    'angular-md5'
+    'angular-md5',
 ]);
