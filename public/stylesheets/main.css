@@ -245,6 +245,8 @@ ul.navbar-dropdown > li > a.navbar-dropdowntexto:hover {
   border-color: #ccc;
   border-radius: 4px;
   margin-bottom: 5%;
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 @media screen and (max-width: 40em) {
   .div-texto {
@@ -262,6 +264,8 @@ ul.navbar-dropdown > li > a.navbar-dropdowntexto:hover {
   border-color: #ccc;
   border-radius: 4px;
   margin-bottom: 5%;
+  padding-top: 2em;
+  padding-bottom: 2em;
   max-width: 30em;
   margin: 0 auto 5%;
 }
