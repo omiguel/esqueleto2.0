@@ -36,7 +36,7 @@ class RtcLoginManager extends Basico {
     let rtc = null;
 
     if (msg.getRtc() === this) {
-      let dado = msg.getRes();
+      let dado = msg.getRes().user;
       switch (dado.tipo) {
         case 0:
           rtc = new rtcRoot(this.config, this);

@@ -14,37 +14,7 @@ app.controller('loginController', [
   function ($scope, $location, setUserLogado, $route, seguranca) {
 
     var me = this;
-
-    function teste(login) {
-      console.log('antes de tudo', login);
-
-      var has = seguranca.hash(login.senha);
-      login.senha = has;
-      console.log('senha em hash', login);
-
-      var pct = seguranca.empacota(JSON.stringify(login));
-      console.log('pct', pct);
-
-      var dpct = sjcl.codec.utf8String.fromBits(pct);
-      console.log('desempacotando', dpct);
-
-      var obj = JSON.parse(dpct);
-
-      let aqui = sjcl.encrypt(obj.senha, JSON.stringify(obj), {mode: 'ocb2'});
-      console.log('aquiiii', aqui);
-
-      let outrod = sjcl.decrypt(obj.senha, aqui);
-      console.log('decifrado', outrod);
-
-    }
-
-    let logsc = {
-      nome: 'osvaldo',
-      senha: 'admin'
-    };
-
-    teste(logsc);
-
+    me.nonce = null;
     me.listeners = {};
     // Senha codificada
     me.senhaHash = null;
@@ -70,7 +40,7 @@ app.controller('loginController', [
      *
      * Transforma senha em hash
      */
-    $scope.criaHash = function() {
+    $scope.criaHash = function () {
       me.senhaHash = seguranca.hash(angular.copy($scope.usuario.senha));
     };
 
@@ -79,25 +49,19 @@ app.controller('loginController', [
      *
      * Tenta logar usuario;
      */
-    $scope.logar = function() {
+    $scope.logar = function () {
 
       me.senhaHash = seguranca.hash(angular.copy($scope.usuario.senha));
 
+      me.nonce = Math.floor((Math.random() * 1000000000) + 1);
+
       var user = angular.copy($scope.usuario);
-      user.senha = me.senhaHash;
-      var nonce = Math.floor((Math.random() * 1000000000) + 1);
-      user.nonce = nonce;
+      user.senha = {
+        senha: me.senhaHash,
+        nonce: me.nonce
+      };
 
-        user = seguranca.cifra(user);
-
-      console.log('user', user);
-
-      var dec = JSON.parse(sjcl.decrypt(me.senhaHash, user));
-
-      console.log('decifra', dec);
-
-      console.log('nonce verify', nonce, dec.nonce+1);
-      return;
+      user.senha = seguranca.cifra(user.senha);
 
       var msg = new Mensagem(me, 'logar', user, 'usuario');
       SIOM.logar(msg);
@@ -111,10 +75,15 @@ app.controller('loginController', [
      *
      * @param msg
      */
-    me.logou = function(msg) {
-
-      setUserLogado.setLogado(msg.getDado());
-      SIOM.emit('setarota', msg.getDado().tipo);
+    me.logou = function (msg) {
+      var dado = msg.getDado();
+      var log = seguranca.verificaAutenticacao(dado, me.nonce, me.senhaHash);
+      if(log.err){
+        console.log('erro', log.err);
+      } else {
+        setUserLogado.setLogado(log.res);
+        SIOM.emit('setarota', log.res.tipo);
+      }
 
     };
 
@@ -123,7 +92,7 @@ app.controller('loginController', [
      *
      * destroy a interface.
      */
-    me.destroy = function() {
+    me.destroy = function () {
       for (var name in me.listeners) {
         if (me.listeners.hasOwnProperty(name)) {
 
@@ -138,7 +107,7 @@ app.controller('loginController', [
      *
      * Troca rota;
      */
-    me.nextView = function() {
+    me.nextView = function () {
       $location.path(me.wind);
       $route.reload();
     };
@@ -150,7 +119,7 @@ app.controller('loginController', [
      *
      * @param msg
      */
-    me.serverError = function(msg) {
+    me.serverError = function (msg) {
       $scope.validoServer = false;
       $scope.$apply();
     };
@@ -162,7 +131,7 @@ app.controller('loginController', [
      *
      * @param msg
      */
-    me.invalidUser = function(msg) {
+    me.invalidUser = function (msg) {
       $scope.validoEmailCadastrado = false;
       $scope.$apply();
     };
@@ -174,7 +143,7 @@ app.controller('loginController', [
      *
      * @param msg
      */
-    me.senhaincorreta = function(msg) {
+    me.senhaincorreta = function (msg) {
       $scope.validoSenha = false;
       $scope.$apply();
     };
@@ -188,15 +157,15 @@ app.controller('loginController', [
      * @param esconde
      * @param mostra
      */
-    $scope.trocaLoginCadastro = function(alterna, esconde, mostra) {
+    $scope.trocaLoginCadastro = function (alterna, esconde, mostra) {
 
-      $('.' + esconde).animate({width: 'toggle'},350, function() {
-        $('.' + mostra).animate({width: 'toggle'},350);
+      $('.' + esconde).animate({width: 'toggle'}, 350, function () {
+        $('.' + mostra).animate({width: 'toggle'}, 350);
       });
 
     };
 
-    me.wiring = function() {
+    me.wiring = function () {
       me.listeners['usuario.login'] = me.logou.bind(me);
       me.listeners['usuario.error.logar'] = me.serverError.bind(me);
       me.listeners['usuario.emailnaocadastrado'] = me.invalidUser.bind(me);

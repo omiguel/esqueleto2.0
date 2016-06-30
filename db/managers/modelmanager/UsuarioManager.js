@@ -48,15 +48,34 @@ class UsuarioManager extends Manager {
   trataLogin(msg) {
     var me = this;
     var dado = msg.getRes();
+    let servernonce = Math.floor((Math.random() * 1000000000) + 1);
 
     this.model.findOne({'email': dado.email}, function (err, res) {
       if (res) {
-
         try {
-          me.sjcl.decrypt(res.senha, dado.senha);
-          res.senha = null;
-          me.emitManager(msg, '.login', {res: res});
-        } catch (e){
+
+          var senha = JSON.parse(me.sjcl.decrypt(res.senha, dado.senha));
+
+          if (senha.senha === res.senha) {
+
+            senha.nonce = senha.nonce + servernonce;
+            res.senha = null;
+
+            let ret = {
+              user: res,
+              cifra: {
+                ret: me.sjcl.encrypt(senha.senha, JSON.stringify(senha),
+                  {mode: 'ocb2'}),
+                serverNonce: servernonce,
+              }
+            };
+
+            process.nextTick(function () {
+              me.emitManager(msg, '.login', {res: ret});
+            });
+          }
+        } catch (e) {
+          console.log('erro', e);
           me.emitManager(msg, '.senhaincorreta', {res: null});
         }
       } else if (err) {
