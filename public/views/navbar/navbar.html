@@ -20,9 +20,9 @@
                 </button>
                 <!--TITULO-->
                 <a class="navbar-brand navbar-link" href="">Esqueleto 2.0</a>
-                <span ng-if="usuariologado !== null">
-                    <p class="navbar-text navbar-textoconfig">Signed in as {{usuariologado.nome}}</p>
-                </span>
+                <p class="navbar-text navbar-textoconfig" ng-if="usuariologado !== null">
+                    Signed in as {{usuariologado.nome}}
+                </p>
             </div>
             <!--LOCAIS DE NAVEGACAO-->
             <div id="navbar" class="collapse navbar-collapse">
