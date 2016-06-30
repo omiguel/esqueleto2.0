@@ -15,9 +15,11 @@ app.controller('entidadesController', [
   // Guarda a lista de entidades criada
   $scope.listaEntidade = [];
   // Guarda o nome do modal de retorno
-  $scope.modalTitulo = null;
+  $scope.modalTitulo = '';
   // Guarda o texto do modal de retorno
-  $scope.modalTexto = null;
+  $scope.modalTexto = '';
+  // Guarda o id do modal para retornar
+  $scope.modalParaRetornar = '';
 
 
   var listeners = {};
@@ -130,6 +132,7 @@ app.controller('entidadesController', [
     $scope.modalTitulo = $scope.entidadeSelecionada.nome + ' criado!';
     $scope.modalTexto = $scope.entidadeSelecionada.nome + ' criado com ' +
       'sucesso!';
+    $scope.modalParaRetornar = 'modalCriaEntidade';
 
     $('#modalRetorno').modal();
     $('#modalCriaEntidade').modal('toggle');
@@ -150,6 +153,7 @@ app.controller('entidadesController', [
     $scope.modalTitulo = 'deleta ' + $scope.entidadeSelecionada.nome;
     $scope.modalTexto = $scope.entidadeSelecionada.nome + ' deletado com ' +
       'sucesso!';
+    $scope.modalParaRetornar = 'modalMostraEntidade';
 
     $('#modalRetorno').modal();
 
@@ -169,6 +173,7 @@ app.controller('entidadesController', [
     $scope.modalTitulo = 'atualiza ' + $scope.entidadeSelecionada.nome;
     $scope.modalTexto = $scope.entidadeSelecionada.nome + ' atualizado com ' +
       'sucesso!';
+    $scope.modalParaRetornar = 'modalMostraEntidade';
 
     $('#modalRetorno').modal();
     $('#modalCriaEntidade').modal('toggle');

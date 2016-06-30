@@ -1,0 +1,28 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title msg-docontroller">{{titulo}}</h4>
+        </div>
+
+        <div class="modal-body msg-docontroller">
+            {{texto}}
+        </div>
+
+        <div class="modal-footer">
+            <span ng-if="modalpararetornar === ''">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </span>
+            <span ng-if="modalpararetornar !== ''">
+                <button
+                        type="button"
+                        class="btn btn-default"
+                        data-dismiss="modal"
+                        ng-click="abreModal()"
+                >
+                    <i class="glyphicon glyphicon-arrow-left"></i>Voltar
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
