@@ -5,18 +5,18 @@
   background-color: @corPrimaria;
 }
 
-.navbar-texto-config{
+.navbar-textoconfig{
   color: @corLetraPrimaria;
   text-decoration: none;
   background-color: transparent;
 }
 
-.navbar-link-config{
+.navbar-link, li.open > a.navbar-link{
   color: @corLetraPrimaria;
   text-decoration: none;
   background-color: transparent;
 }
-.navbar-link-config:hover, .navbar-link-config:focus{
+.navbar-link:hover, .navbar-link:focus, li.open > a.navbar-link:focus, li.open > a.navbar-link:hover{
   color: @corLetraSecundaria;
   text-decoration: none;
   background-color: transparent;
@@ -27,11 +27,24 @@
   background-color: transparent;
 }
 
-.navbar-toggle-config{
+.navbar-toggleconfig{
   border-color: @corLetraPrimaria;
   border-style: solid;
 }
 
-.navbar-toggle-config > span{
+.navbar-toggleconfig > span{
   background-color: @corLetraSecundaria;
+}
+
+.navbar-dropdown{
+  background-color: @corSecundaria;
+  border-radius: 0px;
+}
+
+.navbar-dropdowntexto, ul.navbar-dropdown > li > a.navbar-dropdowntexto{
+  color: @corLetraSecundaria;
+}
+
+.navbar-dropdowntexto:hover, ul.navbar-dropdown > li > a.navbar-dropdowntexto:hover{
+  color: black;
 }
