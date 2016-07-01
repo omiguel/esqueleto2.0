@@ -23,6 +23,7 @@ class RtcComum extends Basico {
    * Liga os eventos do servidor.
    */
   wiring() {
+    
     this.ligaEventServer();
   }
 
@@ -30,6 +31,7 @@ class RtcComum extends Basico {
    * Liga os eventos da interface.
    */
   interfaceWiring() {
+
     this.ligaEventCli();
   }
 

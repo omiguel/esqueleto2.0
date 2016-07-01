@@ -17,6 +17,9 @@ class RtcLoginManager extends Basico {
   constructor(conf) {
     super();
     this.config = conf;
+    this.Root = rtcRoot;
+    this.Admin = rtcAdmin;
+    this.Comum = rtcComum;
 
     console.log('rtcLogin', this.config.socket.id);
 
@@ -37,16 +40,12 @@ class RtcLoginManager extends Basico {
 
     if (msg.getRtc() === this) {
       let dado = msg.getRes().user;
-      switch (dado.tipo) {
-        case 0:
-          rtc = new rtcRoot(this.config, this);
-          break;
-        case 1:
-          rtc = new rtcAdmin(this.config, this);
-          break;
-        case 2:
-          rtc = new rtcComum(this.config, this);
-          break;
+      if (dado.tipo === 0) {
+        rtc = new this.Root(this.config, this);
+      } else if (dado.tipo === 1) {
+        rtc = new this.Admin(this.config, this);
+      } else if (dado.tipo === 2) {
+        rtc = new this.Comum(this.config, this);
       }
 
       this.emitePraInterface(msg);
@@ -54,20 +53,22 @@ class RtcLoginManager extends Basico {
   }
 
   /**
-   * liga os eventos do cliente.
+   * Liga os eventos do cliente.
    */
   interfaceWiring() {
 
     this.interfaceListeners['logar'] = this.daInterface.bind(this);
+    this.interfaceListeners['idioma.read'] = this.daInterface.bind(this);
 
     this.ligaEventCli();
   }
 
   /**
-   * liga os eventos do servidor.
+   * Liga os eventos do servidor.
    */
   wiring() {
 
+    this.listeners['idioma.readed'] = this.emitePraInterface.bind(this);
     this.listeners['usuario.error.logar'] = this.emitePraInterface.bind(this);
     this.listeners['usuario.senhaincorreta'] = this.emitePraInterface
       .bind(this);

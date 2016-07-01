@@ -67,12 +67,23 @@ app.directive('navbar', [
           scope.usuariologado = getUserLogado.getLogado();
         };
 
+        var ready = function() {
+          var msg = new Mensagem(this, 'idioma.read', null, 'idioma');
+          SIOM.emitirServer(msg);
+        };
+
+        var retIdiomas = function (msg) {
+          var dado = msg.getDado();
+          console.log('chegou isso', dado);
+        };
+
         /**
          * Criado por: Osvaldo
          * Funcao responsavel por ligar os eventos;
          */
         var wiring = function() {
           me.listeners['setarota'] = usuarioLogou.bind(me);
+          me.listeners['idioma.readed'] = retIdiomas.bind(me);
 
           for (var name in me.listeners) {
             if (me.listeners.hasOwnProperty(name)) {
@@ -81,6 +92,8 @@ app.directive('navbar', [
 
             }
           }
+
+          ready();
 
         };
 
