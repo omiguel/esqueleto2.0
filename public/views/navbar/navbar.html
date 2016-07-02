@@ -43,13 +43,15 @@
                                 role="button"
                                 aria-haspopup="true"
                         >
-                            <!--TODO adicionar bandeira-->
+                            <!--TODO adicionar bandeira pais-->
                             {{idiomaselecionado.nome}}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu navbar-dropdown">
                             <li ng-repeat="idioma in listaidiomas">
-                                <a class="navbar-dropdowntexto" href="" ng-click="selecionaidioma(idioma)">{{idioma.nome}}</a>
+                                <a class="navbar-dropdowntexto" href="" ng-click="selecionaidioma(idioma)">
+                                    {{idioma.nome}}
+                                </a>
                             </li>
                         </ul>
                     </li>

@@ -26,6 +26,9 @@ app.controller('entidadesController', [
   // Guarda a lista de entidades criada
   $scope.listaEntidade = [];
 
+  // TODO remover e trocar por '' em msg
+  $scope.entidadeDelete = false;
+
 
   var listeners = {};
 
@@ -153,16 +156,22 @@ app.controller('entidadesController', [
    * Criado/modificado por: Gustavo e Osvaldo;
    *
    * Retorna na interface que entidade foi deletada;
+   * Pede no banco nova lista de entidade;
    *
    * @param msg
    */
   var retEntidadeDeletede = function(msg) {
 
+    $scope.entidadeDelete = true;
+
+    // Atualiza lista entidade
+    $scope.visualizaCadastroEntidades($scope.entidadeSelecionada);
+
+    // Modal Retorno
     $scope.modalTitulo = 'deleta ' + $scope.entidadeSelecionada.nome;
     $scope.modalTexto = $scope.entidadeSelecionada.nome + ' deletado com ' +
       'sucesso!';
     $scope.modalParaRetornar = 'modalMostraEntidade';
-
     $('#modalRetorno').modal();
 
     $scope.$apply();
@@ -201,8 +210,11 @@ app.controller('entidadesController', [
 
     $scope.listaEntidade.lista = angular.copy(msg.getDado());
 
-    $('#modalMostraEntidade').modal();
-
+    if (!$scope.entidadeDelete) {
+      $('#modalMostraEntidade').modal();
+    }
+    $scope.entidadeDelete = false;
+    
     $scope.$apply();
 
   };
