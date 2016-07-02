@@ -3,9 +3,12 @@
   "timeout": 10000,
   "output": "./output",
   "helpers": {
-    "WebDriverIO": {
-      "url": "http://localhost:90",
-      "browser": "internet explorer"
+    "Protractor": {
+      "url": "http://localhost:1337",
+      "driver": "hosted",
+      "browser": "chrome",
+      "rootElement": "body",
+      "windowSize": "1280x720"
     }
   },
   "include": {
@@ -13,5 +16,5 @@
   },
   "bootstrap": "./beforeTests.js",
   "mocha": {},
-  "name": "test"
+  "name": "teste-UI"
 }

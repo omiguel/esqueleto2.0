@@ -1,13 +1,15 @@
 'use strict';
-/**
- * Created by Osvaldo on 16/10/15.
- */
+
 
 const Basico = require('./basicRtc.js');
 const rtcRoot = require('./rtcRoot.js');
 const rtcAdmin = require('./rtcAdmin');
 const rtcComum = require('./rtcComum');
 
+/**
+ * @author Osvaldo <juniorsin2012@gmail.com>
+ *
+ */
 class RtcLoginManager extends Basico {
   /**
    * Recebe o socketId passado pelo cliente.

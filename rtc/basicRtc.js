@@ -1,11 +1,15 @@
 'use strict';
-/**
- * Created by Osvaldo on 16/10/15.
- */
 const Mensagem = require('../util/mensagem.js');
 const hub = require('../hub/hub.js');
 
+
+
+/**
+ * @author Osvaldo <juniorsin2012@gmail.com>
+ *
+ */
 class BasicRtc {
+  
   constructor() {
     this.hub = hub;
     this.mensagem = Mensagem;
@@ -116,6 +120,11 @@ class BasicRtc {
    * @param msgDoBrowser
    */
   daInterface(msgDoBrowser) {
+
+    if(!msgDoBrowser.evento){
+      hub.emit('error.message', 'Menagem não valida')
+    }
+
     let me = this;
     this.hub.emit('rtc.' + msgDoBrowser.evento,
       me.convertMessageFromBrowserToServer(msgDoBrowser));

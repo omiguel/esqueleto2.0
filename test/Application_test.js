@@ -5,49 +5,47 @@
 const path = require('path');
 const chai = require('chai');
 const chaihttp = require('chai-http');
+const HttpStatus = require('http-status-codes');
 
 chai.use(chaihttp);
 
 let should = chai.should();
 let expect = chai.expect;
+const App = require('../aplicacao.js');
+const Hub = require('../hub/hub.js');
 
-//const App = require('../aplicacao.js');
+const SocketMocha = require('./SocketMock');
 
-//let app = new App(path.join(__dirname,'/confing.json'));
+const RTCLogin = require('../rtc/rtcLoginManager');
+
+let app = null;
+let express = null;
 
 
 describe('Teste da aplicacao', function () {
   before(function (done) {
-    console.log('executei antes do teste');
-    done();
+    Hub.on('app.ready', function (app) {
+      express = app.express;
+      done();
+    });
+    app = new App('./config.json');
+
   });
 
 
   it('meu primeiro teste', function (done) {
+    let socketMocha = new SocketMocha();
+    var rtcLogin = new RTCLogin({socket: socketMocha});
 
-    var x = "texto";
-
-    x.should.be.a('string');
-    expect(x).to.be.equal('texto');
-
-
-    chai.request('http://google.com')
-      .get('/').end(function(req, res){
-
-      expect(res).to.have.status(200); //hhttp.OK
-      expect(res.text).to.have.string('button');
-
+    Hub.on('logar', function (msg) {
       done();
     });
 
 
+    //simulando um click de login do cliente no
+    socketMocha.emit('logar',{event:'logar'});
 
   });
-
-
-
-
-
 
 
   after(function (done) {

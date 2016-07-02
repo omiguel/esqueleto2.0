@@ -1,11 +1,11 @@
 'use strict';
-/**
- * Created by Osvaldo on 19/10/15.
- */
-
 
 var Comun = require('./rtcComum.js');
 
+/**
+ * @author Osvaldo <juniorsin2012@gmail.com>
+ *
+ */
 class RtcAdmin extends Comun {
   constructor(conf, login) {
     super(conf, login);

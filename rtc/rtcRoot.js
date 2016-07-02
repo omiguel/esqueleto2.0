@@ -1,10 +1,13 @@
 'use strict';
-/**
- * Created by Osvaldo on 23/07/15.
- */
 
 const Admin = require('./rtcAdmin.js');
 
+/**
+ * @author Osvaldo <juniorsin2012@gmail.com>
+ *
+ *   @extends {RtcAdmin}
+ * 
+ */
 class RtcRoot extends Admin {
 
   constructor(conf, login) {

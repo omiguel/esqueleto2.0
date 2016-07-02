@@ -1,11 +1,10 @@
 'use strict';
-/**
- * Created by Osvaldo on 19/10/15.
- */
-
-
 var Basico = require('./basicRtc.js');
 
+/**
+ * @author Osvaldo <juniorsin2012@gmail.com>
+ *
+ */
 class RtcComum extends Basico {
   constructor(conf, login) {
     super();
