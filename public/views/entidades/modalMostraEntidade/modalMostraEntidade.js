@@ -15,6 +15,6 @@ app.directive('modalmostraentidade', [function() {
 
     link: function(scope, element, attrs) {
 
-    }
+    },
   };
 }]);

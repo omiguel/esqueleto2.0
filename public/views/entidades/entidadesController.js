@@ -8,18 +8,23 @@ app.controller('entidadesController', [
 
   var me = this;
 
-  // Guarda todas as entidades do banco
-  $scope.entidades = {};
-  // Guarda a entidade selecionada assim como a nova criada
-  $scope.entidadeSelecionada = {};
-  // Guarda a lista de entidades criada
-  $scope.listaEntidade = [];
+  // --------------------VARIAVEIS MODAL RETORNO
   // Guarda o nome do modal de retorno
   $scope.modalTitulo = '';
   // Guarda o texto do modal de retorno
   $scope.modalTexto = '';
   // Guarda o id do modal para retornar
   $scope.modalParaRetornar = '';
+  // Guarda o nome da funcao q deve executar depois do modal de retorno
+  $scope.modalFuncaoRetorno = '';
+  // -------------------------------------------
+
+  // Guarda todas as entidades do banco
+  $scope.entidades = {};
+  // Guarda a entidade selecionada assim como a nova criada
+  $scope.entidadeSelecionada = {};
+  // Guarda a lista de entidades criada
+  $scope.listaEntidade = [];
 
 
   var listeners = {};
@@ -36,8 +41,10 @@ app.controller('entidadesController', [
    * @param dadoEntidade
    * @param modal
    */
-  $scope.selecionaEntidade =
-    function(entidadeNome, entidadeModelo, dadoEntidade, modal) {
+  $scope.selecionaEntidade = function(entidadeNome,
+                                      entidadeModelo,
+                                      dadoEntidade,
+                                      modal) {
 
     // Popula dadoEntidade
     for (var index in entidadeModelo) {
@@ -65,7 +72,7 @@ app.controller('entidadesController', [
     };
 
     // Decide o que fazer dependendo do modal
-    if (modal === 'modalMostraEntidade') {
+    if (modal === 'modalCriaEntidade') {
       $scope.entidadeSelecionada.confirmasenha = dadoEntidade.senha;
       SIOM.emit('pedereferencias', $scope.entidadeSelecionada);
     } else {
@@ -81,7 +88,7 @@ app.controller('entidadesController', [
    *
    * @param entidade
    */
-  $scope.visualidasCadastradosEntidade = function(entidade) {
+  $scope.visualizaCadastroEntidades = function(entidade) {
 
     $scope.listaEntidade = {
       nome: entidade.nome,
@@ -94,6 +101,7 @@ app.controller('entidadesController', [
     };
     var msg = new Mensagem(me, 'entidade.read', dado, 'entidade');
     SIOM.emitirServer(msg);
+
   };
 
   /**
@@ -193,9 +201,9 @@ app.controller('entidadesController', [
 
     $scope.listaEntidade.lista = angular.copy(msg.getDado());
 
-    $scope.$apply();
-
     $('#modalMostraEntidade').modal();
+
+    $scope.$apply();
 
   };
 

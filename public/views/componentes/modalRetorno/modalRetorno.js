@@ -10,6 +10,8 @@ app.directive('modalretorno', [ function() {
       titulo: '=',
       texto: '=',
       modalpararetornar: '=',
+      funcaoretorno: '=',
+
     },
     templateUrl: '../../../views/componentes/modalRetorno/' +
     'modalRetorno.html',
@@ -22,8 +24,23 @@ app.directive('modalretorno', [ function() {
       scope.texto = '';
       scope.modalpararetornar = '';
 
-      scope.abreModal = function() {
-        $('#' + scope.modalpararetornar).modal();
+      /**
+       * Criado por: Gustavo;
+       *
+       * abre modal desejado;
+       */
+      scope.voltarModal = function() {
+
+        if (false) {
+          scope.executaFuncaoRetorno();
+        } else {
+          $('#' + scope.modalpararetornar).modal();
+        }
+
+      };
+
+      scope.executaFuncaoRetorno = function() {
+
       };
 
     },

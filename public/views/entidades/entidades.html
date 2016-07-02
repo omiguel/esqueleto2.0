@@ -16,7 +16,7 @@
 		        	<td align="center">
 		        		<button
 								class="btn btn-info"
-								ng-click="selecionaEntidade(entidade.nome, entidade.modelo, {}, 'modalMostraEntidade')"
+								ng-click="selecionaEntidade(entidade.nome, entidade.modelo, {}, 'modalCriaEntidade')"
 		        		>
 		        			Criar {{entidade.nome}}
 		        		</button>
@@ -24,7 +24,7 @@
 		        	<td align="center">
 		        		<button
 								class="btn btn-success"
-								ng-click="visualidasCadastradosEntidade(entidade)"
+								ng-click="visualizaCadastroEntidades(entidade)"
 						>
 		        			Visualizar todos {{entidade.nome}}s
 		        		</button>
@@ -35,9 +35,7 @@
 
 		<!-- MODAL CRIA ENTIDADE -->
 		<div id="modalCriaEntidade" class="modal fade" role="dialog">
-			<modalcrianovaentidade
-					entidades="entidades"
-			></modalcrianovaentidade>
+			<modalcrianovaentidade entidades="entidades"></modalcrianovaentidade>
 		</div>
 
 		<!-- MODAL MOSTRA ENTIDADE -->
@@ -56,7 +54,13 @@
 
 		<!-- MODAL RETORNO-->
 		<div id="modalRetorno" class="modal fade" role="dialog">
-			<modalretorno titulo="modalTitulo" texto="modalTexto" modalpararetornar="modalParaRetornar"></modalretorno>
+			<modalretorno
+					titulo="modalTitulo"
+					texto="modalTexto"
+					modalpararetornar="modalParaRetornar"
+					funcaoretorno=""
+			>
+			</modalretorno>
 		</div>
 
 		<!-- MODAL CONFIRMA DELETA ENTIDADE-->

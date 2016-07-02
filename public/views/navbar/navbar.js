@@ -17,10 +17,28 @@ app.directive('navbar', [
       templateUrl: '../../views/navbar/navbar.html',
 
       link: function(scope, element) {
+
         var me = this;
         me.listeners = {};
 
+        // Lista de idiomas
+        scope.listaidiomas = [];
+        // Usuario logado
         scope.usuariologado = null;
+        // Idioma atual
+        scope.idiomaselecionado = {};
+
+        /**
+         * Criado por: Gustavo;
+         *
+         * seleciona um idioma;
+         *
+         * @param idioma;
+         */
+        scope.selecionaidioma = function(idioma) {
+          scope.idiomaselecionado = angular.copy(idioma);
+          // TODO tem q atualizar a pagina com novo idioma
+        };
 
         /**
          * Criado por: Gustavo;
@@ -67,14 +85,30 @@ app.directive('navbar', [
           scope.usuariologado = getUserLogado.getLogado();
         };
 
+        /**
+         * Criado por Osvaldo;
+         *
+         * Pede pro banco lista de idiomas;
+         */
         var ready = function() {
           var msg = new Mensagem(this, 'idioma.read', null, 'idioma');
           SIOM.emitirServer(msg);
         };
 
-        var retIdiomas = function (msg) {
-          var dado = msg.getDado();
-          console.log('chegou isso', dado);
+        /**
+         * Criado por: Osvaldo;
+         *
+         * Retorna idiomas do banco;
+         *
+         * @param msg
+         */
+        var retIdiomas = function(msg) {
+
+          scope.$apply(function() {
+            scope.listaidiomas = msg.getDado();
+            scope.idiomaselecionado = msg.getDado()[0];
+          });
+
         };
 
         /**
@@ -99,6 +133,6 @@ app.directive('navbar', [
 
         wiring();
 
-      }
+      },
     };
   }]);
