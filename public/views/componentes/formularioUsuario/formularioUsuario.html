@@ -58,6 +58,7 @@
                     name="senha"
                     class="form-control"
                     ng-model="dadousuario.senha"
+                    ng-change="criahash(dadousuario.senha)"
                     required
             >
             <!--MSG ERRO SENHA OBRIGATORIO-->
@@ -147,6 +148,7 @@
         <!--TIPO-->
         <div
                 class="form-group"
+                ng-if="!removeref"
                 ng-class="{ 'has-error' : formcadastrausuario.tipo.$error.required && formcadastrausuario.tipo.$dirty}"
         >
             <label class="control-label">

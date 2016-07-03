@@ -34,25 +34,28 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
         sexo: '',
         numerocelular: '',
         foto: '',
-        tipo: null,
+        tipo: 2,
         idioma: null,
       };
 
-      me.senhaHash = null;
+      me.senhahash = null;
 
-      scope.criaHash = function(senha) {
-        me.senhaHash = seguranca.hash(senha);
+      scope.criahash = function(senha) {
+        me.senhahash = seguranca.hash(senha);
       };
 
       /**
        * Criado por: Gustavo
        */
-      scope.salvaUsuario = function() {
+      scope.salvausuario = function() {
 
-        scope.dadousuario.senha = seguranca.cifra(me.senhaHash);
+        var dado = angular.copy(scope.dadousuario);
+        dado.senha = seguranca.empacota(me.senhahash);
+        dado.confirmasenha = seguranca.empacota(me.senhahash);
 
         // Todo OSVALDO salva esse usuario e me retorna sucesso ou erro
-        console.log('scope.dadousuario',scope.dadousuario);
+        // Todo OSVALDO impedir q usuario se cadastre com tipo diferente de 2
+        console.log('scope.dadousuario',dado);
 
       };
 
