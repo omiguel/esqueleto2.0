@@ -38,6 +38,7 @@ app.directive('navbar', [
         scope.selecionaidioma = function(idioma) {
           scope.idiomaselecionado = angular.copy(idioma);
           // TODO tem q atualizar a pagina com novo idioma
+          // TODO se usuario logado tem q atualizar usuario com novo idioma
         };
 
         /**
@@ -79,10 +80,13 @@ app.directive('navbar', [
 
         /**
          * Criado por: Gustavo;
+         *
          * Mostra menu do navbar para usuario;
          */
         var usuarioLogou = function() {
           scope.usuariologado = getUserLogado.getLogado();
+          // TODO chamar
+          // scope.selecionaidioma(getUserLogado.getLogado().idioma);
         };
 
         /**
@@ -113,6 +117,7 @@ app.directive('navbar', [
 
         /**
          * Criado por: Osvaldo
+         *
          * Funcao responsavel por ligar os eventos;
          */
         var wiring = function() {

@@ -26,10 +26,6 @@ app.controller('entidadesController', [
   // Guarda a lista de entidades criada
   $scope.listaEntidade = [];
 
-  // TODO remover e trocar por '' em msg
-  $scope.entidadeDelete = false;
-
-
   var listeners = {};
 
   /**
@@ -144,6 +140,7 @@ app.controller('entidadesController', [
     $scope.modalTexto = $scope.entidadeSelecionada.nome + ' criado com ' +
       'sucesso!';
     $scope.modalParaRetornar = 'modalCriaEntidade';
+    $scope.modalFuncaoRetorno = '';
 
     $('#modalRetorno').modal();
     $('#modalCriaEntidade').modal('toggle');
@@ -162,16 +159,12 @@ app.controller('entidadesController', [
    */
   var retEntidadeDeletede = function(msg) {
 
-    $scope.entidadeDelete = true;
-
-    // Atualiza lista entidade
-    $scope.visualizaCadastroEntidades($scope.entidadeSelecionada);
-
-    // Modal Retorno
     $scope.modalTitulo = 'deleta ' + $scope.entidadeSelecionada.nome;
     $scope.modalTexto = $scope.entidadeSelecionada.nome + ' deletado com ' +
       'sucesso!';
     $scope.modalParaRetornar = 'modalMostraEntidade';
+    $scope.modalFuncaoRetorno = 'visualizaCadastroEntidades';
+
     $('#modalRetorno').modal();
 
     $scope.$apply();
@@ -191,6 +184,7 @@ app.controller('entidadesController', [
     $scope.modalTexto = $scope.entidadeSelecionada.nome + ' atualizado com ' +
       'sucesso!';
     $scope.modalParaRetornar = 'modalMostraEntidade';
+    $scope.modalFuncaoRetorno = '';
 
     $('#modalRetorno').modal();
     $('#modalCriaEntidade').modal('toggle');
@@ -210,12 +204,20 @@ app.controller('entidadesController', [
 
     $scope.listaEntidade.lista = angular.copy(msg.getDado());
 
-    if (!$scope.entidadeDelete) {
-      $('#modalMostraEntidade').modal();
-    }
-    $scope.entidadeDelete = false;
+    $('#modalMostraEntidade').modal();
     
     $scope.$apply();
+
+  };
+
+  /**
+   * Criado por Gustavo;
+   *
+   * Executa funcao de retorno;
+   */
+  $scope.executaFuncaoRetorno = function() {
+    // TODO melhorar
+    $scope[$scope.modalFuncaoRetorno]($scope.entidadeSelecionada);
 
   };
 
