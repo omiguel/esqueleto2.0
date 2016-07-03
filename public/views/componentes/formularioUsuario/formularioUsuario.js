@@ -22,7 +22,6 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
 
       // ---------------------------------------
 
-      scope.removeref = false;
 
       // Variavel que guarda novo usuario
       scope.dadousuario = {
@@ -38,9 +37,6 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
         tipo: null,
         idioma: null,
       };
-
-
-
 
       me.senhaHash = null;
 
