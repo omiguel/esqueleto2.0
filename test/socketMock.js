@@ -1,16 +1,18 @@
 
 const EventEmitter2 = require('eventemitter2').EventEmitter2;
+const Mensagem = require('../util/mensagem');
 
 class socketMock extends EventEmitter2 {
 
-  constructor(){
+  constructor() {
     super();
 
-    this.id="hgffgugghgjghhgjgfu";
+    this.id = 'hgffgugghgjghhgjgfu';
+    this.mensagem = Mensagem;
   }
 
-  emmitirMensagem(evt, data){
-    let msg = new Mensagem(); //@todo
+  emmitirMensagem(evt, data) {
+    let msg = new this.mensagem(); // Todo
     this.emit(evt, msg);
   }
 

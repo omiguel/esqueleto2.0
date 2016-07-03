@@ -8,10 +8,10 @@ var should = chai.should();
 
 Feature('Login');
 
-Scenario('Create new USER', function (I) {
+Scenario('Create new USER', function(I) {
   I.amOnPage('/');
   
-  I.see("Email:");
+  I.see('Email:');
 
 
   I.fillField('input[name="login"]', 'root');
@@ -19,7 +19,9 @@ Scenario('Create new USER', function (I) {
 
   I.click('Logar');
 
-  I.see("Signed in as root");
+  I.see('Signed in as root');
+
+  pause();
   
 
 });

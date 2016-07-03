@@ -35,12 +35,12 @@ class Aplicacao {
 
     this.io.on('connection', this.connection.bind(this));
 
-    this.http.listen(this.config.server.porta, function (err) {
+    this.http.listen(this.config.server.porta, function(err) {
       console.log('Rodando na porta ' + me.config.server.porta, err);
-      Hub.on('error.**', function(){
+      Hub.on('error.**', function() {
         console.log('algo feio aconteceu');
-      })
-      Hub.on('banco.ready', function (err, a) {
+      });
+      Hub.on('banco.ready', function(err, a) {
         Hub.emit('app.ready', {express: me.app});
       });
 
