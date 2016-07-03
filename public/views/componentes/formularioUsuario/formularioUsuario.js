@@ -7,6 +7,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
     restrict: 'E',
     transclude: true,
     scope: {
+      removeref: '=',
     },
     templateUrl: '../../../views/componentes/formularioUsuario/' +
     'formularioUsuario.html',
@@ -20,6 +21,8 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
       scope.emailErro = false;
 
       // ---------------------------------------
+
+      scope.removeref = false;
 
       // Variavel que guarda novo usuario
       scope.dadousuario = {
@@ -36,7 +39,9 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
         idioma: null,
       };
 
-      // Senha codificada
+
+
+
       me.senhaHash = null;
 
       scope.criaHash = function(senha) {

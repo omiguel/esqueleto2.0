@@ -1,15 +1,14 @@
 <div class="row">
+
+    <!-- TITULO -->
+    <div align="center">
+        <h1>
+            Bem vindo ao Esqueleto 2.0!
+        </h1>
+    </div>
+
     <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12" >
-
         <div class="div-textologin">
-            <!-- TITULO -->
-            <div align="center">
-                <h1>
-                    Bem vindo ao <br>
-                    Esqueleto 2.0!
-                </h1>
-            </div>
-
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10">
@@ -27,6 +26,7 @@
                                             class="form-control"
                                             type="text"
                                             ng-model="usuario.email"
+                                            autofocus
                                     />
                                 </div>
                                 <!-- SENHA -->
@@ -73,7 +73,7 @@
                                     <i class="glyphicon glyphicon-arrow-left"></i>
                                 </button>
                             </div>
-                            <formulariousuario></formulariousuario>
+                            <formulariousuario removeref="true"></formulariousuario>
                         </div>
 
                     </div>
