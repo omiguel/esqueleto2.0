@@ -67,10 +67,10 @@ class UsuarioManager extends Manager {
                 ret: me.sjcl.encrypt(senha.senha, JSON.stringify(senha),
                   {mode: 'ocb2'}),
                 serverNonce: servernonce,
-              }
+              },
             };
 
-            process.nextTick(function () {
+            process.nextTick(function() {
               me.emitManager(msg, '.login', {res: ret});
             });
           }
@@ -94,7 +94,7 @@ class UsuarioManager extends Manager {
   getAllRootLess(msg) {
     var me = this;
 
-    this.model.find({"tipo": {$ne: 0}}, function (err, res) {
+    this.model.find({"tipo": {$ne: 0}}, function(err, res) {
       if (res) {
         me.emitManager(msg, '.pegacadastrados', {res: res});
       } else {

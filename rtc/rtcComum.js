@@ -1,17 +1,17 @@
 'use strict';
-/**
- * Created by Osvaldo on 19/10/15.
- */
-
-
 var Basico = require('./basicRtc.js');
 
+/**
+ * @author Osvaldo <juniorsin2012@gmail.com>
+ *
+ */
 class RtcComum extends Basico {
-  constructor(conf, login) {
-    super();
-    this.config = conf;
+  constructor(conf, login, rtcNome) {
 
-    console.log('rtcComum', this.config.socket.id);
+    let nome = rtcNome ? rtcNome : 'comum';
+
+    super(nome);
+    this.config = conf;
 
     this.hub.emit('rtcLogin.destroy', login);
 

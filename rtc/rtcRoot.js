@@ -1,16 +1,18 @@
 'use strict';
-/**
- * Created by Osvaldo on 23/07/15.
- */
 
 const Admin = require('./rtcAdmin.js');
 
+/**
+ * @author Osvaldo <juniorsin2012@gmail.com>
+ *
+ *   @extends {RtcAdmin}
+ * 
+ */
 class RtcRoot extends Admin {
 
   constructor(conf, login) {
-    super(conf, login);
 
-    console.log('RtcRoot', this.config.socket.id);
+    super(conf, login, 'root');
 
     this.rootlisteners = {};
     this.rootinterfaceListeners = {};
@@ -28,7 +30,7 @@ class RtcRoot extends Admin {
   crudentidade(msgDoBrowser) {
     let me = this;
     let mensagem = new this.mensagem(this); // Source == this
-    mensagem.fromBrowserEntidade(msgDoBrowser, this, function (msg) {
+    mensagem.fromBrowserEntidade(msgDoBrowser, this, function(msg) {
       me.hub.emit('rtc.' + msg.getEvento(), msg);
     }); // Rtc == this
   }
@@ -51,6 +53,33 @@ class RtcRoot extends Admin {
         this.hub.emit('rtc.' + msg.getEvento(), msg);
       }
     }
+  }
+
+  /**
+   * Desliga todos os listeners que os clientes root podem enviar para o server
+   */
+  desconectCliRoot() {
+    for (let name in this.rootinterfaceListeners) {
+      if (this.rootinterfaceListeners.hasOwnProperty(name)) {
+        this.config.socket.removeListener(name,
+          this.rootinterfaceListeners[name]);
+      }
+    }
+
+    this.rootinterfaceListeners = null;
+  }
+
+  /**
+   * Remove todos os eventos que o rtcroot pode escutar do server.
+   */
+  desconectServerRoot() {
+    for (let name in this.rootlisteners) {
+      if (this.rootlisteners.hasOwnProperty(name)) {
+        this.hub.removeListener(name, this.rootlisteners[name]);
+      }
+    }
+
+    this.rootlisteners = null;
   }
 
   /**

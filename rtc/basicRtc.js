@@ -1,25 +1,34 @@
 'use strict';
-/**
- * Created by Osvaldo on 16/10/15.
- */
 const Mensagem = require('../util/mensagem.js');
 const hub = require('../hub/hub.js');
 
+
+
+/**
+ * @author Osvaldo <juniorsin2012@gmail.com>
+ *
+ */
 class BasicRtc {
-  constructor() {
+  
+  constructor(rtcNome) {
     this.hub = hub;
     this.mensagem = Mensagem;
     this.listeners = {};
     this.interfaceListeners = {};
+
+    // Todo, temporario...
+    console.log('conectado no rtc', rtcNome);
   }
 
   /**
    * Destroy o objeto, desconectando ele de todos os eventos.
    */
-  destroy(login) {
-    if (login === this) {
-      this.desconectCli();
-      this.desconectServer();
+  destroy() {
+    this.desconectCli();
+    this.desconectServer();
+    if (this.adminlisteners) {
+      this.desconectCliAdmin();
+      this.desconectServerAdmin();
     }
   }
 
@@ -33,6 +42,8 @@ class BasicRtc {
         this.config.socket.removeListener(name, this.interfaceListeners[name]);
       }
     }
+
+    this.interfaceListeners = null;
   }
 
   /**
@@ -45,6 +56,8 @@ class BasicRtc {
         this.hub.removeListener(name, this.listeners[name]);
       }
     }
+
+    this.listeners = null;
 
   }
 
@@ -65,6 +78,7 @@ class BasicRtc {
    * Liga os eventos do interfaceListeners no socket.
    */
   ligaEventCli() {
+    this.interfaceListeners['disconnect'] = this.destroy.bind(this);
 
     for (let name in this.interfaceListeners) {
       if (this.interfaceListeners.hasOwnProperty(name)) {
@@ -80,7 +94,7 @@ class BasicRtc {
    */
   emitePraInterface(msg) {
     if (msg.getRtc() === this) {
-      var msgToBrowser = this.convertMessageFromServerToBrowser(msg);
+      var msgToBrowser = BasicRtc.convertMessageFromServerToBrowser(msg);
       this.config.socket.emit('retorno', msgToBrowser);
     }
   }
@@ -105,10 +119,8 @@ class BasicRtc {
    * @returns {{success, dado, erro, flag, evento}|{success: {boolean},
    * dado: {object}, error: {object}, flag: {boolean}}}
    */
-  convertMessageFromServerToBrowser(mensagem) {
-
-    let msgb = mensagem.toBrowser();
-    return msgb;
+  static convertMessageFromServerToBrowser(mensagem) {
+    return mensagem.toBrowser();
   }
 
   /**

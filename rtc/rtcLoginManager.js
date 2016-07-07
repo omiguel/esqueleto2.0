@@ -1,13 +1,15 @@
 'use strict';
-/**
- * Created by Osvaldo on 16/10/15.
- */
+
 
 const Basico = require('./basicRtc.js');
 const rtcRoot = require('./rtcRoot.js');
 const rtcAdmin = require('./rtcAdmin');
 const rtcComum = require('./rtcComum');
 
+/**
+ * @author Osvaldo <juniorsin2012@gmail.com>
+ *
+ */
 class RtcLoginManager extends Basico {
   /**
    * Recebe o socketId passado pelo cliente.
@@ -15,13 +17,11 @@ class RtcLoginManager extends Basico {
    * @param conf
    */
   constructor(conf) {
-    super();
+    super('login');
     this.config = conf;
     this.Root = rtcRoot;
     this.Admin = rtcAdmin;
     this.Comum = rtcComum;
-
-    console.log('rtcLogin', this.config.socket.id);
 
     this.wiring();
     this.interfaceWiring();
@@ -53,6 +53,17 @@ class RtcLoginManager extends Basico {
   }
 
   /**
+   * Destroi o rtc login quando outro rtc assume o controle.
+   *
+   * @param login
+   */
+  destroylogin(login) {
+    if (login === this) {
+      this.destroy();
+    }
+  }
+
+  /**
    * Liga os eventos do cliente.
    */
   interfaceWiring() {
@@ -75,7 +86,7 @@ class RtcLoginManager extends Basico {
     this.listeners['usuario.emailnaocadastrado'] = this.emitePraInterface
       .bind(this);
     this.listeners['usuario.login'] = this.trataLogin.bind(this);
-    this.listeners['rtcLogin.destroy'] = this.destroy.bind(this);
+    this.listeners['rtcLogin.destroy'] = this.destroylogin.bind(this);
 
     this.ligaEventServer();
 

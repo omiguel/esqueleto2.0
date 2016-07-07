@@ -13,6 +13,7 @@ const busboy = require('connect-busboy');
 const Banco = require('./db/');
 const RtcLogin = require('./rtc/rtcLoginManager.js');
 
+const Hub = require('./hub/hub.js');
 
 class Aplicacao {
   constructor(pathConfig) {
@@ -24,7 +25,6 @@ class Aplicacao {
     this.io = io;
     this.bd = new Banco(this.config.db);
     this.rtcLogin = RtcLogin;
-    
 
 
     this.app.set('view engine', 'ejs');
@@ -37,6 +37,13 @@ class Aplicacao {
 
     this.http.listen(this.config.server.porta, function(err) {
       console.log('Rodando na porta ' + me.config.server.porta, err);
+      Hub.on('error.**', function() {
+        console.log('algo feio aconteceu');
+      });
+      Hub.on('banco.ready', function(err, a) {
+        Hub.emit('app.ready', {express: me.app});
+      });
+
     });
 
     this.app.use('/image', express.static(path.resolve(__dirname + '/image/')));
@@ -47,7 +54,7 @@ class Aplicacao {
   }
 
   connection(socket) {
-      let rtc = new this.rtcLogin({socket: socket});
+    let rtc = new this.rtcLogin({socket: socket});
   }
 
 }

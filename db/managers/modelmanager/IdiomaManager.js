@@ -42,7 +42,7 @@ class Idiomamanager extends Manager {
             nome: 'Pt-Br',
           };
 
-          this.model.create(idioma, function(erro, ret) {
+          me.model.create(idioma, function(erro, ret) {
             if (ret) {
               me.hub.emit('criaprimeirouser', ret);
             } else {
