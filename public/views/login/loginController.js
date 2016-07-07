@@ -22,8 +22,8 @@ app.controller('loginController', [
 
     // ----------------USADO APENAS PARA AGILIZAR LOGIN
     $scope.usuario = {
-      email: 'admin',
-      senha: 'admin',
+      email: 'root',
+      senha: 'root',
     };
     // ------------------------------------------------
 

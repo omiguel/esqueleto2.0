@@ -42,7 +42,7 @@ app.directive('modalcrianovaentidade', [function() {
           }
         }
 
-        $('#modalCriaEntidade').modal('toggle');
+        $('#modalCriaEntidade').modal();
 
       };
 
