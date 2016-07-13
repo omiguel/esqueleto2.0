@@ -64,12 +64,23 @@ class RtcLoginManager extends Basico {
   }
 
   /**
+   * @author Gustavo <gurbrillinger@gmail.com>
+   *
+   * @param msg
+   */
+  trataNovoUsuario(msg) {
+    console.log('msggggggggggggg', msg);
+  }
+
+  /**
    * Liga os eventos do cliente.
    */
   interfaceWiring() {
 
     this.interfaceListeners['logar'] = this.daInterface.bind(this);
     this.interfaceListeners['idioma.read'] = this.daInterface.bind(this);
+    this.interfaceListeners['entidade.create'] = this.trataNovoUsuario
+      .bind(this);
 
     this.ligaEventCli();
   }

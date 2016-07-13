@@ -177,6 +177,6 @@ app.directive('modalcrianovaentidade', [function() {
       };
 
       wiring();
-    }
+    },
   };
 }]);

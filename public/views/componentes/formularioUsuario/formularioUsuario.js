@@ -30,7 +30,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
         email: '',
         senha: '',
         confirmasenha: '',
-        datanascimento: new Date(),
+        datanascimento: null,
         sexo: '',
         numerocelular: '',
         foto: '',
@@ -49,9 +49,22 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
        */
       scope.salvausuario = function() {
 
-        var dado = angular.copy(scope.dadousuario);
-        dado.senha = seguranca.empacota(me.senhahash);
-        dado.confirmasenha = seguranca.empacota(me.senhahash);
+        var method = null;
+
+        var dado = {
+          entidade: angular.copy(scope.dadousuario),
+        };
+        dado.entidade.senha = seguranca.empacota(me.senhahash);
+        dado.entidade.confirmasenha = seguranca.empacota(me.senhahash);
+
+        if (dado.entidade._id) {
+          method = 'update';
+        } else {
+          method = 'create';
+        }
+
+        var msg = new Mensagem(me, 'entidade.' + method, dado, 'entidade');
+        SIOM.emitirServer(msg);
 
         // Todo OSVALDO salva esse usuario e me retorna sucesso ou erro
         // Todo OSVALDO impedir q usuario se cadastre com tipo diferente de 2
