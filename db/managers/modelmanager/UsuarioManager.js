@@ -33,6 +33,15 @@ class UsuarioManager extends Manager {
     }
   }
 
+  criaUsuario(msg) {
+    let dado = msg.getRes().entidade;
+    let senhadesempacotada = this.sjcl.codec.utf8String.fromBits(dado.senha);
+    delete dado.confirmasenha;
+    dado.senha = senhadesempacotada;
+    msg.setRes(dado);
+    this.executaCrud(msg);
+  }
+
   /**
    * Busca um usuario peleo email, quando vem o retorno, verifica se a senha
    * está correta.
@@ -50,7 +59,7 @@ class UsuarioManager extends Manager {
     var dado = msg.getRes();
     let servernonce = Math.floor((Math.random() * 1000000000) + 1);
 
-    this.model.findOne({'email': dado.email}, function (err, res) {
+    this.model.findOne({'email': dado.email}, function(err, res) {
       if (res) {
         try {
 
@@ -94,7 +103,7 @@ class UsuarioManager extends Manager {
   getAllRootLess(msg) {
     var me = this;
 
-    this.model.find({"tipo": {$ne: 0}}, function(err, res) {
+    this.model.find({'tipo': {$ne: 0}}, function(err, res) {
       if (res) {
         me.emitManager(msg, '.pegacadastrados', {res: res});
       } else {
@@ -120,7 +129,7 @@ class UsuarioManager extends Manager {
       numerocelular: '99476823',
       foto: 'caminhodafoto',
       tipo: 0,
-      idioma: idioma
+      idioma: idioma,
     };
 
     users.push(root);
@@ -135,7 +144,7 @@ class UsuarioManager extends Manager {
       numerocelular: '99476823',
       foto: 'caminhodafoto',
       tipo: 1,
-      idioma: idioma
+      idioma: idioma,
     };
 
     users.push(admin);
@@ -150,12 +159,12 @@ class UsuarioManager extends Manager {
       numerocelular: '99476823',
       foto: 'caminhodafoto',
       tipo: 2,
-      idioma: idioma
+      idioma: idioma,
     };
 
     users.push(comum);
 
-    this.model.create(users, function (erro, ret) {
+    this.model.create(users, function(erro, ret) {
       if (ret) {
         console.log('primeiros users criados', ret);
       } else {
@@ -173,6 +182,7 @@ class UsuarioManager extends Manager {
     me.listeners['rtc.logar'] = me.trataLogin.bind(me);
     me.listeners['rtc.cadastrados'] = me.getAllRootLess.bind(me);
     me.listeners['criaprimeirouser'] = me.cadprimeirouser.bind(me);
+    me.listeners['rtc.usuariologin.create'] = me.criaUsuario.bind(me);
 
     for (var name in me.listeners) {
       if (me.listeners.hasOwnProperty(name)) {

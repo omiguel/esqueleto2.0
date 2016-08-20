@@ -66,8 +66,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
         var msg = new Mensagem(me, 'entidade.' + method, dado, 'entidade');
         SIOM.emitirServer(msg);
 
-        // Todo OSVALDO salva esse usuario e me retorna sucesso ou erro
-        // Todo OSVALDO impedir q usuario se cadastre com tipo diferente de 2
+        // Todo OSVALDO fazer a opção de outro usuario cadastrar outro.
         console.log('scope.dadousuario',dado);
 
       };

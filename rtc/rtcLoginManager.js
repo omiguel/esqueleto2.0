@@ -5,6 +5,7 @@ const Basico = require('./basicRtc.js');
 const rtcRoot = require('./rtcRoot.js');
 const rtcAdmin = require('./rtcAdmin');
 const rtcComum = require('./rtcComum');
+const Mensagem = require('../util/mensagem.js');
 
 /**
  * @author Osvaldo <juniorsin2012@gmail.com>
@@ -22,6 +23,7 @@ class RtcLoginManager extends Basico {
     this.Root = rtcRoot;
     this.Admin = rtcAdmin;
     this.Comum = rtcComum;
+    this.mensagem = Mensagem;
 
     this.wiring();
     this.interfaceWiring();
@@ -69,7 +71,10 @@ class RtcLoginManager extends Basico {
    * @param msg
    */
   trataNovoUsuario(msg) {
-    console.log('msggggggggggggg', msg);
+    msg.evento = 'usuariologin.create';
+    msg.flag = 'usuariologin';
+    msg.dados.entidade.tipo = 2;
+    this.daInterface(msg);
   }
 
   /**
@@ -98,6 +103,7 @@ class RtcLoginManager extends Basico {
       .bind(this);
     this.listeners['usuario.login'] = this.trataLogin.bind(this);
     this.listeners['rtcLogin.destroy'] = this.destroylogin.bind(this);
+    this.listeners['usuariologin.created'] = this.emitePraInterface.bind(this);
 
     this.ligaEventServer();
 

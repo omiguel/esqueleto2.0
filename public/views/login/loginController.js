@@ -165,12 +165,17 @@ app.controller('loginController', [
 
     };
 
-    me.wiring = function () {
+    me.retCadastrado = function(msg) {
+      console.log('chegou aqui gustavo', msg);
+    };
+
+    me.wiring = function() {
       me.listeners['usuario.login'] = me.logou.bind(me);
       me.listeners['usuario.error.logar'] = me.serverError.bind(me);
       me.listeners['usuario.emailnaocadastrado'] = me.invalidUser.bind(me);
       me.listeners['usuario.senhaincorreta'] = me.senhaincorreta.bind(me);
       me.listeners['rotasetada'] = me.nextView.bind(me);
+      me.listeners['usuariologin.created'] = me.retCadastrado.bind(me);
 
       for (var name in me.listeners) {
         if (me.listeners.hasOwnProperty(name)) {

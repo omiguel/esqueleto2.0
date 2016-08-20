@@ -23,7 +23,7 @@ class Manager {
   create(msg) {
     let me = this;
     let dados = msg.getRes();
-    this.model.create(dados, function (err, res) {
+    this.model.create(dados, function(err, res) {
       if (res) {
         me.emitManager(msg, '.created', {res: res});
       } else {
@@ -44,7 +44,7 @@ class Manager {
       if (dados._id) {
         this.model.findById(dados._id)
           .select('-__v')
-          .exec(function (err, res) {
+          .exec(function(err, res) {
             if (res) {
               me.emitManager(msg, '.readed', {res: res});
             } else {
@@ -65,7 +65,7 @@ class Manager {
     } else {
       this.model.find()
         .select('-__v')
-        .exec(function (err, res) {
+        .exec(function(err, res) {
           if (res) {
             me.emitManager(msg, '.readed', {res: res});
           } else {
@@ -76,16 +76,16 @@ class Manager {
   }
 
   /**
-   * modifica um documento em uma determinada colecao.
+   * Modifica um documento em uma determinada colecao.
    *
    * @param msg
    */
   update(msg) {
     var me = this;
     var dados = msg.getRes();
-    this.model.findByIdAndUpdate(dados._id, {$set: dados}, function (err, res) {
+    this.model.findByIdAndUpdate(dados._id, {$set: dados}, function(err, res) {
       if (res) {
-        me.model.findById(dados._id, function (err, res) {
+        me.model.findById(dados._id, function(err, res) {
           if (res) {
             me.emitManager(msg, '.updated', {res: res});
           } else {
@@ -106,7 +106,7 @@ class Manager {
   destroy(msg) {
     var me = this;
     var dados = msg.getRes();
-    this.model.remove({'_id': dados._id}, function (err, res) {
+    this.model.remove({'_id': dados._id}, function(err, res) {
       if (res) {
         me.emitManager(msg, '.destroied', {res: res});
       } else {
