@@ -8,13 +8,13 @@ var Basico = require('./basicRtc.js');
 class RtcComum extends Basico {
   constructor(conf, login, rtcNome) {
 
-    this.comumlisteners = {};
-    this.comuminterfaceListeners = {};
-
     let nome = rtcNome ? rtcNome : 'comum';
 
     super(nome);
     this.config = conf;
+
+    this.comumlisteners = {};
+    this.comuminterfaceListeners = {};
 
     this.hub.emit('rtcLogin.destroy', login);
 

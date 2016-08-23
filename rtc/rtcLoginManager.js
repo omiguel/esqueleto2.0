@@ -71,8 +71,6 @@ class RtcLoginManager extends Basico {
    * @param msg
    */
   trataNovoUsuario(msg) {
-    msg.evento = 'usuariologin.create';
-    msg.flag = 'usuariologin';
     msg.dados.entidade.tipo = 2;
     this.daInterface(msg);
   }
@@ -84,7 +82,7 @@ class RtcLoginManager extends Basico {
 
     this.interfaceListeners['logar'] = this.daInterface.bind(this);
     this.interfaceListeners['idioma.read'] = this.daInterface.bind(this);
-    this.interfaceListeners['entidade.create'] = this.trataNovoUsuario
+    this.interfaceListeners['usuario.create'] = this.trataNovoUsuario
       .bind(this);
 
     this.ligaEventCli();
@@ -103,7 +101,7 @@ class RtcLoginManager extends Basico {
       .bind(this);
     this.listeners['usuario.login'] = this.trataLogin.bind(this);
     this.listeners['rtcLogin.destroy'] = this.destroylogin.bind(this);
-    this.listeners['usuariologin.created'] = this.emitePraInterface.bind(this);
+    this.listeners['usuario.created'] = this.emitePraInterface.bind(this);
 
     this.ligaEventServer();
 

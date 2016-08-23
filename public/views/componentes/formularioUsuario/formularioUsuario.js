@@ -51,6 +51,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
 
         var method = null;
 
+        // Todo, Gustavo, tens que me mandar aqui o idioma que ele esta usando.
         var dado = {
           entidade: angular.copy(scope.dadousuario),
         };
@@ -63,7 +64,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
           method = 'create';
         }
 
-        var msg = new Mensagem(me, 'entidade.' + method, dado, 'entidade');
+        var msg = new Mensagem(me, 'usuario.' + method, dado, 'usuario');
         SIOM.emitirServer(msg);
 
         // Todo OSVALDO fazer a opção de outro usuario cadastrar outro.

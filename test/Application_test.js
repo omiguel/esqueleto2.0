@@ -22,9 +22,9 @@ let app = null;
 let express = null;
 
 
-describe('Teste da aplicacao', function () {
-  before(function (done) {
-    Hub.on('app.ready', function (app) {
+describe('Teste da aplicacao', function() {
+  before(function(done) {
+    Hub.on('app.ready', function(app) {
       express = app.express;
       done();
     });
@@ -33,22 +33,22 @@ describe('Teste da aplicacao', function () {
   });
 
 
-  it('meu primeiro teste', function (done) {
+  it('meu primeiro teste', function(done) {
     let socketMocha = new SocketMocha();
     var rtcLogin = new RTCLogin({socket: socketMocha});
 
-    Hub.on('logar', function (msg) {
+    Hub.on('logar', function(msg) {
       done();
     });
 
 
-    //simulando um click de login do cliente no
-    socketMocha.emit('logar',{event:'logar'});
+    // Simulando um click de login do cliente no
+    socketMocha.emit('logar',{event: 'logar'});
 
   });
 
 
-  after(function (done) {
+  after(function(done) {
     console.log('executei depois do teste');
 
     done();
