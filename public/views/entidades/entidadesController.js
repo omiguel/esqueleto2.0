@@ -225,6 +225,7 @@ app.controller('entidadesController', [
 
     listeners['allmodels'] = retallmodels.bind(me);
     listeners['entidade.created'] = retEntidadeCriada.bind(me);
+    listeners['usuario.created'] = retEntidadeCriada.bind(me);
     listeners['entidade.readed'] = retEntidadeReaded.bind(me);
     listeners['entidade.destroied'] = retEntidadeDeletede.bind(me);
     listeners['entidade.updated'] = retEntidadeUpdated.bind(me);

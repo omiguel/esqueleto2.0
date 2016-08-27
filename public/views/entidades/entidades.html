@@ -14,18 +14,13 @@
 		        		{{entidade.nome}}
 		        	</td>
 		        	<td align="center">
-		        		<button
-								class="btn btn-info"
-								ng-click="selecionaEntidade(entidade.nome, entidade.modelo, {}, 'modalCriaEntidade')"
-		        		>
+		        		<button class="btn btn-info"
+								ng-click="selecionaEntidade(entidade.nome, entidade.modelo, {}, 'modalCriaEntidade')">
 		        			Criar {{entidade.nome}}
 		        		</button>
 		        	</td>
 		        	<td align="center">
-		        		<button
-								class="btn btn-success"
-								ng-click="visualizaCadastroEntidades(entidade)"
-						>
+		        		<button class="btn btn-success" ng-click="visualizaCadastroEntidades(entidade)">
 		        			Visualizar todos {{entidade.nome}}s
 		        		</button>
 		        	</td>
@@ -40,26 +35,22 @@
 
 		<!-- MODAL MOSTRA ENTIDADE -->
 		<div id="modalMostraEntidade" class="modal fade" role="dialog">
-			<modalmostraentidade
-					listaentidade="listaEntidade"
-					callback-fn="selecionaEntidade(
-						entidadediretivanome,
-						entidadediretivamodelo,
-						dadoentidadediretiva,
-						modal
-					)"
-			></modalmostraentidade>
+			<modalmostraentidade listaentidade="listaEntidade"
+								 callback-fn="selecionaEntidade(
+								 entidadediretivanome,
+								 entidadediretivamodelo,
+								 dadoentidadediretiva,
+								 modal)">
+			</modalmostraentidade>
 		</div>
 
 		<!-- MODAL RETORNO-->
 		<div id="modalRetorno" class="modal fade" role="dialog">
-			<modalretorno
-					titulo="modalTitulo"
-					texto="modalTexto"
-					modalpararetornar="modalParaRetornar"
-					funcaoretorno="modalFuncaoRetorno"
-					callback-fn="executaFuncaoRetorno()"
-			>
+			<modalretorno titulo="modalTitulo"
+						  texto="modalTexto"
+						  modalpararetornar="modalParaRetornar"
+						  funcaoretorno="modalFuncaoRetorno"
+						  callback-fn="executaFuncaoRetorno()">
 			</modalretorno>
 		</div>
 
