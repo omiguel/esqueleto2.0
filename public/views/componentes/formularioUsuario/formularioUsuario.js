@@ -16,6 +16,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
     link: function(scope, element, attrs) {
 
       var me = this;
+      var listeners = {};
 
       me.senhahash = null;
       // Variavel que guarda novo usuario
@@ -74,7 +75,31 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
 
       };
 
-      //todo Osvaldo fazer getUsuarioModel()
+      var retmodelusuario = function (msg) {
+        console.log('msggggggggggggggggggggg', msg);
+      };
+
+      var ready = function() {
+        var msg = new Mensagem(me, 'usuariomodel', {}, 'usuario');
+        SIOM.emitirServer(msg);
+      };
+
+      var wiring = function() {
+
+        listeners['usuariomodelread'] = retmodelusuario.bind(me);
+
+        for (var name in listeners) {
+
+          if (listeners.hasOwnProperty(name)) {
+            SIOM.on(name, listeners[name]);
+          }
+
+        }
+
+        ready();
+      };
+
+      wiring();
 
     },
   };
