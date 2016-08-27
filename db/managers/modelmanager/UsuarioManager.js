@@ -33,7 +33,7 @@ class UsuarioManager extends Manager {
     }
   }
 
-  criaUsuario(msg) {
+  cadUpUsuario(msg) {
     let dado = msg.getRes().entidade;
     let senhadesempacotada = this.sjcl.codec.utf8String.fromBits(dado.senha);
     delete dado.confirmasenha;
@@ -182,7 +182,8 @@ class UsuarioManager extends Manager {
     me.listeners['rtc.logar'] = me.trataLogin.bind(me);
     me.listeners['rtc.cadastrados'] = me.getAllRootLess.bind(me);
     me.listeners['criaprimeirouser'] = me.cadprimeirouser.bind(me);
-    me.listeners['rtc.usuario.create'] = me.criaUsuario.bind(me);
+    me.listeners['rtc.usuario.create'] = me.cadUpUsuario.bind(me);
+    me.listeners['rtc.usuario.update'] = me.cadUpUsuario.bind(me);
 
     for (var name in me.listeners) {
       if (me.listeners.hasOwnProperty(name)) {

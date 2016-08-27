@@ -123,6 +123,8 @@ class RtcRoot extends Admin {
       .bind(this);
     this.rootinterfaceListeners['referencia.read'] = this.readreferencia
       .bind(this);
+    this.rootinterfaceListeners['usuario.create'] = this.daInterface.bind(this);
+    this.rootinterfaceListeners['usuario.update'] = this.daInterface.bind(this);
 
     this.rootLigaEventCli();
   }
@@ -141,6 +143,8 @@ class RtcRoot extends Admin {
     this.rootlisteners['entidade.error.created'] = this.emitePraInterface
       .bind(this);
     this.rootlisteners['referencia.readed'] = this.emitePraInterface.bind(this);
+    this.rootlisteners['usuario.created'] = this.emitePraInterface.bind(this);
+    this.rootlisteners['usuario.updated'] = this.emitePraInterface.bind(this);
 
     this.rootLigaEventServer();
   }

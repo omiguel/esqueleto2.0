@@ -70,7 +70,7 @@ class RtcLoginManager extends Basico {
    *
    * @param msg
    */
-  trataNovoUsuario(msg) {
+  trataCadUpUsuario(msg) {
     msg.dados.entidade.tipo = 2;
     this.daInterface(msg);
   }
@@ -82,7 +82,7 @@ class RtcLoginManager extends Basico {
 
     this.interfaceListeners['logar'] = this.daInterface.bind(this);
     this.interfaceListeners['idioma.read'] = this.daInterface.bind(this);
-    this.interfaceListeners['usuario.create'] = this.trataNovoUsuario
+    this.interfaceListeners['usuario.create'] = this.trataCadUpUsuario
       .bind(this);
 
     this.ligaEventCli();
