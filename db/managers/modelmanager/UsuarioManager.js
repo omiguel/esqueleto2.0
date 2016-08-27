@@ -122,7 +122,7 @@ class UsuarioManager extends Manager {
     let root = {
       nome: 'root',
       sobrenome: 'root',
-      email: 'root',
+      email: 'root@esqueleto',
       senha: '63a9f0ea7bb98050796b649e85481845',
       datanascimento: new Date(1988, 1, 2),
       sexo: 'masculino',
@@ -137,7 +137,7 @@ class UsuarioManager extends Manager {
     let admin = {
       nome: 'admin',
       sobrenome: 'admin',
-      email: 'admin',
+      email: 'admin@esqueleto',
       senha: '21232f297a57a5a743894a0e4a801fc3',
       datanascimento: new Date(1988, 1, 2),
       sexo: 'masculino',
@@ -152,7 +152,7 @@ class UsuarioManager extends Manager {
     let comum = {
       nome: 'comum',
       sobrenome: 'comum',
-      email: 'comum',
+      email: 'comum@esqueleto',
       senha: '6d769ecb25444b49111b669de9ec6104',
       datanascimento: new Date(1988, 1, 2),
       sexo: 'masculino',
@@ -178,12 +178,13 @@ class UsuarioManager extends Manager {
    */
   wiring() {
     var me = this;
-    me.listeners['banco.usuario.*'] = me.executaCrud.bind(me);
+    me.listeners['banco.usuario.create'] = me.cadUpUsuario.bind(me);
+    me.listeners['banco.usuario.update'] = me.cadUpUsuario.bind(me);
+    me.listeners['banco.usuario.destroy'] = me.executaCrud.bind(me);
+    me.listeners['banco.usuario.read'] = me.executaCrud.bind(me);
     me.listeners['rtc.logar'] = me.trataLogin.bind(me);
     me.listeners['rtc.cadastrados'] = me.getAllRootLess.bind(me);
     me.listeners['criaprimeirouser'] = me.cadprimeirouser.bind(me);
-    me.listeners['rtc.usuario.create'] = me.cadUpUsuario.bind(me);
-    me.listeners['rtc.usuario.update'] = me.cadUpUsuario.bind(me);
 
     for (var name in me.listeners) {
       if (me.listeners.hasOwnProperty(name)) {
