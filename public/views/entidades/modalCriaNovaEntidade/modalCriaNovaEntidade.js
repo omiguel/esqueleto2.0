@@ -2,7 +2,7 @@
 /**
  * Created by Gustavo on 21/05/2016.
  */
-app.directive('modalcrianovaentidade', [function() {
+app.directive('modalcrianovaentidade', ['referencia', function(referencia) {
   return {
     restrict: 'E',
     transclude: true,
@@ -131,7 +131,7 @@ app.directive('modalcrianovaentidade', [function() {
       /**
        * Criado por: Osvaldo;
        *
-       * todo Osvaldo comentar;
+       * Solicita as referencias da entidade passada.
        *
        * @param dado
        */
@@ -140,25 +140,7 @@ app.directive('modalcrianovaentidade', [function() {
         scope.listareferencia = {};
         scope.entidadeselecionada = dado;
 
-        var minhasrefs = [];
-        for (var attr in dado.modelo) {
-          if (typeof dado.modelo[attr] === 'object') {
-            minhasrefs.push(dado.modelo[attr]);
-          }
-        }
-        if (minhasrefs.length > 0) {
-
-          var msg = new Mensagem(
-            me,
-            'referencia.read',
-            minhasrefs,
-            'referencia'
-          );
-
-          SIOM.emitirServer(msg);
-        }
-
-        scope.populareferencianome();
+        referencia.getReferencias(dado, me, scope.populareferencianome);
 
       };
 

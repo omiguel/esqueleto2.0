@@ -1,7 +1,9 @@
 'use strict';
+
 /**
  * Created by Osvaldo on 06/10/15.
  */
+
 const Mongoose = require('mongoose');
 const hub = require('../hub/hub.js');
 
@@ -19,7 +21,7 @@ class Banco {
 
     db = this.mongoose.connection;
 
-    db.on('error', function (err, val) {
+    db.on('error', function(err, val) {
       return console.log('error', err, val);
     });
     db.once('open', this.dbOpen.bind(this));
@@ -31,9 +33,9 @@ class Banco {
   }
 
   dbOpen() {
-      this.wiring();
-      this.conectado = true;
-      this.hub.emit('banco.status.ready');
+    this.wiring();
+    this.conectado = true;
+    this.hub.emit('banco.status.ready');
   }
 
   /**
@@ -56,12 +58,14 @@ class Banco {
   }
 
   /**
-   * Funcao que envia para a interface todos os models do banco e seus atributos.
+   * Funcao que envia para a interface todos os models do banco e seus
+   * atributos.
    *
    * @param msg
    */
   enviamodelscompletos(msg) {
-    var retorno = msg.next(this, 'allmodels', {res: this.models}, msg.getFlag());
+    var retorno = msg.next(this, 'allmodels', {res: this.models},
+      msg.getFlag());
     this.hub.emit(retorno.getEvento(), retorno);
   }
 
