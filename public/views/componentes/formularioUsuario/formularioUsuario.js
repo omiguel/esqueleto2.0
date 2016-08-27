@@ -8,6 +8,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
     transclude: true,
     scope: {
       removeref: '=',
+      entidadeusuario: '='
     },
     templateUrl: '../../../views/componentes/formularioUsuario/' +
     'formularioUsuario.html',
@@ -70,6 +71,13 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
         // Todo OSVALDO fazer a opção de outro usuario cadastrar outro.
         console.log('scope.dadousuario',dado);
 
+      };
+
+      var pedereferencia = function () {
+        var referencias = {
+
+        };
+        SIOM.emit('pedereferencias', referencias);
       };
 
     },

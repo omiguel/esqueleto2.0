@@ -101,7 +101,7 @@ app.directive('modalcrianovaentidade', [function() {
        *
        * @param msg
        */
-      var cretedError = function(msg) {
+      var createdError = function(msg) {
 
         var dado = msg.getErro();
 
@@ -163,7 +163,7 @@ app.directive('modalcrianovaentidade', [function() {
       };
 
       var wiring = function() {
-        listeners['entidade.error.created'] = cretedError.bind(me);
+        listeners['entidade.error.created'] = createdError.bind(me);
         listeners['referencia.readed'] = retornoreferencia.bind(me);
         listeners['pedereferencias'] = getReferencias.bind(me);
 

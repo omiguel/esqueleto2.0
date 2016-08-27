@@ -21,7 +21,8 @@
 								<span ng-if="value == 'String'">
 									<div class="form-group">
                                         <label class="control-label">{{key}}({{value}})</label>
-                                        <input type="text" class="form-control"
+                                        <input type="text"
+                                               class="form-control"
                                                ng-model="entidadeselecionada.dadoentidade[key]"/>
                                     </div>
 								</span>
@@ -29,7 +30,8 @@
 								<span ng-if="value == 'Number'">
 									<div class="form-group">
                                         <label class="control-label">{{key}}({{value}})</label>
-                                        <input type="number" class="form-control"
+                                        <input type="number"
+                                               class="form-control"
                                                ng-model="entidadeselecionada.dadoentidade[key]"/>
                                     </div>
 								</span>
@@ -37,7 +39,8 @@
 								<span ng-if="value == 'Date'">
 									<div class="form-group">
                                         <label class="control-label">{{key}}({{value}})</label>
-                                        <input type="date" class="form-control"
+                                        <input type="date"
+                                               class="form-control"
                                                ng-model="entidadeselecionada.dadoentidade[key]"/>
                                     </div>
 								</span>
@@ -46,17 +49,14 @@
 									<div class="form-group">
                                         <label class="control-label">{{key}}({{value.referencia}}) [busca por :
                                             {{entidades[key].modelo.ref}}]</label>
-                                        <input
-                                                class="form-control"
-                                                list="datalist-{{key}}"
-                                                ng-model="referencianome[key]"
-                                                ng-change="setReferencia(referencianome[key] ,key)"
-                                        />
+                                        <input class="form-control"
+                                               list="datalist-{{key}}"
+                                               ng-model="referencianome[key]"
+                                               ng-change="setReferencia(referencianome[key] ,key)"/>
                                         <datalist id="datalist-{{key}}">
-                                            <option
-                                                    ng-repeat="referencia in listareferencia[key] track by $index"
-                                                    value="{{referencia[entidades[key].modelo.ref] + '(' + referencia._id + ')-' + $index}}"
-                                            >
+                                            <option ng-repeat="referencia in listareferencia[key] track by $index"
+                                                    value="{{referencia[entidades[key].modelo.ref] + '(' +
+                                                    referencia._id + ')-' + $index}}">
                                         </datalist>
 
                                         <!-- CRIADO POR OSVALDO -->
@@ -72,12 +72,10 @@
 
                             <!--BTN SALVAR-->
                             <div>
-                                <button
-                                        class="btn btn-success"
-                                        ng-click="
-											salvarEntidade(entidadeselecionada.nome, entidadeselecionada.dadoentidade)
-										"
-                                >
+                                <button class="btn btn-success"
+                                        ng-click="salvarEntidade(
+                                        entidadeselecionada.nome,
+                                        entidadeselecionada.dadoentidade)">
                                     Salvar
                                 </button>
                             </div>
@@ -86,7 +84,7 @@
 
                     <!--FORMULARIO DE USUARIO-->
                     <div ng-if="entidadeselecionada.nome === 'usuario'">
-                        <formulariousuario></formulariousuario>
+                        <formulariousuario entidadeusuario="entidadeselecionada"></formulariousuario>
                     </div>
                 </div>
             </div>
