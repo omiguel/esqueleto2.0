@@ -17,13 +17,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
 
       var me = this;
 
-      // -----------------VARIAVEIS DE VALIDACAO
-
-      scope.emailErro = false;
-
-      // ---------------------------------------
-
-
+      me.senhahash = null;
       // Variavel que guarda novo usuario
       // scope.dadousuario = {
       //   nome: '',
@@ -39,7 +33,17 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
       //   idioma: null,
       // };
 
-      me.senhahash = null;
+      // -----------------VARIAVEIS DE VALIDACAO
+
+      scope.emailErro = false;
+
+      // ---------------------------------------
+
+      /**
+       * todo Gustavo quando usuario passar mouse em cima do btn de cadastrar
+       * usuario mudar a cor de todos os inputs obrigatorios(vermelho=errado,
+       * verdo=correto). usando class 'form-'+nomeinput
+       */
 
       scope.criahash = function(senha) {
         me.senhahash = seguranca.hash(senha);
@@ -68,17 +72,9 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
         var msg = new Mensagem(me, 'usuario.' + method, dado, 'usuario');
         SIOM.emitirServer(msg);
 
-        // Todo OSVALDO fazer a opção de outro usuario cadastrar outro.
-        console.log('scope.dadousuario',dado);
-
       };
 
-      var pedereferencia = function () {
-        var referencias = {
-
-        };
-        SIOM.emit('pedereferencias', referencias);
-      };
+      //todo Osvaldo fazer getUsuarioModel()
 
     },
   };

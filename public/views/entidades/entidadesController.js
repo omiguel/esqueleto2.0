@@ -72,8 +72,8 @@ app.controller('entidadesController', [
 
     // Decide o que fazer dependendo do modal
     if (modal === 'modalCriaEntidade') {
-      $scope.entidadeSelecionada.dadoentidade.confirmasenha =
-        dadoEntidade.senha;
+      $scope.entidadeSelecionada.dadoentidade.confirmasenha = null;
+      $scope.entidadeSelecionada.dadoentidade.senha = null;
       SIOM.emit('pedereferencias', $scope.entidadeSelecionada);
     } else {
       $('#' + modal).modal();

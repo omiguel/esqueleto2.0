@@ -1,4 +1,7 @@
 <div class="">
+    <p>
+        Obrigatório o preenchimento de todos com *
+    </p>
     <form name="formcadastrausuario">
         <!--NOME-->
         <div class="form-group">
@@ -20,9 +23,9 @@
                     (formcadastrausuario.email.$error.required || formcadastrausuario.email.$invalid) &&
                     formcadastrausuario.email.$dirty}">
             <label class="control-label">
-                e-mail<span ng-if="!removeref">(String)</span>
+                e-mail*<span ng-if="!removeref">(String)</span>
             </label>
-            <input type="email" name="email" class="form-control" ng-model="dadousuario.email" required>
+            <input type="email" name="email" class="form-control form-email" ng-model="dadousuario.email" required>
             <!--MSG ERRO EMAIL OBRIGATORIO-->
             <div ng-show="formcadastrausuario.email.$error.required && formcadastrausuario.email.$dirty"
                  class="msg-erro control-label">
@@ -39,11 +42,11 @@
 				(formcadastrausuario.senha.$error.required && formcadastrausuario.senha.$dirty) ||
 				(dadousuario.senha != dadousuario.confirmasenha)}">
             <label class="control-label">
-                senha<span ng-if="!removeref">(String)</span>
+                senha*<span ng-if="!removeref">(String)</span>
             </label>
             <input type="password"
                    name="senha"
-                   class="form-control"
+                   class="form-control form-senha"
                    ng-model="dadousuario.senha"
                    ng-change="criahash(dadousuario.senha)"
                    required>
@@ -64,10 +67,10 @@
 				(formcadastrausuario.confirmasenha.$error.required && formcadastrausuario.confirmasenha.$dirty) ||
 				(dadousuario.senha != dadousuario.confirmasenha)}">
             <label class="control-label">
-                confirma senha<span ng-if="!removeref">(String)</span>
+                confirma senha*<span ng-if="!removeref">(String)</span>
             </label>
             <input type="password"
-                   name="confirmasenha"
+                   name="confirmasenha form-confirmasenha"
                    class="form-control"
                    ng-model="dadousuario.confirmasenha"
                    required>
@@ -131,9 +134,9 @@
              ng-if="!removeref"
              ng-class="{ 'has-error' : formcadastrausuario.tipo.$error.required && formcadastrausuario.tipo.$dirty}">
             <label class="control-label">
-                tipo<span ng-if="!removeref">(String)</span>
+                tipo*<span ng-if="!removeref">(String)</span>
             </label>
-            <input type="number" name="tipo" class="form-control" ng-model="dadousuario.tipo" required>
+            <input type="number" name="tipo" class="form-control form-tipo" ng-model="dadousuario.tipo" required>
             <!--MSG ERRO TIPO OBRIGATORIO-->
             <div ng-show="formcadastrausuario.tipo.$error.required && formcadastrausuario.tipo.$dirty"
                  class="msg-erro control-label">
@@ -155,10 +158,34 @@
             </button>
         </div>
 
-        <!--MSG ERRO NO BANCO-->
+        <!--MSG ERRO-->
         <div class="msg-erro control-label">
+            <!--SENHA E CONFIRMASENHA DIFERENTES-->
+            <div ng-if="dadousuario.senha !== dadousuario.confirmasenha">
+                <p>Ops, sua senha e confirma senha estão diferentes. Tente digitar novamente!</p>
+            </div>
+            <!--TIPO NAO PREENCHIDO-->
+            <div ng-if="formcadastrausuario.tipo.$error.required">
+                <p>Tipo obrigatório!</p>
+            </div>
+            <!--SENHA NAO PREENCHIDO-->
+            <div ng-if="formcadastrausuario.senha.$error.required && formcadastrausuario.senha.$dirty">
+                <p>Senha obrigatória!</p>
+            </div>
+            <!--CONFIRMASENHA NAO PREENCHIDO-->
+            <div ng-if="formcadastrausuario.confirmasenha.$error.required && formcadastrausuario.confirmasenha.$dirty">
+                <p>Confirma senha obrigatório!</p>
+            </div>
+            <!--EMAIL INVALIDO-->
+            <div ng-if="formcadastrausuario.email.$invalid && formcadastrausuario.email.$dirty">
+                <p>E-mail fornecido inválido!</p>
+            </div>
+            <!--EMAIL NAO PREENCHIDO-->
+            <div ng-if="formcadastrausuario.email.$error.required && formcadastrausuario.email.$dirty">
+                <p>E-mail obrigatório!</p>
+            </div>
             <!--MSG ERRO EMAIL JA UTILIZADO-->
-            <div ng-show="emailErro">
+            <div ng-if="emailErro">
                 <p>Parece que o e-mail solicitado já esta cadastrado, favor usar outro e-mail!</p>
             </div>
         </div>

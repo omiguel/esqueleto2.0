@@ -140,7 +140,7 @@ app.directive('modalcrianovaentidade', ['referencia', function(referencia) {
         scope.listareferencia = {};
         scope.entidadeselecionada = dado;
 
-        referencia.getReferencias(dado, me, scope.populareferencianome);
+        referencia.getReferencias(dado.modelo, me, scope.populareferencianome);
 
       };
 

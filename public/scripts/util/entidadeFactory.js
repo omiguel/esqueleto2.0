@@ -18,9 +18,9 @@ app.factory('referencia', [function() {
     getReferencias: function(dado, me, cb) {
 
       var minhasrefs = [];
-      for (var attr in dado.modelo) {
-        if (typeof dado.modelo[attr] === 'object') {
-          minhasrefs.push(dado.modelo[attr]);
+      for (var attr in dado) {
+        if (typeof dado[attr] === 'object') {
+          minhasrefs.push(dado[attr]);
         }
       }
       if (minhasrefs.length > 0) {
