@@ -8,7 +8,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
     transclude: true,
     scope: {
       removeref: '=',
-      entidadeusuario: '='
+      dadousuario: '='
     },
     templateUrl: '../../../views/componentes/formularioUsuario/' +
     'formularioUsuario.html',
@@ -25,19 +25,19 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
 
 
       // Variavel que guarda novo usuario
-      scope.dadousuario = {
-        nome: '',
-        sobrenome: '',
-        email: '',
-        senha: '',
-        confirmasenha: '',
-        datanascimento: null,
-        sexo: '',
-        numerocelular: '',
-        foto: '',
-        tipo: 2,
-        idioma: null,
-      };
+      // scope.dadousuario = {
+      //   nome: '',
+      //   sobrenome: '',
+      //   email: '',
+      //   senha: '',
+      //   confirmasenha: '',
+      //   datanascimento: null,
+      //   sexo: '',
+      //   numerocelular: '',
+      //   foto: '',
+      //   tipo: 2,
+      //   idioma: null,
+      // };
 
       me.senhahash = null;
 

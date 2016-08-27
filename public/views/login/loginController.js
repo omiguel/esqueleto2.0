@@ -21,6 +21,19 @@ app.controller('loginController', [
     $scope.modalTitulo = '';
     $scope.modalTexto = '';
 
+    $scope.dadousuario = {
+      nome: '',
+      sobrenome: '',
+      email: '',
+      senha: '',
+      confirmasenha: '',
+      datanascimento: null,
+      sexo: '',
+      numerocelular: '',
+      foto: '',
+      tipo: 2,
+      idioma: null,
+    };
 
     // ----------------USADO APENAS PARA AGILIZAR LOGIN
     $scope.usuario = {

@@ -72,7 +72,8 @@ app.controller('entidadesController', [
 
     // Decide o que fazer dependendo do modal
     if (modal === 'modalCriaEntidade') {
-      $scope.entidadeSelecionada.confirmasenha = dadoEntidade.senha;
+      $scope.entidadeSelecionada.dadoentidade.confirmasenha =
+        dadoEntidade.senha;
       SIOM.emit('pedereferencias', $scope.entidadeSelecionada);
     } else {
       $('#' + modal).modal();
@@ -229,6 +230,7 @@ app.controller('entidadesController', [
     listeners['entidade.readed'] = retEntidadeReaded.bind(me);
     listeners['entidade.destroied'] = retEntidadeDeletede.bind(me);
     listeners['entidade.updated'] = retEntidadeUpdated.bind(me);
+    listeners['usuario.updated'] = retEntidadeUpdated.bind(me);
 
     for (var name in listeners) {
       if (listeners.hasOwnProperty(name)) {
