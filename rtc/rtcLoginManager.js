@@ -84,6 +84,7 @@ class RtcLoginManager extends Basico {
     this.interfaceListeners['idioma.read'] = this.daInterface.bind(this);
     this.interfaceListeners['usuario.create'] = this.trataCadUpUsuario
       .bind(this);
+    this.interfaceListeners['usuariomodel'] = this.daInterface.bind(this);
 
     this.ligaEventCli();
   }
@@ -102,6 +103,7 @@ class RtcLoginManager extends Basico {
     this.listeners['usuario.login'] = this.trataLogin.bind(this);
     this.listeners['rtcLogin.destroy'] = this.destroylogin.bind(this);
     this.listeners['usuario.created'] = this.emitePraInterface.bind(this);
+    this.listeners['usuariomodelread'] = this.emitePraInterface.bind(this);
 
     this.ligaEventServer();
 

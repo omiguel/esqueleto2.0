@@ -48,6 +48,7 @@ class Banco {
     this.listeners['rtc.teste.*'] = this.repassaComando.bind(this);
     this.listeners['modelo'] = this.entidademodelo.bind(this);
     this.listeners['rtc.getallmodels'] = this.enviamodelscompletos.bind(this);
+    this.listeners['rtc.usuariomodel'] = this.getonemodel.bind(this);
 
     for (var name in this.listeners) {
       if (this.listeners.hasOwnProperty(name)) {
@@ -65,6 +66,13 @@ class Banco {
    */
   enviamodelscompletos(msg) {
     var retorno = msg.next(this, 'allmodels', {res: this.models},
+      msg.getFlag());
+    this.hub.emit(retorno.getEvento(), retorno);
+  }
+
+  getonemodel(msg) {
+    var retorno = msg.next(this, 'usuariomodelread',
+      {res: this.models['usuario']},
       msg.getFlag());
     this.hub.emit(retorno.getEvento(), retorno);
   }
