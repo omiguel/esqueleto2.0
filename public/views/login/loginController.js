@@ -16,8 +16,10 @@ app.controller('loginController', [
     var me = this;
     me.nonce = null;
     me.listeners = {};
-    // Senha codificada
     me.senhaHash = null;
+
+    $scope.modalTitulo = '';
+    $scope.modalTexto = '';
 
 
     // ----------------USADO APENAS PARA AGILIZAR LOGIN
@@ -166,7 +168,11 @@ app.controller('loginController', [
     };
 
     me.retCadastrado = function(msg) {
-      console.log('chegou aqui gustavo', msg);
+      $scope.modalTitulo = 'Cadastro sucesso';
+      $scope.modalTexto = 'Seu usuario foi cadastrado com sucesso';
+      $scope.trocaLoginCadastro(0, 'span-cadastrausuario', 'span-loginusuario');
+      $('#modalRetorno').modal();
+      $scope.$apply();
     };
 
     me.wiring = function() {
@@ -175,7 +181,7 @@ app.controller('loginController', [
       me.listeners['usuario.emailnaocadastrado'] = me.invalidUser.bind(me);
       me.listeners['usuario.senhaincorreta'] = me.senhaincorreta.bind(me);
       me.listeners['rotasetada'] = me.nextView.bind(me);
-      me.listeners['usuariologin.created'] = me.retCadastrado.bind(me);
+      me.listeners['usuario.created'] = me.retCadastrado.bind(me);
 
       for (var name in me.listeners) {
         if (me.listeners.hasOwnProperty(name)) {
