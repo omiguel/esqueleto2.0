@@ -2,7 +2,12 @@
 /**
  * Created by Gustavo on 27/06/2016.
  */
-app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
+app.directive('formulariousuario', [
+  'seguranca',
+  'referencia',
+  function(seguranca,
+           referencia) {
+
   return {
     restrict: 'E',
     transclude: true,
@@ -17,6 +22,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
 
       var me = this;
       var listeners = {};
+      scope.listareferencia = [];
 
       me.senhahash = null;
       // Variavel que guarda novo usuario
@@ -45,9 +51,33 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
        * usuario mudar a cor de todos os inputs obrigatorios(vermelho=errado,
        * verdo=correto). usando class 'form-'+nomeinput
        */
+      // $('.formuser-btn').mouseover(function () {
+      //   var inputsobrigatorios = ['email', 'senha', 'confirmasenha', 'tipo'];
+      //
+      //   for(var indexinput in inputsobrigatorios) {
+      //     if (inputsobrigatorios.hasOwnProperty(indexinput)) {
+      //       console.log('indexinput', indexinput);
+      //     }
+      //   }
+      //
+      // });
 
       scope.criahash = function(senha) {
         me.senhahash = seguranca.hash(senha);
+      };
+
+      /**
+       * Criado/modificado por: Gustavo;
+       *
+       * Chega o retorno com todas as referencias;
+       *
+       * @param msg
+       */
+      var retornoreferencia = function(msg) {
+        scope.$apply(function() {
+          scope.listareferencia[msg.getFlag()] = msg.getDado();
+        });
+        console.log('referencia', scope.listareferencia);
       };
 
       /**
@@ -76,7 +106,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
       };
 
       var retmodelusuario = function (msg) {
-        console.log('msggggggggggggggggggggg', msg);
+        referencia.getReferencias(msg.getDado().modelo, me);
       };
 
       var ready = function() {
@@ -87,6 +117,7 @@ app.directive('formulariousuario', [ 'seguranca', function(seguranca) {
       var wiring = function() {
 
         listeners['usuariomodelread'] = retmodelusuario.bind(me);
+        listeners['referencia.readed'] = retornoreferencia.bind(me);
 
         for (var name in listeners) {
 

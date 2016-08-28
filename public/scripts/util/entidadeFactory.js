@@ -13,9 +13,8 @@ app.factory('referencia', [function() {
      *
      * @param dado
      * @param me
-     * @param cb
      */
-    getReferencias: function(dado, me, cb) {
+    getReferencias: function(dado, me) {
 
       var minhasrefs = [];
       for (var attr in dado) {
@@ -34,8 +33,6 @@ app.factory('referencia', [function() {
 
         SIOM.emitirServer(msg);
       }
-
-      cb();
 
     },
   };
