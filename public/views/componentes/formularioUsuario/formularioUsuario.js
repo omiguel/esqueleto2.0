@@ -22,45 +22,17 @@ app.directive('formulariousuario', [
 
       var me = this;
       var listeners = {};
-      scope.listareferencia = [];
-
       me.senhahash = null;
-      // Variavel que guarda novo usuario
-      // scope.dadousuario = {
-      //   nome: '',
-      //   sobrenome: '',
-      //   email: '',
-      //   senha: '',
-      //   confirmasenha: '',
-      //   datanascimento: null,
-      //   sexo: '',
-      //   numerocelular: '',
-      //   foto: '',
-      //   tipo: 2,
-      //   idioma: null,
-      // };
+
+      //lista de dados das referencias
+      scope.listareferencia = [];
 
       // -----------------VARIAVEIS DE VALIDACAO
 
-      scope.emailErro = false;
+      scope.primeiraTentativa = false;
+      scope.emailRepetido = false;
 
       // ---------------------------------------
-
-      /**
-       * todo Gustavo quando usuario passar mouse em cima do btn de cadastrar
-       * usuario mudar a cor de todos os inputs obrigatorios(vermelho=errado,
-       * verdo=correto). usando class 'form-'+nomeinput
-       */
-      // $('.formuser-btn').mouseover(function () {
-      //   var inputsobrigatorios = ['email', 'senha', 'confirmasenha', 'tipo'];
-      //
-      //   for(var indexinput in inputsobrigatorios) {
-      //     if (inputsobrigatorios.hasOwnProperty(indexinput)) {
-      //       console.log('indexinput', indexinput);
-      //     }
-      //   }
-      //
-      // });
 
       scope.criahash = function(senha) {
         me.senhahash = seguranca.hash(senha);
@@ -73,7 +45,7 @@ app.directive('formulariousuario', [
        *
        * @param msg
        */
-      var retornoreferencia = function(msg) {
+      me.retornoreferencia = function(msg) {
         scope.$apply(function() {
           scope.listareferencia[msg.getFlag()] = msg.getDado();
         });
@@ -81,28 +53,49 @@ app.directive('formulariousuario', [
       };
 
       /**
+       * Criado por: Gustavo;
+       *
+       * Atualiza dadousuario para idioma da navbar;
+       *
+       * @param msg
+       */
+      me.alteraidioma = function(msg) {
+        //todo Gustavo transformar idioma em select
+        scope.dadousuario.idioma = msg;
+      };
+
+      /**
        * Criado por: Gustavo
        */
       scope.salvausuario = function() {
 
-        var method = null;
-
-        // Todo, Gustavo, tens que me mandar aqui o idioma que ele esta usando.
-        var dado = {
-          entidade: angular.copy(scope.dadousuario),
-        };
-        dado.entidade.senha = seguranca.empacota(me.senhahash);
-        dado.entidade.confirmasenha = seguranca.empacota(me.senhahash);
-
-        if (dado.entidade._id) {
-          method = 'update';
+        if (scope.formcadastrausuario.email.$error.required ||
+            scope.formcadastrausuario.email.$invalid ||
+            scope.formcadastrausuario.confirmasenha.$error.required ||
+            scope.formcadastrausuario.senha.$error.required ||
+            scope.dadousuario.tipo === null ||
+            (scope.dadousuario.senha !== scope.dadousuario.confirmasenha)) {
+              scope.primeiraTentativa = true;
         } else {
-          method = 'create';
+
+          var method = null;
+
+          // Todo Osvaldo retornar erro quando 'scope.dadousuario.email' ja estiver cadastrado
+          var dado = {
+            entidade: angular.copy(scope.dadousuario),
+          };
+          dado.entidade.senha = seguranca.empacota(me.senhahash);
+          dado.entidade.confirmasenha = seguranca.empacota(me.senhahash);
+
+          if (dado.entidade._id) {
+            method = 'update';
+          } else {
+            method = 'create';
+          }
+
+          var msg = new Mensagem(me, 'usuario.' + method, dado, 'usuario');
+          SIOM.emitirServer(msg);
         }
-
-        var msg = new Mensagem(me, 'usuario.' + method, dado, 'usuario');
-        SIOM.emitirServer(msg);
-
       };
 
       var retmodelusuario = function (msg) {
@@ -117,7 +110,8 @@ app.directive('formulariousuario', [
       var wiring = function() {
 
         listeners['usuariomodelread'] = retmodelusuario.bind(me);
-        listeners['referencia.readed'] = retornoreferencia.bind(me);
+        listeners['referencia.readed'] = me.retornoreferencia.bind(me);
+        listeners['novoidioma'] = me.alteraidioma.bind(me);
 
         for (var name in listeners) {
 

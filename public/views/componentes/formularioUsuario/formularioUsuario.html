@@ -21,17 +21,21 @@
         <div class="form-group"
              ng-class="{'has-error' :
                     (formcadastrausuario.email.$error.required || formcadastrausuario.email.$invalid) &&
-                    formcadastrausuario.email.$dirty}">
+                    formcadastrausuario.email.$dirty} && primeiraTentativa">
             <label class="control-label">
                 e-mail*<span ng-if="!removeref">(String)</span>
             </label>
-            <input type="email" name="email" class="form-control form-email" ng-model="dadousuario.email" required>
+            <input type="email" name="email" class="form-control formuser-email" ng-model="dadousuario.email" required>
             <!--MSG ERRO EMAIL OBRIGATORIO-->
-            <div ng-show="formcadastrausuario.email.$error.required && formcadastrausuario.email.$dirty"
+            <div ng-show="formcadastrausuario.email.$error.required && 
+                        formcadastrausuario.email.$dirty && 
+                        primeiraTentativa"
                  class="msg-erro control-label">
                 email obrigatório!
             </div>
-            <div ng-show="formcadastrausuario.email.$invalid && formcadastrausuario.email.$dirty"
+            <div ng-show="formcadastrausuario.email.$invalid && 
+                        formcadastrausuario.email.$dirty && 
+                        primeiraTentativa"
                  class="msg-erro control-label">
                 email invalido!
             </div>
@@ -40,23 +44,26 @@
         <div class="form-group"
              ng-class="{'has-error' :
 				(formcadastrausuario.senha.$error.required && formcadastrausuario.senha.$dirty) ||
-				(dadousuario.senha != dadousuario.confirmasenha)}">
+				(dadousuario.senha != dadousuario.confirmasenha) && primeiraTentativa}">
             <label class="control-label">
                 senha*<span ng-if="!removeref">(String)</span>
             </label>
             <input type="password"
                    name="senha"
-                   class="form-control form-senha"
+                   class="form-control formuser-senha"
                    ng-model="dadousuario.senha"
                    ng-change="criahash(dadousuario.senha)"
                    required>
             <!--MSG ERRO SENHA OBRIGATORIO-->
-            <div ng-show="formcadastrausuario.senha.$error.required && formcadastrausuario.senha.$dirty"
+            <div ng-show="formcadastrausuario.senha.$error.required && 
+                        formcadastrausuario.senha.$dirty &&
+                        primeiraTentativa"
                  class="msg-erro control-label">
                 senha obrigatório!
             </div>
             <!--MSG ERRO SENHA E CONFIRMA SENHA DIFERENTES-->
-            <div ng-show="dadousuario.senha != dadousuario.confirmasenha"
+            <div ng-show="dadousuario.senha != dadousuario.confirmasenha && 
+                        primeiraTentativa"
                  class="msg-erro control-label">
                 senha e confirma senha estão diferentes!
             </div>
@@ -65,23 +72,25 @@
         <div class="form-group"
              ng-class="{'has-error' :
 				(formcadastrausuario.confirmasenha.$error.required && formcadastrausuario.confirmasenha.$dirty) ||
-				(dadousuario.senha != dadousuario.confirmasenha)}">
+				(dadousuario.senha != dadousuario.confirmasenha) && primeiraTentativa}">
             <label class="control-label">
                 confirma senha*<span ng-if="!removeref">(String)</span>
             </label>
             <input type="password"
-                   name="confirmasenha form-confirmasenha"
-                   class="form-control"
+                   name="confirmasenha"
+                   class="form-control formuser-confirmasenha"
                    ng-model="dadousuario.confirmasenha"
                    required>
             <!--MSG ERRO CONFIRMA SENHA OBRIGATORIO-->
             <div ng-show="formcadastrausuario.confirmasenha.$error.required &&
-                          formcadastrausuario.confirmasenha.$dirty"
+                          formcadastrausuario.confirmasenha.$dirty && 
+                          primeiraTentativa"
                  class="msg-erro control-label">
                 confirma senha obrigatório!
             </div>
             <!--MSG ERRO SENHA E CONFIRMA SENHA DIFERENTES-->
-            <div ng-show="dadousuario.senha != dadousuario.confirmasenha"
+            <div ng-show="dadousuario.senha != dadousuario.confirmasenha && 
+                        primeiraTentativa"
                  class="msg-erro control-label">
                 senha e confirma senha estão diferentes!
             </div>
@@ -145,21 +154,14 @@
         </div>
 
         <!--BTN SALVAR-->
-        <div class="formuser-btn">
-            <button class="btn btn-success"
-                    ng-disabled="formcadastrausuario.email.$error.required ||
-                    formcadastrausuario.email.$invalid ||
-					formcadastrausuario.confirmasenha.$error.required ||
-					formcadastrausuario.senha.$error.required ||
-					formcadastrausuario.tipo.$error.required ||
-					(dadousuario.senha !== dadousuario.confirmasenha)"
-                    ng-click="salvausuario()">
+        <div>
+            <button class="btn btn-success formuser-btn" ng-click="salvausuario()">
                 Salvar
             </button>
         </div>
 
         <!--MSG ERRO-->
-        <div class="msg-erro control-label">
+        <div class="msg-erro control-label" ng-if="primeiraTentativa">
             <!--SENHA E CONFIRMASENHA DIFERENTES-->
             <div ng-if="dadousuario.senha !== dadousuario.confirmasenha">
                 <p>Ops, sua senha e confirma senha estão diferentes. Tente digitar novamente!</p>
@@ -185,7 +187,7 @@
                 <p>E-mail obrigatório!</p>
             </div>
             <!--MSG ERRO EMAIL JA UTILIZADO-->
-            <div ng-if="emailErro">
+            <div ng-if="emailRepetido">
                 <p>Parece que o e-mail solicitado já esta cadastrado, favor usar outro e-mail!</p>
             </div>
         </div>

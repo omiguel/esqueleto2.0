@@ -31,14 +31,19 @@ app.directive('navbar', [
         /**
          * Criado por: Gustavo;
          *
-         * seleciona um idioma;
+         * Seleciona um idioma;
+         * Se usuariologado, atualiza usuario;
          *
          * @param idioma;
          */
         scope.selecionaidioma = function(idioma) {
-          scope.idiomaselecionado = angular.copy(idioma);
-          // TODO tem q atualizar a pagina com novo idioma
-          // TODO se usuario logado tem q atualizar usuario com novo idioma
+
+          scope.idiomaselecionado = idioma;
+          if (scope.usuariologado !== null) {
+            //todo Osvaldo salvar no banco novo idioma do usuario logado
+          }
+
+          SIOM.emit('novoidioma', idioma);
         };
 
         /**
@@ -72,7 +77,6 @@ app.directive('navbar', [
         scope.navega = function(local) {
 
           scope.usuariologado = getUserLogado.getLogado();
-
           var wind = '/' + local;
           $location.path(wind);
 
@@ -85,8 +89,8 @@ app.directive('navbar', [
          */
         var usuarioLogou = function() {
           scope.usuariologado = getUserLogado.getLogado();
-          // TODO chamar
-          // scope.selecionaidioma(getUserLogado.getLogado().idioma);
+          // todo Osvaldo junto com usuario logado tem q vir objeto idioma, agora so vem id
+          // scope.idiomaselecionado = getUserLogado.getLogado().idioma);
         };
 
         /**
@@ -107,12 +111,10 @@ app.directive('navbar', [
          * @param msg
          */
         var retIdiomas = function(msg) {
-
           scope.$apply(function() {
             scope.listaidiomas = msg.getDado();
             scope.idiomaselecionado = msg.getDado()[0];
           });
-
         };
 
         /**

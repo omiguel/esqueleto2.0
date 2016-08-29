@@ -7,6 +7,7 @@ app.controller('entidadesController', [
   function($scope) {
 
   var me = this;
+  var listeners = {};
 
   // --------------------VARIAVEIS MODAL RETORNO
   // Guarda o nome do modal de retorno
@@ -25,8 +26,6 @@ app.controller('entidadesController', [
   $scope.entidadeSelecionada = {};
   // Guarda a lista de entidades criada
   $scope.listaEntidade = [];
-
-  var listeners = {};
 
   /**
    * Criado/modificado por: Gustavo e Osvaldo;
@@ -72,7 +71,6 @@ app.controller('entidadesController', [
 
     // Decide o que fazer dependendo do modal
     if (modal === 'modalCriaEntidade') {
-      $scope.entidadeSelecionada.dadoentidade.confirmasenha = null;
       $scope.entidadeSelecionada.dadoentidade.senha = null;
       SIOM.emit('pedereferencias', $scope.entidadeSelecionada);
     } else {

@@ -14,13 +14,17 @@ app.controller('loginController', [
   function ($scope, $location, setUserLogado, $route, seguranca) {
 
     var me = this;
-    me.nonce = null;
     me.listeners = {};
+    me.nonce = null;
     me.senhaHash = null;
 
+    //Rota de navegação
+    me.wind = '/home';
+    //Titulo modal de retorno
     $scope.modalTitulo = '';
+    //Mensagem modal de retorno
     $scope.modalTexto = '';
-
+    //Formulario do usuario
     $scope.dadousuario = {
       nome: '',
       sobrenome: '',
@@ -35,20 +39,18 @@ app.controller('loginController', [
       idioma: null,
     };
 
-    // ----------------USADO APENAS PARA AGILIZAR LOGIN
-    $scope.usuario = {
-      email: 'root',
-      senha: 'root',
-    };
-    // ------------------------------------------------
-
     // -------VARIAVEIS DE VALIDACAO
     $scope.validoSenha = true;
     $scope.validoEmailCadastrado = true;
     $scope.validoServer = true;
     // -----------------------------
 
-    me.wind = '/home';
+    // ----------------todo remover
+    $scope.usuario = {
+      email: 'root',
+      senha: 'root',
+    };
+    // ----------------------------
 
     /**
      * Criado por: Gustavo
@@ -180,6 +182,13 @@ app.controller('loginController', [
 
     };
 
+    /**
+     * Criado por: Gustavo;
+     *
+     * Retorna ao usuario que cadastro foi um sucesso;
+     *
+     * @param msg
+     */
     me.retCadastrado = function(msg) {
       $scope.modalTitulo = 'Cadastro sucesso';
       $scope.modalTexto = 'Seu usuario foi cadastrado com sucesso';
