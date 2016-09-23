@@ -1,7 +1,4 @@
 '[use strict]';
-/**
- * Created by Gustavo on 27/08/2016.
- */
 
 app.factory('referencia', [function() {
   var method = {
@@ -24,12 +21,8 @@ app.factory('referencia', [function() {
       }
       if (minhasrefs.length > 0) {
 
-        var msg = new Mensagem(
-          me,
-          'referencia.read',
-          minhasrefs,
-          'referencia'
-        );
+        var msg = new Mensagem(me, 'referencia.read', minhasrefs,
+          'referencia');
 
         SIOM.emitirServer(msg);
       }
