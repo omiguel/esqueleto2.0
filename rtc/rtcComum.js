@@ -13,9 +13,6 @@ class RtcComum extends Basico {
     super(nome);
     this.config = conf;
 
-    this.comumlisteners = {};
-    this.comuminterfaceListeners = {};
-
     this.hub.emit('rtcLogin.destroy', login);
 
     this.wiring();
@@ -26,7 +23,7 @@ class RtcComum extends Basico {
    * Liga os eventos do servidor.
    */
   wiring() {
-    this.comuminterfaceListeners['usuariomodel'] = this.daInterface.bind(this);
+    this.listeners['usuariomodelread'] = this.emitePraInterface.bind(this);
     
     this.ligaEventServer();
   }
@@ -35,7 +32,7 @@ class RtcComum extends Basico {
    * Liga os eventos da interface.
    */
   interfaceWiring() {
-    this.comumlisteners['usuariomodelread'] = this.emitePraInterface.bind(this);
+    this.interfaceListeners['usuariomodel'] = this.daInterface.bind(this);
 
     this.ligaEventCli();
   }

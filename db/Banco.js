@@ -1,8 +1,8 @@
 'use strict';
 
 /**
- * Created by Osvaldo on 06/10/15.
- */
+  * Created by Osvaldo on 06/10/15.
+  */
 
 const Mongoose = require('mongoose');
 const hub = require('../hub/hub.js');
@@ -45,7 +45,6 @@ class Banco {
 
     this.listeners['rtc.usuario.*'] = this.repassaComando.bind(this);
     this.listeners['rtc.idioma.*'] = this.repassaComando.bind(this);
-    this.listeners['rtc.teste.*'] = this.repassaComando.bind(this);
     this.listeners['modelo'] = this.entidademodelo.bind(this);
     this.listeners['rtc.getallmodels'] = this.enviamodelscompletos.bind(this);
     this.listeners['rtc.usuariomodel'] = this.getonemodel.bind(this);

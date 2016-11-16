@@ -1,65 +1,96 @@
+'use strict';
+
 /**
- * Created by Osvaldo/Gustavo on 22/10/15.
- */
+  * Created by Osvaldo/Gustavo on 22/10/15.
+  */
 
 function ConfigRotas($routeProvider) {
-    var me = this;
-    me.route = $routeProvider;
-    me.listeners = {};
+  var me = this;
+  me.route = $routeProvider;
+  me.listeners = {};
 
-    me.rotas = {};
+  me.rotas = {};
 
-    me.incluiRota = function(){
-        me.rotas['/home'] = {templateUrl: '../views/home/home.html', controller: 'homeController'};
-        me.rotas['/entidades'] = {templateUrl: '../views/entidades/entidades.html', controller: 'entidadesController'};
-
-        me.ligaRota();
-
+  me.incluiRota = function() {
+    me.rotas['/home'] = {
+      templateUrl: '../views/home/home.html',
+      controller: 'homeController'
     };
 
-    me.ligaRota = function () {
-        for(var name in me.rotas){
-            me.route.when(name, me.rotas[name]);
-        }
+    me.ligaRota();
+
+  };
+
+  me.incluiRotasAdmin = function() {
+    // todo aqui deve-se colocar as rotas que serão acessadas pelo admin e não pelo user
+    // todo lembrando que o root tem acesso a todas as rotas.
+
+    me.incluiRota();
+  };
+
+  me.incluiRotasRoot = function() {
+    me.rotas['/entidades'] = {
+      templateUrl: '../views/entidades/entidades.html',
+      controller: 'entidadesController'
     };
+    me.incluiRota();
+  };
 
-    me.setaRota = function(tipoUser){
+  me.ligaRota = function() {
+    for (var name in me.rotas) {
+      me.route.when(name, me.rotas[name]);
+    }
 
-        if(tipoUser != undefined){
-            me.incluiRota();
-        }
+    SIOM.emit('rotasetada');
+  };
 
-        for(var name in me.rotas){
-            me.route.when(name, me.rotas[name]);
-        }
-        
-        SIOM.emit('rotasetada');
-    };
+  me.setaRota = function(tipoUser) {
 
-    me.usuariosaiu = function () {
-        me.destroy();
-    };
+    if (tipoUser != undefined) {
 
-    me.destroy = function () {
-        for(var name in me.listeners){
-            SIOM.removeListener(name, me.listeners[name]);
-        }
-    };
+      switch (tipoUser) {
+        case 0:
+          me.incluiRotasRoot();
+          break;
+        case 1:
+          me.incluiRotasAdmin();
+          break;
+        case 2:
+          me.incluiRota();
+          break
+      }
 
-    me.wiring = function(){
+      me.incluiRota();
+    }
+  };
 
-        me.route.when('/', {templateUrl: '../views/login/login.html', controller: 'loginController'});
+  me.usuariosaiu = function() {
+    me.destroy();
+  };
 
-        me.listeners['setarota'] = me.setaRota.bind(me);
-        me.listeners['exit'] = me.usuariosaiu.bind(me);
+  me.destroy = function() {
+    for (var name in me.listeners) {
+      SIOM.removeListener(name, me.listeners[name]);
+    }
+  };
 
-        for(var name in me.listeners){
-            SIOM.on(name, me.listeners[name]);
-        }
+  me.wiring = function() {
 
-    };
+    me.route.when('/', {
+      templateUrl: '../views/login/login.html',
+      controller: 'loginController'
+    });
 
-    me.wiring();
+    me.listeners['setarota'] = me.setaRota.bind(me);
+    me.listeners['exit'] = me.usuariosaiu.bind(me);
+
+    for (var name in me.listeners) {
+      SIOM.on(name, me.listeners[name]);
+    }
+
+  };
+
+  me.wiring();
 }
 
 app.config(ConfigRotas);
