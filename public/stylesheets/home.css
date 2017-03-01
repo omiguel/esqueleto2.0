@@ -1,0 +1,19 @@
+.div-texto {
+  background-color: #f5f5f5;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc;
+  border-radius: 4px;
+  margin-bottom: 5%;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+@media screen and (max-width: 40em) {
+  .div-texto {
+    background-color: rgba(70, 130, 180, 0.4);
+    border-color: transparent;
+  }
+  .div-texto p span {
+    margin-left: 2em;
+  }
+}
